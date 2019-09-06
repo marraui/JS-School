@@ -2,4 +2,4 @@
 
 On going project for the JS School bootcamp
 
-Contact info: camilomarraui@gmail.com
+Contact info: Camilo Rosales camilomarraui@gmail.com

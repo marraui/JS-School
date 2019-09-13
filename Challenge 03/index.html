@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Bookshelf</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="https://kit.fontawesome.com/40e2ae7b01.js"></script>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div id="search">
+            <div id="bookshelf-title">Bookshelf</div>
+            <div id="searchbox">
+                <div class="input-wrapper">
+                    <label for="searchbox-input" class="fa fa-search"></label>
+                    <input id="searchbox-input" type="text" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+        <div id="logo">
+            <img src="images/logo2.svg" alt="Jobsity logo" class="jobsity-logo">
+            <img src="images/logo-jobsity-text.svg" alt="Jobsity text logo" class="jobsity-text-logo">
+        </div>
+        <div id="user">
+            <div id="user-border-wrapper">
+                <div id="user-name-dropdown">
+                    <div id="user-name-text">Jakob Treml</div>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+                <div class="user-image-cell">
+                    <div class="circular-image-wrapper">
+                        <img src="images/user_image.jpg" alt="user image" class="user-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="checkbox" id="collapsible-button-left">
+        <label for="collapsible-button-left" id="collapsible-button-left-wrapper">
+            <i class="fa fa-bars"></i>
+        </label>
+        <div id="left-sidebar">
+            <div id="left-sidebar-top">
+                <div class="left-sidebar-title">MAIN</div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Quito
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Cartagena
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Medellín
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-tablet-alt fa-fw"></i>Digital
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-user-tag fa-fw"></i>Personal Loans
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-tags fa-fw"></i>New Releases
+                </div>
+            </div>
+            <div id="left-sidebar-bottom">
+                <div class="left-sidebar-title">YOUR BOOKS</div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-book-open fa-fw"></i>Readings
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-history fa-fw"></i>History
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-bookmark fa-fw"></i>Read later
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-heart fa-fw"></i>Favorites
+                </div>
+            </div>
+        </div>
+        <input type="checkbox" id="collapsible-button-right">
+        <label for="collapsible-button-right" id="collapsible-button-right-wrapper">
+            <i class="fa fa-bars"></i>
+        </label>
+        <div id="right-sidebar">
+            <div class="right-sidebar-title">
+                MOST READ BOOKS
+            </div>
+            <div class="right-sidebar-li">
+                1. Hooked: How to Build Habit-Forming Products
+            </div>
+            <div class="right-sidebar-li">
+                2. The Inevitable: Understanding the 12 Technological Forces That Will Shape our Future
+            </div>
+            <div class="right-sidebar-li">
+                3. Lean In: Women, Work, and the Will to Lead
+            </div>
+            <div class="right-sidebar-li">
+                4. Building a Business When There Are No Easy Answers
+            </div>
+            <div class="right-sidebar-li">
+                5. How Google Works
+            </div>
+        </div>
+        <div id="main">
+            <div id="main-title">
+                New Releases
+            </div>
+            <div id="release-date">Release Date</div>
+            <div id="popularity">Popularity</div>
+            <div id="view-style">
+                <i class="fa fa-th-large"></i>
+                <i class="fa fa-th-list"></i>
+            </div>
+            <div id="book-view">
+                <div class="book-container">
+                    <input type="checkbox" id="btn-everything-i-never-told-you" class="btn-control" />
+                    <label for="btn-everything-i-never-told-you" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Everything-I-Never-Told-You.jpg"
+                                alt="Everything I never told you" class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <div class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </div>
+                                </div>
+                                <div class="description-button-cell">
+                                    <div class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </div>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">ALL THE LIGHT WE CANNOT SEE</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Anthony Doerr</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    From the highly acclaimed, multiple award-winning
+                                    Anthony Doerr, the beautiful, stunningly ambitious
+                                    instant New York Times bestseller about a blind French
+                                    girl and German boy whose paths collide in occupied
+                                    France as both try to survive devastation of Word War II.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user"
+                                            class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+                <div class="book-container">
+                    <div class="book-cover-wrapper">
+                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
+                            class="book-cover">
+                    </div>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

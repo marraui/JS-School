@@ -1,3 +1,4 @@
+/* Adding pluto sans fonts */
 @font-face {
     font-family: 'Pluto Sans Black';
     src: url(PlutoSans-font/HVD\ Fonts\ -\ PlutoSansBlack.otf);
@@ -64,6 +65,7 @@
     src: url(PlutoSans-font/HVD\ Fonts\ -\ PlutoSansThin.otf);
 }
 
+/* Remove padding and margin added by the browser */
 *{
     box-sizing: border-box;
     padding: 0;
@@ -235,7 +237,6 @@
     background-color: #231F20;
     padding: 1.875rem 2rem;
 }
-
 
 #collapsible-button-right-wrapper {
     display: none;

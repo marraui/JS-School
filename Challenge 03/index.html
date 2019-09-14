@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bookshelf</title>
     <link rel="stylesheet" type="text/css" href="index.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -103,14 +104,18 @@
             </div>
         </div>
         <div id="main">
-            <div id="main-title">
-                New Releases
-            </div>
-            <div id="release-date">Release Date</div>
-            <div id="popularity">Popularity</div>
-            <div id="view-style">
-                <i class="fa fa-th-large"></i>
-                <i class="fa fa-th-list"></i>
+            <div id="main-header">
+                <div id="main-title">
+                    New Releases
+                </div>
+                <div id="sort-by">
+                    <div id="release-date">Release Date</div>
+                    <div id="popularity">Popularity</div>
+                </div>
+                <div id="view-style">
+                    <i class="fa fa-th-large"></i>
+                    <i class="fa fa-th-list"></i>
+                </div>
             </div>
             <div id="book-view">
                 <div class="book-container">
@@ -126,14 +131,14 @@
                                     </div>
                                 </div>
                                 <div class="bookmark-button-cell">
-                                    <div class="bookmark-button-wrapper">
+                                    <label for="btn-everything-i-never-told-you-bookmark" class="bookmark-button-wrapper">
                                         <i class="far fa-bookmark"></i>
-                                    </div>
+                                    </label>
                                 </div>
                                 <div class="description-button-cell">
-                                    <div class="description-button-wrapper">
+                                    <label for="btn-everything-i-never-told-you-details"  class="description-button-wrapper">
                                         <i class="fa fa-book-open"></i>
-                                    </div>
+                                    </label>
                                 </div>
                                 <div class="seethrough-title-rating">
                                     <div class="seethrough-title">
@@ -146,13 +151,110 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="book-details">
+                        <input type="checkbox" id="btn-everything-i-never-told-you-details" class="btn-control-details">
+                        <label for="btn-everything-i-never-told-you-details" class="book-details">
                             <div class="bubble-text-arrow">
                                 <div class="bubble-text-arrow-top">
 
                                 </div>
                                 <div class="bubble-text-arrow-bottom">
 
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">EVERYTHING I NEVER TOLD YOU</div>
+                                <div class="book-details-year">2015</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Celeste Ng</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    “Lydia is dead. But they don’t know this yet.” So begins this exquisite novel about a Chinese American family living in
+                                    1970s small-town Ohio. Lydia is the favorite child of Marilyn and James Lee, and her parents are determined that she
+                                    will fulfill the dreams they were unable to pursue. But when Lydia’s body is found in the local lake, the delicate
+                                    balancing act that has been keeping the Lee family together is destroyed, tumbling them into chaos. A profoundly moving
+                                    story of family, secrets, and longing, Everything I Never Told You is both a gripping page-turner and a sensitive family
+                                    portrait, uncovering the ways in which mothers and daughters, fathers and sons, and husbands and wives struggle, all
+                                    their lives, to understand one another.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user"
+                                            class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
+                    <div class="book-title">
+                        Everything I never Told You
+                    </div>
+                    <div class="book-author">
+                        Celeste Ng
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="fa fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <input type="checkbox" id="btn-everything-i-never-told-you-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
+                </div>
+                <div class="book-container">
+                    <input type="checkbox" id="btn-all-the-light-we-cannot-see" class="btn-control" />
+                    <label for="btn-all-the-light-we-cannot-see" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/All-the-light-we-cannot-see.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-all-the-light-we-cannot-see-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-all-the-light-we-cannot-see-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-all-the-light-we-cannot-see-details" class="btn-control-details">
+                        <label for="btn-all-the-light-we-cannot-see-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
                                 </div>
                             </div>
                             <div class="book-details-head">
@@ -186,263 +288,849 @@
                                 <div class="book-details-section-title">RECOMMENDED BY</div>
                                 <div class="book-details-recommended-body">
                                     <div class="book-details-recommended-img-wrapper">
-                                        <img src="images/user_image.jpg" alt="user"
-                                            class="book-details-recommended-img">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
+                    <div class="book-title">
+                        All The Light We Cannot See
+                    </div>
+                    <div class="book-author">
+                        Anthony Doerr
+                    </div>
+                    <div class="book-rating">
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
+                    </div>
+                    <input type="checkbox" id="btn-all-the-light-we-cannot-see-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
+                </div>
+                <div class="book-container">
+                    <input type="checkbox" id="btn-the-bone-clocks" class="btn-control" />
+                    <label for="btn-the-bone-clocks" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/The-bone-clocks.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-the-bone-clocks-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-the-bone-clocks-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="checkbox" id="btn-the-bone-clocks-details" class="btn-control-details">
+                        <label for="btn-the-bone-clocks-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">THE BONE CLOCKS</div>
+                                <div class="book-details-year">2015</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">David Mitchell</div>
+                                </div>
+                                <div class="book-details-pages">640 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    The dazzling new novel from the bestselling author of CLOUD ATLAS. Longlisted for the Man Booker Prize 2014 Run away,
+                                    one drowsy summer's afternoon, with Holly Sykes: wayward teenager, broken-hearted rebel and unwitting pawn in a titanic,
+                                    hidden conflict. Over six decades, the consequences of a moment's impulse unfold, drawing an ordinary woman into a world
+                                    far beyond her imagining. And as life in the near future turns perilous, the pledge she made to a stranger may become
+                                    the key to her family's survival . . .
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
                     </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        The Bone Clocks
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        David Mitchell
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-the-bone-clocks-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-revival" class="btn-control" />
+                    <label for="btn-revival" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Revival.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-revival-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-revival-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-revival-details" class="btn-control-details">
+                        <label for="btn-revival-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">REVIVAL</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Stephen King</div>
+                                </div>
+                                <div class="book-details-pages">405 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    In a small New England town, over half a century ago, a shadow falls over a small boy playing with his toy soldiers.
+                                    Jamie Morton looks up to see a striking man, the new minister. Charles Jacobs, along with his beautiful wife, will
+                                    transform the local church. The men and boys are all a bit in love with Mrs. Jacobs; the women and girls feel the same
+                                    about Reverend Jacobs—including Jamie’s mother and beloved sister, Claire. With Jamie, the Reverend shares a deeper bond
+                                    based on a secret obsession. When tragedy strikes the Jacobs family, this charismatic preacher curses God, mocks all
+                                    religious belief, and is banished from the shocked town.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Revival
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Stephen King
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-revival-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-redeployment" class="btn-control" />
+                    <label for="btn-redeployment" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Redeployment.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-redeployment-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-redeployment-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-redeployment-details" class="btn-control-details">
+                        <label for="btn-redeployment-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">REDEPLOYMENT</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Phil Kay</div>
+                                </div>
+                                <div class="book-details-pages">304 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    Phil Klay's Redeployment takes readers to the frontlines of the wars in Iraq and Afghanistan, asking us to understand
+                                    what happened there, and what happened to the soldiers who returned. Interwoven with themes of brutality and faith,
+                                    guilt and fear, helplessness and survival, the characters in these stories struggle to make meaning out of chaos.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Redeployment
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Phil Kay
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-redeployment-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-euphoria" class="btn-control" />
+                    <label for="btn-euphoria" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Euphoria.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-euphoria-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-euphoria-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-euphoria-details" class="btn-control-details">
+                        <label for="btn-euphoria-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">EUPHORIA</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Lily King</div>
+                                </div>
+                                <div class="book-details-pages">288 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    Euphoria is Lily King’s nationally bestselling breakout novel of three young, gifted anthropologists of the ‘30’s caught
+                                    in a passionate love triangle that threatens their bonds, their careers, and, ultimately, their lives. Inspired by
+                                    events in the life of revolutionary anthropologist Margaret Mead, Euphoria is "dazzling ... suspenseful ...
+                                    brilliant...an exhilarating novel.”
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Euphoria
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Lily King
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-euphoria-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-big-little-lies" class="btn-control" />
+                    <label for="btn-big-little-lies" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Big-little-lies.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-big-little-lies-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-big-little-lies-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-big-little-lies-details" class="btn-control-details">
+                        <label for="btn-big-little-lies-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">BIG LITTLE LIES</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Liane Moriarty</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    Jane tells the two other women that Ziggy is in fact the result of a rape by a man named “Saxon Banks” when Jane was 19.
+                                    With the information Jane gives, Celeste and Madeline realize that the father is Perry's cousin, Saxon Banks, but decide
+                                    to keep it from Jane for the time being.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Big Little Lies
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Liane Moriarty
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-big-little-lies-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-station-eleven" class="btn-control" />
+                    <label for="btn-station-eleven" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Station-eleven.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-station-eleven-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-station-eleven-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-station-eleven-details" class="btn-control-details">
+                        <label for="btn-station-eleven-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">STATION ELEVEN</div>
+                                <div class="book-details-year">2015</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Celeste Ng</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    An audacious, darkly glittering novel set in the eerie days of civilization's collapse, Station Eleven tells the
+                                    spellbinding story of a Hollywood star, his would-be savior, and a nomadic group of actors roaming the scattered
+                                    outposts of the Great Lakes region, risking everything for art and humanity.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Station Eleven
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Emily St. John Mandel
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-station-eleven-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-being-mortal" class="btn-control" />
+                    <label for="btn-being-mortal" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Being-mortal.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-being-mortal-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-being-mortal-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-being-mortal-details" class="btn-control-details">
+                        <label for="btn-being-mortal-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">BEING MORTAL</div>
+                                <div class="book-details-year">2015</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Atul Gawande</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    “Being Mortal” by Atul Gawande is an accounting of the care and treatment of the elderly and the dying as it has evolved
+                                    over the last century to what it is today and could become in the future. ... The elderly who were hospitalized quickly
+                                    became a thorn in the side of medical staffs.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Being Mortal
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Atul Gawande
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-being-mortal-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-savage-harvest" class="btn-control" />
+                    <label for="btn-savage-harvest" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/Savage-harvest.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-savage-harvest-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-savage-harvest-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-savage-harvest-details" class="btn-control-details">
+                        <label for="btn-savage-harvest-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">SAVAGE HARVEST</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Carl Hoffman</div>
+                                </div>
+                                <div class="book-details-pages">544 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    In “Savage Harvest: A Tale of Cannibals, Colonialism, and Michael Rockefeller's Tragic Quest for Primitive Art,” Carl
+                                    Hoffman sets out to solve the mystery. Hoffman has long been captivated by this tale of an American aristocrat who
+                                    sought to immerse himself in one of the world's most hostile environments.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        Savage Harvest
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Carl Hoffman
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
+                    <input type="checkbox" id="btn-savage-harvest-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
                 <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
+                    <input type="checkbox" id="btn-the-book-of-unknown" class="btn-control" />
+                    <label for="btn-the-book-of-unknown" class="label-btn">
+                        <div class="book-cover-wrapper">
+                            <img src="images/book_covers/The-book-of-unkown.jpg" alt="Everything I never told you"
+                                class="book-cover">
+                            <div class="book-cover-seethrough">
+                                <div class="heart-button-cell">
+                                    <div class="heart-button-wrapper">
+                                        <i class="far fa-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="bookmark-button-cell">
+                                    <label for="btn-the-book-of-unknown-bookmark" class="bookmark-button-wrapper">
+                                        <i class="far fa-bookmark"></i>
+                                    </label>
+                                </div>
+                                <div class="description-button-cell">
+                                    <label for="btn-the-book-of-unknown-details" class="description-button-wrapper">
+                                        <i class="fa fa-book-open"></i>
+                                    </label>
+                                </div>
+                                <div class="seethrough-title-rating">
+                                    <div class="seethrough-title">
+                                        RATE THIS BOOK
+                                    </div>
+                                    <div class="seethrough-rating">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                            class="fa fa-star"></i><i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="btn-the-book-of-unknown-details" class="btn-control-details">
+                        <label for="btn-the-book-of-unknown-details" class="book-details">
+                            <div class="bubble-text-arrow">
+                                <div class="bubble-text-arrow-top">
+                
+                                </div>
+                                <div class="bubble-text-arrow-bottom">
+                
+                                </div>
+                            </div>
+                            <div class="book-details-head">
+                                <div class="book-details-title">THE BOOK OF UNKOWN AMERICANS</div>
+                                <div class="book-details-year">2014</div>
+                                <div class="book-details-author">
+                                    <div class="book-details-novel-by">Novel by</div>
+                                    <div class="book-details-author-name">Cristina Henríquez</div>
+                                </div>
+                                <div class="book-details-pages">304 pages
+                                </div>
+                            </div>
+                            <div class="book-details-summary">
+                                <div class="book-details-section-title">SUMMARY</div>
+                                <div class="book-details-summary-body">
+                                    “The Book of Unknown Americans” is a contemporary American novel of Latino immigration by Cristina Henriquez. The novel
+                                    primarily revolves around a romance between two Latino teenagers – Maribel Rivera from Mexico, and a Mayor Toro from
+                                    Panama – and how Maribel and her family handle living in a new country.
+                                </div>
+                            </div>
+                            <div class="book-details-rating">
+                                <div class="book-details-section-title">RATING</div>
+                                <div class="book-details-rating-stars">
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                        class="fa fa-star"></i><i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="book-details-recommended">
+                                <div class="book-details-section-title">RECOMMENDED BY</div>
+                                <div class="book-details-recommended-body">
+                                    <div class="book-details-recommended-img-wrapper">
+                                        <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </label>
                     <div class="book-title">
-                        Everything I never Told You
+                        The Book Of Unknown Americans
                     </div>
                     <div class="book-author">
-                        Celeste Ng
+                        Cristina Henríquez
                     </div>
                     <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
+                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                            class="far fa-star"></i>
                     </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                </div>
-                <div class="book-container">
-                    <div class="book-cover-wrapper">
-                        <img src="images/book_covers/Everything-I-Never-Told-You.jpg" alt="Everything I never told you"
-                            class="book-cover">
-                    </div>
-                    <div class="book-title">
-                        Everything I never Told You
-                    </div>
-                    <div class="book-author">
-                        Celeste Ng
-                    </div>
-                    <div class="book-rating">
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="far fa-star"></i>
-                    </div>
+                    <input type="checkbox" id="btn-the-book-of-unknown-bookmark" class="btn-control-bookmark">
+                    <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>
             </div>
         </div>

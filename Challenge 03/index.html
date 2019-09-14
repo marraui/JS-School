@@ -10,7 +10,9 @@
 </head>
 
 <body>
+    <!-- The whole layout is placed insed a css grid -->
     <div class="grid-container">
+        <!-- Search bar for looking up books -->
         <div id="search">
             <div id="bookshelf-title">Bookshelf</div>
             <div id="searchbox">
@@ -20,10 +22,14 @@
                 </div>
             </div>
         </div>
+
+        <!-- Logo of jobsity -->
         <div id="logo">
             <img src="images/logo2.svg" alt="Jobsity logo" class="jobsity-logo">
             <img src="images/logo-jobsity-text.svg" alt="Jobsity text logo" class="jobsity-text-logo">
         </div>
+
+        <!-- User session display -->
         <div id="user">
             <div id="user-border-wrapper">
                 <div id="user-name-dropdown">
@@ -37,10 +43,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Button to display left sidebar when on mobile -->
+        <!-- A label and an input are used to replicate on click behaviour without javascript -->
         <input type="checkbox" id="collapsible-button-left">
         <label for="collapsible-button-left" id="collapsible-button-left-wrapper">
             <i class="fa fa-bars"></i>
         </label>
+
+        <!-- Left sidebar displaying showing options preferences -->
         <div id="left-sidebar">
             <div id="left-sidebar-top">
                 <div class="left-sidebar-title">MAIN</div>
@@ -79,10 +90,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Button to display right sidebar when on mobile -->
+        <!-- A label and an input are used to replicate on click behavioyr without javascript -->
         <input type="checkbox" id="collapsible-button-right">
         <label for="collapsible-button-right" id="collapsible-button-right-wrapper">
             <i class="fa fa-bars"></i>
         </label>
+
+        <!-- Right sidebar displaying most read books -->
         <div id="right-sidebar">
             <div class="right-sidebar-title">
                 MOST READ BOOKS
@@ -103,7 +119,12 @@
                 5. How Google Works
             </div>
         </div>
+
+        <!-- Main is a grid that is where the main content will be placed -->
         <div id="main">
+            <!-- Main header contains the title of the content being displayed -->
+            <!-- The way it's going to be sorted -->
+            <!-- And the way it will be displayed -->
             <div id="main-header">
                 <div id="main-title">
                     New Releases
@@ -117,10 +138,15 @@
                     <i class="fa fa-th-list"></i>
                 </div>
             </div>
+
+            <!-- Book view has all the books being displayed -->
             <div id="book-view">
+                <!-- Book container defines each cell inside book view -->
                 <div class="book-container">
+                    <!-- Button for showing filter and extra buttons on top of the book cover -->
                     <input type="checkbox" id="btn-everything-i-never-told-you" class="btn-control" />
                     <label for="btn-everything-i-never-told-you" class="label-btn">
+                        <!-- Book cover picture -->
                         <div class="book-cover-wrapper">
                             <img src="images/book_covers/Everything-I-Never-Told-You.jpg"
                                 alt="Everything I never told you" class="book-cover">
@@ -151,6 +177,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Button that opens the details of the book -->
+                        <!-- when clicking the description icon -->
                         <input type="checkbox" id="btn-everything-i-never-told-you-details" class="btn-control-details">
                         <label for="btn-everything-i-never-told-you-details" class="book-details">
                             <div class="bubble-text-arrow">
@@ -211,6 +240,8 @@
                         <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
                             class="fa fa-star"></i><i class="far fa-star"></i>
                     </div>
+                    
+                    <!-- Show bookmark icon on top of book when clicking the bookmark button -->
                     <input type="checkbox" id="btn-everything-i-never-told-you-bookmark" class="btn-control-bookmark">
                     <img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">
                 </div>

@@ -24,12 +24,16 @@
                     PIANO.JS
                 </div>
 
-                <div class="selector-wrapper">
-                    <select name="" id="sound-select" class="custom-select">
-                        <option value="piano">Piano</option>
-                        <option value="drums">Drums</option>
-                    </select>
-                </div>
+                <label id="sound-select" for="sound-select-input" class="selector-wrapper">
+                    <div class="custom-select">
+                        Piano
+                    </div>
+                    <input id="sound-select-input" type="checkbox" class="click-simulator">
+                    <div class="select-options">
+                        <div id="piano-sound" class="custom-option">Piano</div>
+                        <div id="drums-sound" class="custom-option">Drums</div>
+                    </div>
+                </label>
             </div>
             <div id="keys">
                 <div id="octave-4" class="octave-container">

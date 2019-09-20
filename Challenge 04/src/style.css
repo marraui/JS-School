@@ -161,38 +161,38 @@ body {
 
 
 .slider:before {
-position: absolute;
-content: "";
-height: 26px;
-width: 26px;
-left: 4px;
-bottom: 4px;
-background-color: white;
--webkit-transition: .4s;
-transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 #sustain:checked + .slider {
-background-color: #2196F3;
+    background-color: #2196F3;
 }
 
 #sustain:focus + .slider {
-box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196F3;
 }
 
 #sustain:checked + .slider:before {
--webkit-transform: translateX(26px);
--ms-transform: translateX(26px);
-transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-border-radius: 50%;
+    border-radius: 50%;
 }
 
 #title {
@@ -204,27 +204,29 @@ border-radius: 50%;
 }
 
 .custom-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  outline: 0;
-  box-shadow: none;
-  border: 0 !important;
-  background: #2c3e50;
-  background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #2c3e50;
+    background-image: none;
 }
 
 .selector-wrapper {
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 3em;
-  line-height: 3;
-  background: #2c3e50;
-  overflow: hidden;
-  border-radius: .25em;
-  align-self: center;
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    border-radius: .25em;
+    align-self: center;
+    color: white;
+    font-family: 'Roboto';
+    cursor: pointer;
 }
 
 .custom-select {
@@ -251,6 +253,32 @@ border-radius: 50%;
 
 .selector-wrapper:hover::after {
   color: #f39c12;
+}
+
+.click-simulator {
+    display: none;
+}
+
+.select-options {
+    display: none;
+}
+
+.click-simulator:checked + .select-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    width: 100%;
+    position: absolute;
+    top: 3em;
+    background: #2c3e50;;
+    z-index: 3;
+}
+
+.custom-option {
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    cursor: pointer;
 }
 
 @media screen and (orientation: portrait) {

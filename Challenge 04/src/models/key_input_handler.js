@@ -1,9 +1,11 @@
+// Class for handling key inputs
 function KeyboardInputHandler(keys, sustain) {
-    this.keys = keys;
-    this.keysDown = new Set();
-    this.sustain = sustain;
+    this.keys = keys; // Map from key note to MediaPlayer
+    this.keysDown = new Set(); // Set that contains all keys that are currently down
+    this.sustain = sustain; // Sustain element
 }
 
+// Map from char to keycode
 KeyboardInputHandler.prototype.charToKeyCode = {
     'S': 83,
     'D': 68,
@@ -32,6 +34,7 @@ KeyboardInputHandler.prototype.charToKeyCode = {
     'M': 77
 };
 
+// Map for keycode to char
 KeyboardInputHandler.prototype.keyCodeToChar = {
     83: 'S',
     68: 'D',
@@ -60,6 +63,7 @@ KeyboardInputHandler.prototype.keyCodeToChar = {
     77: 'M'
 }
 
+// Map from char to musical note
 KeyboardInputHandler.prototype.charToNote = {
     'Z': 'C4',
     'X': 'D4',
@@ -87,14 +91,16 @@ KeyboardInputHandler.prototype.charToNote = {
     '7': 'A5-sharp'
 }
 
+// Listener for the keydown event
 KeyboardInputHandler.prototype.keyDownListener = function (event) {
     var keyPressed;
     var notePressed;
     var element;
-    console.log(event.keyCode);
 
-    if (this.keysDown.has(event.keyCode)) return;
-    if (!this.keyCodeToChar[event.keyCode]) return;
+    if (this.keysDown.has(event.keyCode)) return; // If key is already down down't do anything
+    if (!this.keyCodeToChar[event.keyCode]) return; // If the keyboard input doesn't map to any piano key ignore
+
+    // If the input is a spacebar and the sustain isnt' activated then activate it
     if (this.keyCodeToChar[event.keyCode] === 'spacebar') {
         if(!this.sustain.checked) {
             this.sustain.checked = true;
@@ -105,14 +111,14 @@ KeyboardInputHandler.prototype.keyDownListener = function (event) {
         return;
     }
 
-    keyPressed = this.keyCodeToChar[event.keyCode];
-    notePressed = this.charToNote[keyPressed];
-    console.log(`note: ${notePressed}`);
-    console.log(`pressed ${keyPressed}`);
+    keyPressed = this.keyCodeToChar[event.keyCode]; // Get the keyboard key that's being pressed
+    notePressed = this.charToNote[keyPressed]; // Get the musical note that corresponds to the key input
     
-    this.keys[notePressed].start();
-    this.keysDown.add(event.keyCode);
-    element = document.getElementById(notePressed);
+    this.keys[notePressed].start(); // Start playing the audio corresponding to that note
+    this.keysDown.add(event.keyCode); // Add the key to the keysDown set
+    element = document.getElementById(notePressed); 
+
+    // Change the style of the piano key being pressed
     if (element.classList.contains('white-key')) {
         element.classList.add('white-key-pressed');
     } else {
@@ -124,8 +130,10 @@ KeyboardInputHandler.prototype.keyUpListener = function (event) {
     var keyReleased
     var noteReleased
     var element;
-    var sustain;
-    if (!this.keyCodeToChar[event.keyCode]) return;
+
+    if (!this.keyCodeToChar[event.keyCode]) return; // If the keyboard input doesn't map to any piano key ignore
+
+    // If the input is a spacebar and the sustain is activated then deactivate it
     if (this.keyCodeToChar[event.keyCode] === 'spacebar') {
         if (this.sustain.checked) {
             this.sustain.checked = false;
@@ -135,15 +143,17 @@ KeyboardInputHandler.prototype.keyUpListener = function (event) {
         } 
         return;
     }
-    keyReleased = this.keyCodeToChar[event.keyCode];
-    noteReleased = this.charToNote[keyReleased];
-    console.log(`note: ${noteReleased}`);
-    console.log(`released ${keyReleased}`);
+    keyReleased = this.keyCodeToChar[event.keyCode]; // Get the keyboard key that's being released
+    noteReleased = this.charToNote[keyReleased]; // Get the musical note that is mapped to that key
+
+    // Change the style of the piano key
     element = document.getElementById(noteReleased);
     element.classList.remove('white-key-pressed');
     element.classList.remove('black-key-pressed');
-    sustain = document.getElementById('sustain');
-    this.keysDown.delete(event.keyCode);
-    if (sustain.checked) return;
+
+    this.keysDown.delete(event.keyCode); // Remove the key from the keysDown set
+
+    // If sustain isn't activated stop the sound
+    if (this.sustain.checked) return;
     this.keys[noteReleased].stop();
 }

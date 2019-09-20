@@ -1,25 +1,30 @@
+// Object with the notes mapped to a MediaPlayer for that note
 var keys = {};
+
+// Set containing all keys that are currently pressed
 var keysPressed = new Set();
+
+// Element for the sustain checkbox
 var sustain = document.getElementById('sustain');
-var soundSelector = document.getElementById('sound-select');
 
-soundSelector.addEventListener('change', function (event) {
-    initializeMedia(this.value);
-});
 
-sustain.addEventListener('change', function (event) {
-    console.log('sustain changed');
-    if (this.checked) return;
-    var keysAttributes = Object.keys(keys);
-    for (var i = 0; i < keysAttributes.length; i++) {
-        console.log(`Stopping ${keysAttributes[i]} because of sustain`);
-        keys[keysAttributes[i]].stop();
+// Initialize select for soundtypes
+function initializeSoundSelector () {
+    var soundSelector = document.getElementById('sound-select');
+    var selectOptions = soundSelector.querySelector('.select-options');
+    var options = selectOptions.children;
+    for (var i = 0; i < options.length; i++) {
+        options.item(i).parentElement.parentElement
+        options.item(i).addEventListener('click', function () {
+            var selectWrapper = this.parentElement.parentElement;
+            var customSelect = selectWrapper.querySelector('.custom-select');
+            customSelect.textContent = this.textContent;
+            initializeMedia(this.id);
+        });
     }
-});
+}
 
 function keyPressed(event) {
-    console.log('keyPressed');
-
     // Add key to the keysPressed set
     keysPressed.add(this.id);
 
@@ -30,12 +35,9 @@ function keyPressed(event) {
 }
 
 function keyReleased(event) {
-    console.log('keyReleased');
-    console.log(keysPressed);
     keysPressed.forEach(function (key) {
         var keyElement = document.getElementById(key);
         if (!sustain.checked) {
-            console.log(`Stoppping ${key}`);
             keys[key].stop();
         }
 
@@ -58,7 +60,6 @@ function getElementFileName (element) {
     var octave = element.closest('.octave-container');
     var octaveNumber = octave.id.match(/[0-9]$/);
     if (octaveNumber == null) {
-        // console.log(`Octave for element ${element} couldn't be found`);
         return null;
     }
     octaveNumber = octaveNumber[0];
@@ -68,17 +69,14 @@ function getElementFileName (element) {
         var className = element.classList.item(j);
         var regRes = className.match(/[A-G]/);
         if (regRes != null) {
-            // console.log(`className: ${className}, type: ${typeof className}`)
             fileName = className.slice(0, 1) + octaveNumber + className.slice(1);
             break;
         }
     }
     if (!fileName) {
-        // console.log(`Octave for element ${element} couldn't be found`);
         return null;
     }
 
-    // console.log(`file name found: ${fileName}`);
     return fileName;
 }
 
@@ -111,66 +109,60 @@ function stop(fileName) {
     keys[fileName].stop();
 }
 
+// Initialize a keyElement by setting its lsteners and adding it to keys object
+function initializeKey(key) {
+    var fileName = getElementFileName(key);
+    if (!fileName) {
+        console.error('Error finding elements file name');
+    }
+    key.id = fileName;
+    keys[fileName] = null;
+
+    key.addEventListener('mousedown', function (event) {
+        // Prevent forbidden icon when dragging the mouse
+        event.preventDefault();
+        keyPressed.call(this, event);
+    });
+
+    key.addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        keyPressed.call(this, event);
+    });
+}
+
+// Set up the sustain element to listen for changes
+sustain.addEventListener('change', function (event) {
+    if (this.checked) return;
+    var keysAttributes = Object.keys(keys);
+    for (var i = 0; i < keysAttributes.length; i++) {
+        keys[keysAttributes[i]].stop();
+    }
+});
+
+// Initialize the sound selector for it to respond to click events
+initializeSoundSelector();
 
 // Initializing MediaPlayers for white keys and addding event listeners
-var element = document.getElementsByClassName('white-key');
-for (var i = 0; i < element.length; i++) {
-    var fileName = getElementFileName(element.item(i));
-    if (!fileName) {
-        console.error('Error finding elements file name');
-    }
-    element.item(i).id = fileName;
-    keys[fileName] = new MediaPlayer(`../media/${soundSelector.value}/${element.item(i).id}.mp3`);
-
-    element.item(i).addEventListener('mousedown', function (event) {
-        // Prevent forbidden icon when dragging the mouse
-        event.preventDefault();
-        keyPressed.call(this, event);
-    });
-
-    element.item(i).addEventListener('touchstart', function (event) {
-        console.log('touchstart');
-        event.preventDefault();
-        keyPressed.call(this, event);
-    });
-}
+Array.from(document.getElementsByClassName('white-key')).map(initializeKey);
 
 // Initializing MediaPlayers for black keys and addding event listeners
-element = document.getElementsByClassName('black-key');
-for (var i = 0; i < element.length; i++) {
-    var fileName = getElementFileName(element.item(i));
-    if (!fileName) {
-        console.error('Error finding elements file name');
-    }
-    element.item(i).id = fileName;
-    keys[fileName] = new MediaPlayer(`../media/${soundSelector.value}/${element.item(i).id}.mp3`);
+Array.from(document.getElementsByClassName('black-key')).map(initializeKey);
 
-    element.item(i).addEventListener('mousedown', function (event) {
-        // Prevent forbidden icon when dragging the mouse
-        event.preventDefault();
-        keyPressed.call(this, event);
-    });
+initializeMedia('piano-sound');
 
-    element.item(i).addEventListener('touchstart', function (event) {
-        console.log('touchstart');
-        event.preventDefault();
-        keyPressed.call(this, event);
-    });
-}
 
-// Adding event listener to the document so that keys can be released
+// Initialize a KeyboardInputHandler and set up the key listeners
+var keyboardInputHandler = new KeyboardInputHandler(keys, sustain);
+document.addEventListener('keyup', keyboardInputHandler.keyUpListener.bind(keyboardInputHandler));
+document.addEventListener('keydown', keyboardInputHandler.keyDownListener.bind(keyboardInputHandler));
+
+
+// Adding event listener to the document so that piano keys can be released
 // The document has to handle this event since keys must be released when the mouse is up no matter where
 document.addEventListener('mouseup', function(event) {
     keyReleased.call(this, event);
 });
 
-
-var keyboardInputHandler = new KeyboardInputHandler(keys, sustain);
-document.addEventListener('keyup', keyboardInputHandler.keyUpListener.bind(keyboardInputHandler));
-document.addEventListener('keydown', keyboardInputHandler.keyDownListener.bind(keyboardInputHandler));
-
 document.addEventListener('touchend', function (event) {
-    console.log('touchend');
-    //event.preventDefault();
     keyReleased.call(this, event);
 });

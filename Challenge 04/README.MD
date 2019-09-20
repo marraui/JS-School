@@ -11,7 +11,7 @@ There's also a sound selector, where you can change how the piano sounds. Piano 
 ## Controls
 The keys can be pressed using the keyboard. each piano key corresponds to the following keyboard inputs in order from left to right.
 
-Q, 2, W, 3, E, R, 5, T, 6, Y, 7, U, Z, S, X, D, C, V, G, B, H, N, J, M
+Z, S, X, D, C, V, G, B, H, N, J, M, Q, 2, W, 3, E, R, 5, T, 6, Y, 7, U
 
 Also the sustain can be activated by pressing the spacebar and deactivaded by releasing it.
 

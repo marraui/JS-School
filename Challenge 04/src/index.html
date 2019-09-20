@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Piano</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="preload" href="main.js" as="script">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <!-- <link rel="manifest" href="manifest.json"> -->
+    </head>
+    <body>
+        <div id="piano">
+            <div id="top">
+                <div class="sustain-wrapper">
+                    <div class="sustain-tag">
+                        SUSTAIN
+                    </div>
+                    <label for="sustain" class="sustain-switch">
+                        <input id="sustain" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+    
+                <div id="title">
+                    PIANO.JS
+                </div>
+
+                <div class="selector-wrapper">
+                    <select name="" id="sound-select" class="custom-select">
+                        <option value="piano">Piano</option>
+                        <option value="drums">Drums</option>
+                    </select>
+                </div>
+            </div>
+            <div id="keys">
+                <div id="octave-4" class="octave-container">
+                    <div class="white-keys-container">
+                        <div class="C white-key"></div>
+                        <div class="D white-key"></div>
+                        <div class="E white-key"></div>
+                        <div class="F white-key"></div>
+                        <div class="G white-key"></div>
+                        <div class="A white-key"></div>
+                        <div class="B white-key"></div>
+                    </div>
+                    <div class="black-keys-container">
+                        <div class="C-sharp black-key"></div>
+                        <div class="D-sharp black-key"></div>
+                        <div class="F-sharp black-key"></div>
+                        <div class="G-sharp black-key"></div>
+                        <div class="A-sharp black-key"></div>
+                    </div>
+                </div>
+                <div id="octave-5" class="octave-container">
+                    <div class="white-keys-container">
+                        <div class="C white-key"></div>
+                        <div class="D white-key"></div>
+                        <div class="E white-key"></div>
+                        <div class="F white-key"></div>
+                        <div class="G white-key"></div>
+                        <div class="A white-key"></div>
+                        <div class="B white-key"></div>
+                    </div>
+                    <div class="black-keys-container">
+                        <div class="C-sharp black-key"></div>
+                        <div class="D-sharp black-key"></div>
+                        <div class="F-sharp black-key"></div>
+                        <div class="G-sharp black-key"></div>
+                        <div class="A-sharp black-key"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="models/key_input_handler.js"></script>
+        <script src="models/media_player.js"></script>
+        <script src="main.js" defer></script>
+    </body>
+</html>

@@ -15,9 +15,9 @@
     <!-- The whole layout is placed insed a css grid -->
     <div class="grid-container">
         <!-- Search bar for looking up books -->
-        <div id="search">
-            <div id="bookshelf-title">Bookshelf</div>
-            <div id="searchbox">
+        <div class="search">
+            <div class="bookshelf-title">Bookshelf</div>
+            <div class="searchbox">
                 <div class="input-wrapper">
                     <label for="searchbox-input" class="fa fa-search"></label>
                     <input id="searchbox-input" type="text" placeholder="Search...">
@@ -26,16 +26,16 @@
         </div>
 
         <!-- Logo of jobsity -->
-        <div id="logo">
+        <div class="logo">
             <img src="images/logo2.svg" alt="Jobsity logo" class="jobsity-logo">
             <img src="images/logo-jobsity-text.svg" alt="Jobsity text logo" class="jobsity-text-logo">
         </div>
 
         <!-- User session display -->
-        <div id="user">
-            <div id="user-border-wrapper">
-                <div id="user-name-dropdown">
-                    <div id="user-name-text">Jakob Treml</div>
+        <div class="user">
+            <div class="user-border-wrapper">
+                <div class="user-name-dropdown">
+                    <div class="user-name-text">Jakob Treml</div>
                     <i class="fa fa-angle-down"></i>
                 </div>
                 <div class="user-image-cell">
@@ -49,13 +49,13 @@
         <!-- Button to display left sidebar when on mobile -->
         <!-- A label and an input are used to replicate on click behaviour without javascript -->
         <input type="checkbox" id="collapsible-button-left">
-        <label for="collapsible-button-left" id="collapsible-button-left-wrapper">
+        <label for="collapsible-button-left" class="collapsible-button-left-wrapper">
             <i class="fa fa-bars"></i>
         </label>
 
         <!-- Left sidebar displaying showing options preferences -->
-        <div id="left-sidebar">
-            <div id="left-sidebar-top">
+        <div class="left-sidebar">
+            <div class="left-sidebar-top">
                 <div class="left-sidebar-title">MAIN</div>
                 <div class="left-sidebar-li">
                     <i class="fa fa-globe fa-fw"></i>Quito
@@ -76,7 +76,7 @@
                     <i class="fa fa-tags fa-fw"></i>New Releases
                 </div>
             </div>
-            <div id="left-sidebar-bottom">
+            <div class="left-sidebar-bottom">
                 <div class="left-sidebar-title">YOUR BOOKS</div>
                 <div class="left-sidebar-li">
                     <i class="fa fa-book-open fa-fw"></i>Readings
@@ -96,12 +96,12 @@
         <!-- Button to display right sidebar when on mobile -->
         <!-- A label and an input are used to replicate on click behavioyr without javascript -->
         <input type="checkbox" id="collapsible-button-right">
-        <label for="collapsible-button-right" id="collapsible-button-right-wrapper">
+        <label for="collapsible-button-right" class="collapsible-button-right-wrapper">
             <i class="fa fa-bars"></i>
         </label>
 
         <!-- Right sidebar displaying most read books -->
-        <div id="right-sidebar">
+        <div class="right-sidebar">
             <div class="right-sidebar-title">
                 MOST READ BOOKS
             </div>
@@ -123,26 +123,26 @@
         </div>
 
         <!-- Main is a grid that is where the main content will be placed -->
-        <div id="main">
+        <div class="main">
             <!-- Main header contains the title of the content being displayed -->
             <!-- The way it's going to be sorted -->
             <!-- And the way it will be displayed -->
-            <div id="main-header">
-                <div id="main-title">
+            <div class="main-header">
+                <div class="main-title">
                     New Releases
                 </div>
-                <div id="sort-by">
-                    <div id="release-date">Release Date</div>
-                    <div id="popularity">Popularity</div>
+                <div class="sort-by">
+                    <div class="release-date">Release Date</div>
+                    <div class="popularity">Popularity</div>
                 </div>
-                <div id="view-style">
+                <div class="view-style">
                     <i class="fa fa-th-large"></i>
                     <i class="fa fa-th-list"></i>
                 </div>
             </div>
 
             <!-- Book view has all the books being displayed -->
-            <div id="book-view">
+            <div id="book-view" class="book-view">
                 <!-- The books will be inserted inside this container -->
             </div>
         </div>

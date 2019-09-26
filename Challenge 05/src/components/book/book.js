@@ -1,6 +1,5 @@
 export class Book {
     constructor (book) {
-        console.log(book);
         this.title = book && book.title || '';
         this.authors = book && book.authors || [];
         this.author = this.authors.length > 0 ? this.authors[0] : 'Not available';
@@ -9,12 +8,12 @@ export class Book {
         this.pageCount = book && book.pageCount || 'not available';
         this.averageRating = book && book.averageRating || 0;
         this.roundedAverageRating = Math.round(this.averageRating);
-        console.log(this.roundedAverageRating);
         this.thumbnail = book && book.thumbnail || '';
         this.id = book && book.id || '';
         this.element = document.createElement('div');
         this.element.firstChild
         this.element.classList.add('book-container');
+
         fetch('./book.html').then((response) => {
             return response.text();
         }).then((template) => {
@@ -37,18 +36,14 @@ export class Book {
 
     _userRatingListener (event) {
         let star = event.currentTarget;
-        console.log('user rating');
-        console.log(star);
         let nextStar = star.nextSibling;
         while (star) {
-            console.log(star);
             if (star.classList.contains('far')) star.classList.remove('far');
             star.classList.add('fa');
             star = star.previousElementSibling;
         }
 
         while (nextStar) {
-            console.log(nextStar);
             if (nextStar.classList.contains('fa')) nextStar.classList.remove('fa');
             nextStar.classList.add('far');
             nextStar = nextStar.nextElementSibling;

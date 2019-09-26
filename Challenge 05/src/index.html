@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<!--  -->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookshelf</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+    <!-- Script for font awesome -->
+    <script src="https://kit.fontawesome.com/40e2ae7b01.js"></script>
+    <script src="./scripts/all.min.js"></script>
+</head>
+
+<body>
+    <!-- The whole layout is placed insed a css grid -->
+    <div class="grid-container">
+        <!-- Search bar for looking up books -->
+        <div id="search">
+            <div id="bookshelf-title">Bookshelf</div>
+            <div id="searchbox">
+                <div class="input-wrapper">
+                    <label for="searchbox-input" class="fa fa-search"></label>
+                    <input id="searchbox-input" type="text" placeholder="Search...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Logo of jobsity -->
+        <div id="logo">
+            <img src="images/logo2.svg" alt="Jobsity logo" class="jobsity-logo">
+            <img src="images/logo-jobsity-text.svg" alt="Jobsity text logo" class="jobsity-text-logo">
+        </div>
+
+        <!-- User session display -->
+        <div id="user">
+            <div id="user-border-wrapper">
+                <div id="user-name-dropdown">
+                    <div id="user-name-text">Jakob Treml</div>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+                <div class="user-image-cell">
+                    <div class="circular-image-wrapper">
+                        <img src="images/user_image.jpg" alt="user image" class="user-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button to display left sidebar when on mobile -->
+        <!-- A label and an input are used to replicate on click behaviour without javascript -->
+        <input type="checkbox" id="collapsible-button-left">
+        <label for="collapsible-button-left" id="collapsible-button-left-wrapper">
+            <i class="fa fa-bars"></i>
+        </label>
+
+        <!-- Left sidebar displaying showing options preferences -->
+        <div id="left-sidebar">
+            <div id="left-sidebar-top">
+                <div class="left-sidebar-title">MAIN</div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Quito
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Cartagena
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-globe fa-fw"></i>Medellín
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-tablet-alt fa-fw"></i>Digital
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-user-tag fa-fw"></i>Personal Loans
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-tags fa-fw"></i>New Releases
+                </div>
+            </div>
+            <div id="left-sidebar-bottom">
+                <div class="left-sidebar-title">YOUR BOOKS</div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-book-open fa-fw"></i>Readings
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-history fa-fw"></i>History
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-bookmark fa-fw"></i>Read later
+                </div>
+                <div class="left-sidebar-li">
+                    <i class="fa fa-heart fa-fw"></i>Favorites
+                </div>
+            </div>
+        </div>
+
+        <!-- Button to display right sidebar when on mobile -->
+        <!-- A label and an input are used to replicate on click behavioyr without javascript -->
+        <input type="checkbox" id="collapsible-button-right">
+        <label for="collapsible-button-right" id="collapsible-button-right-wrapper">
+            <i class="fa fa-bars"></i>
+        </label>
+
+        <!-- Right sidebar displaying most read books -->
+        <div id="right-sidebar">
+            <div class="right-sidebar-title">
+                MOST READ BOOKS
+            </div>
+            <div class="right-sidebar-li">
+                1. Hooked: How to Build Habit-Forming Products
+            </div>
+            <div class="right-sidebar-li">
+                2. The Inevitable: Understanding the 12 Technological Forces That Will Shape our Future
+            </div>
+            <div class="right-sidebar-li">
+                3. Lean In: Women, Work, and the Will to Lead
+            </div>
+            <div class="right-sidebar-li">
+                4. Building a Business When There Are No Easy Answers
+            </div>
+            <div class="right-sidebar-li">
+                5. How Google Works
+            </div>
+        </div>
+
+        <!-- Main is a grid that is where the main content will be placed -->
+        <div id="main">
+            <!-- Main header contains the title of the content being displayed -->
+            <!-- The way it's going to be sorted -->
+            <!-- And the way it will be displayed -->
+            <div id="main-header">
+                <div id="main-title">
+                    New Releases
+                </div>
+                <div id="sort-by">
+                    <div id="release-date">Release Date</div>
+                    <div id="popularity">Popularity</div>
+                </div>
+                <div id="view-style">
+                    <i class="fa fa-th-large"></i>
+                    <i class="fa fa-th-list"></i>
+                </div>
+            </div>
+
+            <!-- Book view has all the books being displayed -->
+            <div id="book-view">
+                <!-- The books will be inserted inside this container -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "challenge-05",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp connect",
+    "build": "node ./fetch-data.js && gulp",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "fetch-data": "node ./fetch-data.js"
+  },
+  "author": "Camilo Rosales",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.6.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.0",
+    "gulp": "^4.0.2",
+    "gulp-connect": "^5.7.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}

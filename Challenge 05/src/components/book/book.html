@@ -1,0 +1,100 @@
+<!-- Button for showing filter and extra buttons on top of the book cover -->
+<input type="checkbox" id="btn-${this.id}" class="btn-control" />
+<label for="btn-${this.id}" class="label-btn">
+    <!-- Book cover picture -->
+    <div class="book-cover-wrapper">
+        <img src="${this.thumbnail}" alt="Everything I never told you"
+            class="book-cover">
+        <div class="book-cover-seethrough">
+            <div class="heart-button-cell">
+                <label class="heart-button-wrapper">
+                    <i class="far fa-heart"></i>
+                </label>
+            </div>
+            <div class="bookmark-button-cell">
+                <label for="btn-${this.id}-bookmark" class="bookmark-button-wrapper">
+                    <i class="far fa-bookmark"></i>
+                </label>
+            </div>
+            <div class="description-button-cell">
+                <label for="btn-${this.id}-details" class="description-button-wrapper">
+                    <i class="fa fa-book-open"></i>
+                </label>
+            </div>
+            <div class="seethrough-title-rating">
+                <div class="seethrough-title">
+                    RATE THIS BOOK
+                </div>
+                <label class="seethrough-rating">
+                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                        class="fa fa-star"></i><i class="far fa-star"></i>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button that opens the details of the book -->
+    <!-- when clicking the description icon -->
+    <input type="checkbox" id="btn-${this.id}-details" class="btn-control-details">
+    <label for="btn-${this.id}-details" class="book-details">
+        <div class="bubble-text-arrow">
+            <div class="bubble-text-arrow-top">
+
+            </div>
+            <div class="bubble-text-arrow-bottom">
+
+            </div>
+        </div>
+        <div class="book-details-head">
+            <div class="book-details-title">${this.title}</div>
+            <div class="book-details-year">${this.publishedDate}</div>
+            <div class="book-details-author">
+                <div class="book-details-novel-by">Novel by</div>
+                <div class="book-details-author-name">${this.author}</div>
+            </div>
+            <div class="book-details-pages">${this.pageCount} pages
+            </div>
+        </div>
+        <div class="book-details-summary">
+            <div class="book-details-section-title">SUMMARY</div>
+            <div class="book-details-summary-body">
+                ${this.description}
+            </div>
+        </div>
+        <div class="book-details-rating">
+            <div class="book-details-section-title">RATING</div>
+            <div class="book-details-rating-stars">
+                <i class="${ 1 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+                    class="${ 2 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+                    class="${ 3 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+                    class="${ 4 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+                    class="${ 5 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i>
+            </div>
+        </div>
+        <div class="book-details-recommended">
+            <div class="book-details-section-title">RECOMMENDED BY</div>
+            <div class="book-details-recommended-body">
+                <div class="book-details-recommended-img-wrapper">
+                    <img src="images/user_image.jpg" alt="user" class="book-details-recommended-img">
+                </div>
+            </div>
+        </div>
+    </label>
+</label>
+<div class="book-title">
+    ${this.title}
+</div>
+<div class="book-author">
+    ${this.author}
+</div>
+<div class="book-rating">
+    <i class="${ 1 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+        class="${ 2 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+        class="${ 3 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+        class="${ 4 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i><i
+        class="${ 5 <= this.roundedAverageRating ? 'fa' : 'far' } fa-star"></i>
+</div>
+
+<!-- Show bookmark icon on top of book when clicking the bookmark button -->
+<input type="checkbox" id="btn-${this.id}-bookmark" class="btn-control-bookmark">
+<img src="images/bookmark.png" alt="bookmark-icon" class="bookmark-icon">

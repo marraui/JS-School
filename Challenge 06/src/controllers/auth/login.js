@@ -2,6 +2,7 @@ import { dbConnection } from '../../models/dbmanager';
 import * as HttpStatus from 'http-status-codes';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
+import { privateKey } from '../../private-key';
 
 export async function login (req, res, next) {
     const email = req.body.email;
@@ -19,7 +20,6 @@ export async function login (req, res, next) {
     }
 
     let user;
-    const hashPassword = bcrypt.hashSync(password, 10);
     user = await dbConnection.getUser(email).catch(err => {
         console.log(`Login -> Error looking for user, error: ${err.message}`);
         error = err;
@@ -36,9 +36,10 @@ export async function login (req, res, next) {
     if (!bcrypt.compareSync(password, user.password)) {
         console.log(`Login -> Password incorrect`);
         res.status(HttpStatus.UNAUTHORIZED).send( { message: 'Password incorrect' } );
+        return
     }
-
+    
     console.log(`login -> User found successfully`);
-    res.status(HttpStatus.OK).json({ token: jwt.sign(Object.assign({}, user), 'RESTFULAPIs') });
+    res.status(HttpStatus.OK).json({ token: jwt.sign(Object.assign({}, user), privateKey) });
     return;
 }

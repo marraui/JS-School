@@ -6,6 +6,11 @@ const del = require('del');
 
 gulp.task('clean', function () {
     return del('dist/**', {force: true});
+});
+
+gulp.task('private-key', function () {
+    return gulp.src(['./private-key.txt'])
+    .pipe(gulp.dest('./dist'));
 })
 
 gulp.task('build', function () {
@@ -18,4 +23,4 @@ gulp.task('build', function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', gulp.series('clean', 'build'));
+gulp.task('default', gulp.series('clean', 'build', 'private-key'));

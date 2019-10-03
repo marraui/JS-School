@@ -1,0 +1,19 @@
+version: "2"
+services:
+  app:
+    container_name: bookshelf_app
+    restart: always
+    build: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: bookshelf_mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+  mongo-seed:
+    build: ./mongo-seed
+    depends_on:
+      - mongo

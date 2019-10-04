@@ -26,6 +26,12 @@ export async function returnBook(req, res, next) {
         return;
     }
 
+    if (book.format === 'Digital') {
+        console.log(`Return book -> Digital book cannot be returned`);
+        res.statu(HttpStatus.BAD_REQUEST).send({message: 'Digital book cannot be returned'});
+        return;
+    }
+
     const lentInfo = await dbConnection.getLatestsLentInfo(book.id, user.email).catch(err => {
         error = err
         console.log(`Return book -> Error finding lent information, error: ${err.message}`);

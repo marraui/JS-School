@@ -8,6 +8,8 @@ In order to run the server you need to install Docker, Node, and npm.
 
 * Clone the repository using git.
 
+* Make sure to store the private key inside a file named "private-key.txt"" in the "Challenge 06" folder. Otherwise the project won't work
+
 * Run ```docker-compose build``` in the command line to build the project.
 
 * Run ```docker-compose up``` in the command line to run the project.

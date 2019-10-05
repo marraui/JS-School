@@ -18,11 +18,11 @@ In order to run the server you need to install Docker, Node, and npm.
 
 The api has the following access points:
 
-* POST /register: POST request to register a new user, inside the body of the request should be an "email" and a "password" parameter.
+* POST /register -> POST request to register a new user, inside the body of the request should be an "email" and a "password" parameter.
 
-* POST /login: POST request to login a user, inside the body of the request should be an "email" and a "password" parameter.
+* POST /login -> POST request to login a user, inside the body of the request should be an "email" and a "password" parameter.
 
-* GET /api/book: GET request that returns an array of books. This request can have any of the following parameters:
+* GET /api/book -> GET request that returns an array of books. This request can have any of the following parameters:
 
     * id: Id of the book to be searched (Using the /api/book/:id path is recommended).
     
@@ -38,11 +38,11 @@ The api has the following access points:
 
     * thumbnail: Url of the book's thumbnail image.
 
-* GET /api/book/:id: GET request for getting a book given its id.
+* GET /api/book/:id -> GET request for getting a book given its id.
 
-* GET /api/lend/:id: GET request for lending a book given its id, returns a lent info json object with the timestamp when the lent was made.
+* GET /api/lend/:id -> GET request for lending a book given its id, returns a lent info json object with the timestamp when the lent was made.
 
-* GET /api/return/:id: GET request for returning a book that's been lent given its id, returns the lent info object with the timestamp when the book was returned.
+* GET /api/return/:id -> GET request for returning a book that's been lent given its id, returns the lent info object with the timestamp when the book was returned.
 
 ## Dummy Data
 

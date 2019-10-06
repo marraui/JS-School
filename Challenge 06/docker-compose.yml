@@ -15,5 +15,6 @@ services:
       - "27017:27017"
   mongo-seed:
     build: ./mongo-seed
+    restart: on-failure
     depends_on:
       - mongo

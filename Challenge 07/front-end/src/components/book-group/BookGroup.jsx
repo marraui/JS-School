@@ -17,7 +17,8 @@ export default class BookGroup extends Component {
 
   fetchBooks() {
     const { params } = this;
-
+    if (!params.searchInput) delete params.searchInput;
+    
     const headers = new Headers();
     headers.set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvc2FsZXNtYXJyYXVpQGhvdG1haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkVzMyUEJRNzNYNXBCNjU2UFlERk42ZUZpVDV3cThUVWlYMWxpWU5KUDRoMFhUbnE1ZjBUYjIiLCJpYXQiOjE1NzAzOTIyNDB9.Cu5cAFIH98A1t2L6hirfT8ENJ0wHEMBmeqRye2IMp7c');
     const url = new URL('http://localhost:3001/api/book');

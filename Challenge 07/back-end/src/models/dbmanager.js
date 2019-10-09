@@ -38,10 +38,21 @@ export class DatabaseManager {
     /**
      * @returns {Promise<Book[]>}
      */
-    async getBooks(params) {
+    async getBooks(params, searchInput = undefined) {
         if (!this.db) return [];
         const bookCollection = this.db.collection('book');
-        const books = await bookCollection.find(toPlain(params)).toArray();
+        let books;
+        if (searchInput) {
+            const regex = new RegExp(searchInput, 'i');
+            books = await bookCollection.find({
+                $or: [
+                    {...params, title: regex},
+                    {...params, authors: regex},
+                ]
+            }).toArray();
+        } else {
+            books = await bookCollection.find(toPlain(params)).toArray();
+        }
         return books.map(book => new Book(book));
     }
 

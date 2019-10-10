@@ -46,7 +46,9 @@ The api has the following access points:
 
 ## How to use the API
 
-The API can be tested making http requests with curl, Postman, or through javascript code.
+Once the the Node.js server is running (By default in port 3001) you can start using the API.
+
+The API can be tested making http requests with curl, Postman, or through javascript code. The following examples are done using curl, which can be used inside the Linux and Mac shell, or in git bash on Windows.
 
 Before using any of the API functions it's needed to register and login with the user registerd.
 

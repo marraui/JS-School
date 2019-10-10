@@ -56,7 +56,7 @@ Before using any of the API functions it's needed to register and login with the
 
 * To login make an http POST request to "http://{server_ip}:{port}/login" with an email and password parameters inside the body of the request. This will return a JWT that is needed to make any other requests to API. Eg: ```curl -d '{"email": "rosalesmarraui@hotmail.com", "password": "abcd"}' -H "Content-Type: application/json" -X POST http://localhost:3001/login```.
 
-<b>Any other requests to the API require an Authorization parameter to be passed through the headers with the value of "JWT {value of the jwt}"</b>
+<b>Any other requests to the API require an Authorization parameter to be passed through the headers. Eg: ```Authorization: JWT {value of the web token}```</b>
 
 * To get all books make an http GET request to "http://{server_ip}:{port}/api/book" with the JWT passed through the headers. This request can also pass through the url any of the parameters described above.  Eg: ```curl -H "Content-Type: application/json" -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvc2FsZXNtYXJyYXVpQGhvdG1haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkYkl6UzFQcEhQQkhmLjlyTWRpNjIxdXhkRzNmdGVsOVdja1ZrVHF6eGZxQmYyOVFUZy5YanUiLCJpYXQiOjE1NzA2NzE2MDd9.bwdS0Jz8_GS6KbKRrQCawCITe-1NFVmzazqpvGmb5fY" -X GET http://localhost:3001/api/book?format=Physical```
 

@@ -54,7 +54,7 @@ export async function lendBook(req, res, next) {
         return;
     }
 
-    const isBookAvailable = await dbConnection.isBookAvailable(reservationTime, returnTime).catch(err => {
+    const isBookAvailable = await dbConnection.isBookAvailable(id, reservationTime, returnTime).catch(err => {
         error = err
         console.log(`Lend book -> Error finding lent information, error: ${err.message}`);
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: 'Error finding lent information'});

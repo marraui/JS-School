@@ -153,13 +153,14 @@ export class DatabaseManager {
     }
 
     /**
-     * 
+     * @param {string} bookId
      * @param {string} startTime 
      * @param {string} endTime 
      */
-    async isBookAvailable(startTime, endTime) {
+    async isBookAvailable(bookId, startTime, endTime) {
         const lendCollection = this.db.collection('lend');
         const lendArray = await lendCollection.find({
+            "book.id": bookId,
             $or: [
                 {
                     lentTime: {$gte: startTime, $lt: endTime},

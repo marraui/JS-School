@@ -121,14 +121,18 @@ export class DatabaseManager {
      * 
      * @param {string} bookId
      * @param {string} userEmail
+     * @param {number} currentTime
      * @returns {Promise<LentInfo>} 
      */
-    async getLatestsLentInfo(bookId, userEmail=null) {
+    async getLatestsLentInfo(bookId, userEmail=null, currentTime=null) {
         if (!this.db) return;
         const lendCollection = this.db.collection('lend');
         const params = {
             ... {"book.id": bookId},
-            ... (userEmail ? {"user.email": userEmail} : {})
+            ... (userEmail ? {"user.email": userEmail} : {}),
+            ... (currentTime ? {
+                lentTime: {gte: currentTime}
+            } : {}),
         };
 
         const latestLentArray = await lendCollection.find(params).sort({lentTime: -1}).limit(1).toArray();

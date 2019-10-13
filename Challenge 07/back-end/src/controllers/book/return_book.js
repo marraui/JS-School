@@ -6,6 +6,7 @@ export async function returnBook(req, res, next) {
     const user = req.user;
     const id = req.params.id;
     let error;
+    const currentTime = (new Date()).getTime();
     console.log(`Return book -> Return book`);
     if (!id) {
         console.log(`Return book -> No book id provided`);
@@ -32,7 +33,7 @@ export async function returnBook(req, res, next) {
         return;
     }
 
-    const lentInfo = await dbConnection.getLatestsLentInfo(book.id, user.email).catch(err => {
+    const lentInfo = await dbConnection.getLatestsLentInfo(book.id, user.email, currentTime).catch(err => {
         error = err
         console.log(`Return book -> Error finding lent information, error: ${err.message}`);
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: 'Error finding lent information' });

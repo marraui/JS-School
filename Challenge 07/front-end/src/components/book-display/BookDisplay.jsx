@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './BookDisplay.scss'
+import './BookDisplay.scss';
 import BookGroup from '../book-group/BookGroup';
 
 export default class BookDisplay extends Component {

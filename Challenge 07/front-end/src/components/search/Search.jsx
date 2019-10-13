@@ -20,10 +20,7 @@ export default class Search extends Component {
     event.preventDefault();
     const { onSearch } = this.props;
     const { searchInput } = this.state;
-    console.log('On Search in Search');
-    console.log(onSearch);
     onSearch(searchInput);
-    console.log(`Submitted: ${searchInput}`);
   }
 
   render() {

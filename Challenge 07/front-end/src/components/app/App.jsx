@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+import { Redirect } from 'react-router-dom';
 import Header from '../header/Header';
 import BookDisplay from '../book-display/BookDisplay';
 
@@ -21,9 +22,8 @@ export default class App extends Component {
   }
 
   onSearch(searchInput) {
-    console.log('on Search called');
     const bookGroup = this.bookDisplay.current.bookGroup.current;
-    bookGroup.params.title = searchInput;
+    bookGroup.params.searchInput = searchInput;
     bookGroup.fetchBooks();
   }
 
@@ -37,7 +37,7 @@ export default class App extends Component {
       this.setState({
         leftItemSelected: 0,
       });
-      Object.keys(App.leftItemsParams).forEach((param) => {
+      Object.keys(App.leftItemsParams[itemNumber]).forEach((param) => {
         delete bookGroup.params[param];
       });
       bookGroup.fetchBooks();
@@ -53,12 +53,13 @@ export default class App extends Component {
     });
 
     if (Object.prototype.hasOwnProperty.call(App.leftItemsParams, itemNumber)) {
-      console.log('he does have');
+      delete bookGroup.params.city;
+      delete bookGroup.params.format;
       bookGroup.params = {
         ...bookGroup.params,
         ...App.leftItemsParams[itemNumber],
       };
-      bookGroup.fetchBooks(...App.leftItemsParams[itemNumber]);
+      bookGroup.fetchBooks();
     }
   }
 
@@ -84,6 +85,13 @@ export default class App extends Component {
       rightSideBarOpen,
       leftItemSelected,
     } = this.state;
+
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return (
+        <Redirect to="/login" />
+      );
+    }
 
     return (
       <div className="grid-container">
@@ -146,10 +154,6 @@ export default class App extends Component {
 
             <div
               className={`left-sidebar-li ${leftItemSelected === 5 ? 'checked' : ''}`}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 5)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 5)}
-              role="button"
-              tabIndex="0"
             >
               <i className="fa fa-user-tag fa-fw" />
               Personal Loans
@@ -157,10 +161,6 @@ export default class App extends Component {
 
             <div
               className={`left-sidebar-li ${leftItemSelected === 6 ? 'checked' : ''}`}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 6)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 6)}
-              role="button"
-              tabIndex="0"
             >
               <i className="fa fa-tags fa-fw" />
               New Releases

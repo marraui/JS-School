@@ -284,14 +284,42 @@
   color: #9E9E9E;
 }
 
+.book-lend-button {
+  font-family: 'Pluto Sans Cond Light';
+  font-size: 0.625rem;
+  color: #FFFFFF;
+  background-color: #6EC1E4;
+  border-radius: 0.3rem;
+  justify-self: flex-start;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+
 .book-rating {
   font-size: 0.6875rem;
   color: #6EC1E4;
 }
 
+.reservation-options {
+  display: none;
+  position: absolute;
+  left: 10.3125rem;
+  top: 0rem;
+  width: 19.375rem;
+  z-index: 1;
+}
+
 @media (max-width: 1020px) {
   .bubble-text-arrow {
     display: none;
+  }
+
+  .book-details-selected {
+    top: 0rem;
+    left: 0rem;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
   }
 
   .book-details-head, .book-details-summary-body, .book-details-section-title, .book-details-rating-stars {

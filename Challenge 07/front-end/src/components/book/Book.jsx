@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Book.scss';
 import bookmarkImage from '../../assets/images/bookmark.png';
 import userImage from '../../assets/images/user_image.jpg';
+import Reservation from '../reservation/Reservation';
 
 export default class Book extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class Book extends Component {
       userRating: 0,
       openedSeethroughOptions: false,
       openedDetails: false,
+      openedLendOptions: false,
     };
 
     this.clickBookmarkHandler = this.clickBookmarkHandler.bind(this);
@@ -20,6 +22,15 @@ export default class Book extends Component {
     this.clickLikeHandler = this.clickLikeHandler.bind(this);
     this.clickRatingHandler = this.clickRatingHandler.bind(this);
     this.clickSeethroughHandler = this.clickSeethroughHandler.bind(this);
+    this.clickLendButtonHandler = this.clickLendButtonHandler.bind(this);
+  }
+
+  clickLendButtonHandler(event) {
+    event.stopPropagation();
+    const { openedLendOptions } = this.state;
+    this.setState({
+      openedLendOptions: !openedLendOptions,
+    });
   }
 
   clickSeethroughHandler(event) {
@@ -70,6 +81,7 @@ export default class Book extends Component {
       pageCount,
       roundedAverageRating,
       thumbnail,
+      id,
     } = this.props;
 
     const {
@@ -78,6 +90,7 @@ export default class Book extends Component {
       userRating,
       openedDetails,
       openedSeethroughOptions,
+      openedLendOptions,
     } = this.state;
 
     return (
@@ -235,6 +248,15 @@ export default class Book extends Component {
         <div className="book-author">
           {author}
         </div>
+        <div
+          className="book-lend-button"
+          role="button"
+          onClick={this.clickLendButtonHandler}
+          onKeyDown={this.clickLendButtonHandler}
+          tabIndex="0"
+        >
+          Reserve
+        </div>
         <div className="book-rating">
           <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
           <i className={`${roundedAverageRating >= 2 ? 'fa' : 'far'} fa-star`} />
@@ -249,6 +271,7 @@ export default class Book extends Component {
           className={bookmarked ? 'bookmark-icon-selected' : 'bookmark-icon-unselected'}
           ref={this.bookmarkIcon}
         />
+        {openedLendOptions ? <Reservation bookId={id} closeListener={this.clickLendButtonHandler} /> : ''}
       </div>
     );
   }

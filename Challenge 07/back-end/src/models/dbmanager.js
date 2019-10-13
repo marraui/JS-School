@@ -154,6 +154,30 @@ export class DatabaseManager {
 
     /**
      * 
+     * @param {string} startTime 
+     * @param {string} endTime 
+     */
+    async isBookAvailable(startTime, endTime) {
+        const lendCollection = this.db.collection('lend');
+        const lendArray = await lendCollection.find({
+            $or: [
+                {
+                    lentTime: {$gte: startTime, $lt: endTime},
+                },
+                {
+                    returnedTime: {$gt: startTime, $lte: endTime},
+                },
+                {
+                    lentTime: {$lt: startTime},
+                    returnedTime: {$gt: endTime},
+                },
+            ],
+        }).toArray();
+        return lendArray.length == 0;
+    }
+
+    /**
+     * 
      * @param {string} bookId
      * @param {string} userEmail
      * @param {number} lentTime

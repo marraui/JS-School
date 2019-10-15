@@ -18,6 +18,8 @@ For this challenge we had to transform Challenge 05's project into a React appli
 
 * Go inside the front-end directory: ```cd ./Challenge\ 07/front-end```.
 
+* Run ```npm install``` to install all the project dependencies
+
 * Run ```npm start``` and the website will open in your default browser.
 
 ## How it works

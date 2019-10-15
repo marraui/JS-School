@@ -1,0 +1,30 @@
+.reservation-container {
+    background: rgba(35, 31, 32, 0.88);
+    color: white;
+    font-family: 'Pluto Sans Regular';
+    font-size: 2rem;
+    position: absolute;
+    left: 10.3125rem;
+    top: 0rem;
+    width: 19.375rem;
+    z-index: 1;
+    padding: 1.5625rem;
+    border-radius: 0.25rem;
+}
+
+.form-input {
+    display: grid;
+    grid-template-columns: min-content;
+}
+
+@media (max-width: 1020px) {
+    
+    .reservation-container {
+        top: 0rem;
+        left: 0rem;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+    }
+}
+

@@ -10,6 +10,8 @@ For this challenge we had to transform Challenge 05's project into a React appli
 
 * Go inside the back-end directory: ```cd ./Challenge\ 07/back-end```.
 
+* Make sure to store your private key inside a "private-key.txt" file, inside the back-end directory.
+
 * Run ```docker-compose build``` to build the project.
 
 * Run ```docker-compose up``` to run to server.

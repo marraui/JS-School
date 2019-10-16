@@ -40,3 +40,6 @@ In order to make use of the lend access point inside the server a new component 
 
 Since now the application had two views, the main one, and the login view, it was necessary to handle routing inside the website. The router will show login view if there's no token inside the session storage, otherwise it will show the main view.
 
+## Trouble Shooting
+
+If the server is not responding to any of the requests it might be because there's another container using the same port. Stop and remove all containers, and then build and run the server container again in order to fix it.

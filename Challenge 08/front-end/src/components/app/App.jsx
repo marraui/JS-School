@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { Redirect } from 'react-router-dom';
+import { history as historyPropTypes } from 'history-prop-types';
+import PropTypes from 'prop-types';
 import Header from '../header/Header';
 import BookDisplay from '../book-display/BookDisplay';
+import objectToQueryString from '../../utils/object-to-query-string';
 
 export default class App extends Component {
   constructor(props) {
@@ -21,26 +24,72 @@ export default class App extends Component {
     this.bookDisplay = React.createRef();
   }
 
+  componentDidMount() {
+    const { location } = this.props;
+    const params = Object.fromEntries(new URLSearchParams(location.search));
+    let index;
+    if (params.city) {
+      switch (params.city) {
+        case 'Quito': {
+          index = 1;
+          break;
+        }
+
+        case 'Cartagena': {
+          index = 2;
+          break;
+        }
+
+        case 'Medellin': {
+          index = 3;
+          break;
+        }
+
+        default: {
+          index = 0;
+        }
+      }
+    } else if (params.format) {
+      switch (params.format) {
+        case 'Digital': {
+          index = 4;
+          break;
+        }
+
+        default: {
+          index = 0;
+        }
+      }
+    }
+
+    this.setState({
+      leftItemSelected: index,
+    });
+  }
+
   onSearch(searchInput) {
     const bookGroup = this.bookDisplay.current.bookGroup.current;
     bookGroup.params.searchInput = searchInput;
-    bookGroup.fetchBooks();
   }
 
 
   clickLeftSideBarItemHandler(event, itemNumber) {
     event.stopPropagation();
     const { leftItemSelected } = this.state;
+    const { location, history } = this.props;
+    let params = Object.fromEntries(new URLSearchParams(location.search));
+    let queryString;
 
-    const bookGroup = this.bookDisplay.current.bookGroup.current;
     if (itemNumber === leftItemSelected && itemNumber !== 0) {
       this.setState({
         leftItemSelected: 0,
       });
       Object.keys(App.leftItemsParams[itemNumber]).forEach((param) => {
-        delete bookGroup.params[param];
+        delete params[param];
       });
-      bookGroup.fetchBooks();
+      params.page = 1;
+      queryString = objectToQueryString(params);
+      history.push(`?${queryString}`);
       return;
     }
 
@@ -53,13 +102,15 @@ export default class App extends Component {
     });
 
     if (Object.prototype.hasOwnProperty.call(App.leftItemsParams, itemNumber)) {
-      delete bookGroup.params.city;
-      delete bookGroup.params.format;
-      bookGroup.params = {
-        ...bookGroup.params,
+      delete params.city;
+      delete params.format;
+      params = {
+        ...params,
         ...App.leftItemsParams[itemNumber],
       };
-      bookGroup.fetchBooks();
+      params.page = 1;
+      queryString = objectToQueryString(params);
+      history.push(`?${queryString}`);
     }
   }
 
@@ -99,7 +150,7 @@ export default class App extends Component {
         <div
           className="collapsible-button-left-wrapper"
           onClick={this.clickLeftSideBarButtonHandler}
-          onKeyDown={this.clickLeftSideBarButtonHandler}
+          onKeyDown={(event) => (event.keyCode === 32 ? this.clickLeftSideBarButtonHandler : null)}
           role="button"
           tabIndex="0"
         >
@@ -112,7 +163,11 @@ export default class App extends Component {
             <div
               className={`left-sidebar-li ${leftItemSelected === 1 ? 'checked' : ''}`}
               onClick={(event) => this.clickLeftSideBarItemHandler(event, 1)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 1)}
+              onKeyDown={(event) => (
+                event.keyCode === 32
+                  ? this.clickLeftSideBarItemHandler(event, 1)
+                  : null
+              )}
               role="button"
               tabIndex="0"
             >
@@ -123,7 +178,11 @@ export default class App extends Component {
             <div
               className={`left-sidebar-li ${leftItemSelected === 2 ? 'checked' : ''}`}
               onClick={(event) => this.clickLeftSideBarItemHandler(event, 2)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 2)}
+              onKeyDown={(event) => (
+                event.keyCode === 32
+                  ? this.clickLeftSideBarItemHandler(event, 2)
+                  : null
+              )}
               role="button"
               tabIndex="0"
             >
@@ -134,7 +193,11 @@ export default class App extends Component {
             <div
               className={`left-sidebar-li ${leftItemSelected === 3 ? 'checked' : ''}`}
               onClick={(event) => this.clickLeftSideBarItemHandler(event, 3)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 3)}
+              onKeyDown={(event) => (
+                event.keyCode
+                  ? this.clickLeftSideBarItemHandler(event, 3)
+                  : null
+              )}
               role="button"
               tabIndex="0"
             >
@@ -144,7 +207,11 @@ export default class App extends Component {
             <div
               className={`left-sidebar-li ${leftItemSelected === 4 ? 'checked' : ''}`}
               onClick={(event) => this.clickLeftSideBarItemHandler(event, 4)}
-              onKeyDown={(event) => this.clickLeftSideBarItemHandler(event, 4)}
+              onKeyDown={(event) => (
+                event.keyCode
+                  ? this.clickLeftSideBarItemHandler(event, 4)
+                  : null
+              )}
               role="button"
               tabIndex="0"
             >
@@ -198,7 +265,11 @@ export default class App extends Component {
         <div
           className="collapsible-button-right-wrapper"
           onClick={this.clickRightSideBarButtonHandler}
-          onKeyDown={this.clickRightSideBarButtonHandler}
+          onKeyDown={(event) => (
+            event.keyCode === 32
+              ? this.clickRightSideBarButtonHandler(event)
+              : null
+          )}
           role="button"
           tabIndex="0"
         >
@@ -232,6 +303,20 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+  history: PropTypes.shape(historyPropTypes).isRequired,
+};
+
+App.defaultProps = {
+  location: {
+    search: '',
+  },
+};
+
 
 App.leftItemsParams = {
   0: {},

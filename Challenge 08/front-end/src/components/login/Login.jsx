@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Login.scss';
 import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default class Login extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class Login extends Component {
     }).then((response) => response.json()).then((jsonResponse) => {
       const { token } = jsonResponse;
       if (!token) {
-        alert('Unable to log in');
+        Swal.fire('Error', 'Unable to log in', 'error');
         return;
       }
       sessionStorage.setItem('token', token);
@@ -56,7 +57,7 @@ export default class Login extends Component {
         loggedIn: true,
       });
     }).catch((err) => {
-      alert(`Error logging in, error: ${err.message}`);
+      Swal.fire('Error', `Error logging in, error: ${err.message}`, 'error');
     });
   }
 
@@ -78,12 +79,12 @@ export default class Login extends Component {
     }).then((response) => response.json()).then((jsonResponse) => {
       const receivedMail = jsonResponse.email;
       if (!receivedMail) {
-        alert('Error registering user');
+        Swal.fire('Error', 'Error registering user', 'error');
         return;
       }
-      alert(`User ${receivedMail} registered successfully`);
+      Swal.fire('Success!', `User ${receivedMail} registered successfully`, 'success');
     }).catch((err) => {
-      alert(`Error registering, error: ${err.message}`);
+      Swal.fire('Error', `Error registering, error: ${err.message}`, 'error');
     });
   }
 

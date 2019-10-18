@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Search.scss';
+import { withRouter } from 'react-router-dom';
+import { history as historyPropTypes } from 'history-prop-types';
+import objectToQueryString from '../../utils/object-to-query-string';
 
-export default class Search extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,15 +15,30 @@ export default class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { location } = this.props;
+    const params = Object.fromEntries(new URLSearchParams(location.search));
+    if (params.searchInput) {
+      this.setState({
+        searchInput: params.searchInput,
+      });
+    }
+  }
+
   handleInputChange(event) {
     this.setState({ searchInput: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { onSearch } = this.props;
+    const { history, location } = this.props;
     const { searchInput } = this.state;
-    onSearch(searchInput);
+    const params = Object.fromEntries(new URLSearchParams(location.search));
+    if (searchInput) params.searchInput = searchInput;
+    else delete params.searchInput;
+    params.page = 1;
+    const queryParams = objectToQueryString(params);
+    history.push(`?${queryParams}`);
   }
 
   render() {
@@ -47,9 +65,17 @@ export default class Search extends Component {
 }
 
 Search.propTypes = {
-  onSearch: PropTypes.func,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+  history: PropTypes.shape(historyPropTypes).isRequired,
 };
 
 Search.defaultProps = {
-  onSearch: () => {},
+  location: {
+    search: '',
+  },
 };
+
+
+export default withRouter(Search);

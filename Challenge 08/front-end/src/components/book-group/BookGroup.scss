@@ -8,3 +8,9 @@
   row-gap: 2.5rem;
   justify-content: center;
 }
+
+.load-container {
+  grid-column: 1/5;
+  display: flex;
+  justify-content: center;
+}

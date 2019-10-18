@@ -26,6 +26,12 @@ The application stores the filtering parameters in the url, that way, when the u
 
 Pagination parameter were added to the backend, by default it shows 9 results per page. Because of this now the structure for the response of ```api/book``` changed a bit, now the results are inside a ```books``` variable and along side it there's some metadata, that being, the current page and the total number of books.
 
+## Notes
+
+This time npm was changed for yarn. Make sure yarn is installed globally in your machine.
+
+```npm install -g yarn```
+
 ## Trouble Shooting
 
 If the server is not responding to any of the requests it might be because there's another container using the same port. Stop and remove all containers, and then build and run the server container again in order to fix it.

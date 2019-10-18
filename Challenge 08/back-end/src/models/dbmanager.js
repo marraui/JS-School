@@ -38,22 +38,36 @@ export class DatabaseManager {
     /**
      * @returns {Promise<Book[]>}
      */
-    async getBooks(params, searchInput = undefined) {
+    async getBooks(params, searchInput = undefined, page=1, resPerPage=9) {
         if (!this.db) return [];
         const bookCollection = this.db.collection('book');
+        let totalResults;
         let books;
         if (searchInput) {
             const regex = new RegExp(searchInput, 'i');
+            totalResults = await bookCollection.count({
+                $or: [
+                    { ...toPlain(params), title: regex },
+                    { ...toPlain(params), authors: regex },
+                ]
+            });
             books = await bookCollection.find({
                 $or: [
-                    {...params, title: regex},
-                    {...params, authors: regex},
+                    {...toPlain(params), title: regex},
+                    {...toPlain(params), authors: regex},
                 ]
-            }).toArray();
+            }).skip(resPerPage * (page - 1)).limit(resPerPage).toArray();
         } else {
-            books = await bookCollection.find(toPlain(params)).toArray();
+            totalResults = await bookCollection.count(toPlain(params));
+            books = await bookCollection.find(toPlain(params)).skip(resPerPage * (page - 1)).limit(resPerPage).toArray();
         }
-        return books.map(book => new Book(book));
+        books = books.map(book => new Book(book));
+        return {
+            totalResults,
+            page,
+            resPerPage,
+            books,
+        };
     }
 
     /**

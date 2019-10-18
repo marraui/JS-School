@@ -9,12 +9,12 @@ export async function login (req, res, next) {
     const password = req.body.password;
     let error;
     if (!email) {
-        console.log(`login -> Missing email`);
+        console.log(`Login -> Missing email`);
         return res.status(HttpStatus.BAD_REQUEST).send({ message: 'No email provided' });
     }
     
     if (!password) {
-        console.log(`login -> Missing password`);
+        console.log(`Login -> Missing password`);
         res.status(HttpStatus.BAD_REQUEST).send({ messge: 'No password provided' });
         return;
     }
@@ -39,7 +39,7 @@ export async function login (req, res, next) {
         return
     }
     
-    console.log(`login -> User found successfully`);
+    console.log(`Login -> User found successfully`);
     res.status(HttpStatus.OK).json({ token: jwt.sign(Object.assign({}, user), privateKey) });
     return;
 }

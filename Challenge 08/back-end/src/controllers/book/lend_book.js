@@ -37,7 +37,6 @@ export async function lendBook(req, res, next) {
     const book = await dbConnection.getBookById(id).catch(err => {
         error = err;
         console.log(`Lend book -> Error finding book, err: ${err.message}`);
-        console.log(err.stack);
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: 'Error finding book'});
     });
     if (error) return;

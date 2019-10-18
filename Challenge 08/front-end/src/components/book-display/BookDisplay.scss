@@ -29,6 +29,7 @@
   grid-column: 2/4;
   grid-row: 1;
   display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .release-date {
@@ -43,6 +44,22 @@
   border-right-style: solid;
   border-right-color: #979797;
   padding-right: 0.4375rem;
+}
+
+.pagination {
+  grid-column: 1/5;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  color: white;
+  grid-template-columns: min-content min-content;
+  column-gap: 0.3rem;
+}
+
+.arrow-container {
+  background-color: #6EC1E4;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .popularity {
@@ -75,6 +92,11 @@
   row-gap: 2.5rem;
   justify-content: center;
 }
+
+.not {
+  display: none;
+}
+
 @media (max-width: 1020px) {
   .main {
     grid-column: 1/3;

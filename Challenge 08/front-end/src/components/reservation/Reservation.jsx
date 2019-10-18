@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
 import './Reservation.scss';
 import 'react-datepicker/dist/react-datepicker.css';
+import Swal from 'sweetalert2';
 
 export default class Reservation extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class Reservation extends Component {
     const headers = new Headers();
     headers.set('Authorization', `JWT ${token}`);
 
-    const { bookId } = this.props;
+    const { bookId, closeListener } = this.props;
     const url = new URL(`http://localhost:3001/api/book/lend/${bookId}`);
 
     url.searchParams.append('reservationTime', reservationTime);
@@ -46,9 +47,10 @@ export default class Reservation extends Component {
       return response.json();
     }).then((jsonResponse) => {
       if (jsonResponse.message) throw new Error(jsonResponse.message);
-      alert('Reservation done succesfully');
+      Swal.fire('Success!', 'Reservation done successfully', 'success');
+      closeListener();
     }).catch((err) => {
-      alert(`Error while trying to make reservation, error: ${err.message}`);
+      Swal.fire('Error', `Error while trying to make reservation, error: ${err.message}`, 'error');
     });
   }
 

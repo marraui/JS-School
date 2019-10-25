@@ -56,7 +56,14 @@ class App extends Component {
   componentDidMount() {
     let index;
 
-    const { location } = this.props;
+    const {
+      location,
+      selectCity,
+      unselectCity,
+      selectFormat,
+      unselectFormat,
+      searchBook,
+    } = this.props;
     const query = location.search;
     this.setState({
       query: location.search,
@@ -64,6 +71,14 @@ class App extends Component {
     });
     const urlSearchParams = new URLSearchParams(query);
     const params = Object.fromEntries(urlSearchParams);
+    if (params.city) selectCity(params.city);
+    else unselectCity();
+
+    if (params.format) selectFormat(params.format);
+    else unselectFormat();
+
+    if (params.searchInput) searchBook(params.searchInput);
+    else searchBook();
     this.fetchBooks(params);
   }
 

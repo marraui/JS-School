@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Search.scss';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { history as historyPropTypes } from 'history-prop-types';
 import objectToQueryString from '../../utils/object-to-query-string';
 
+function mapStateToProps(state) {
+  return {
+    search: state.search,
+  };
+}
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -16,13 +22,10 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    const { location } = this.props;
-    const params = Object.fromEntries(new URLSearchParams(location.search));
-    if (params.searchInput) {
-      this.setState({
-        searchInput: params.searchInput,
-      });
-    }
+    const { search } = this.props;
+    this.setState({
+      searchInput: search,
+    });
   }
 
   handleInputChange(event) {
@@ -68,6 +71,7 @@ Search.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }),
+  search: PropTypes.string,
   history: PropTypes.shape(historyPropTypes).isRequired,
 };
 
@@ -75,7 +79,8 @@ Search.defaultProps = {
   location: {
     search: '',
   },
+  search: '',
 };
 
 
-export default withRouter(Search);
+export default withRouter(connect(mapStateToProps)(Search));

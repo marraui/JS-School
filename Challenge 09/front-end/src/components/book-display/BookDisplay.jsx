@@ -2,26 +2,23 @@ import React, { Component } from 'react';
 import './BookDisplay.scss';
 import { history as historyPropTypes } from 'history-prop-types';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import BookGroup from '../book-group/BookGroup';
 import objectToQueryString from '../../utils/object-to-query-string';
 
+function mapStateToProps(state) {
+  return {
+    page: state.page,
+    resPerPage: state.resPerPage,
+    totalResults: state.totalOfBooks,
+  };
+}
 class BookDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: 1,
-      resPerPage: 9,
-      totalResults: 0,
-    };
-    this.bookGroup = React.createRef();
-    this.updateCallback = this.updateCallback.bind(this);
     this.leftClickHandler = this.leftClickHandler.bind(this);
     this.rightClickHandler = this.rightClickHandler.bind(this);
-  }
-
-  updateCallback(params) {
-    this.setState(params);
   }
 
   leftClickHandler(event) {
@@ -51,7 +48,7 @@ class BookDisplay extends Component {
       page,
       resPerPage,
       totalResults,
-    } = this.state;
+    } = this.props;
     return (
       <div className="main">
         <div className="main-header">
@@ -87,23 +84,29 @@ class BookDisplay extends Component {
             </div>
           </div>
         </div>
-        <BookGroup ref={this.bookGroup} updateCallback={this.updateCallback} />
+        <BookGroup ref={this.bookGroup} />
       </div>
     );
   }
 }
 
-export default withRouter(BookDisplay);
+export default withRouter(connect(mapStateToProps)(BookDisplay));
 
 BookDisplay.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }),
   history: PropTypes.shape(historyPropTypes).isRequired,
+  page: PropTypes.number,
+  resPerPage: PropTypes.number,
+  totalResults: PropTypes.number,
 };
 
 BookDisplay.defaultProps = {
   location: {
     search: '',
   },
+  page: 1,
+  resPerPage: 0,
+  totalResults: 0,
 };

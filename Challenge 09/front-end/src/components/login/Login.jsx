@@ -2,8 +2,22 @@ import React, { Component } from 'react';
 import './Login.scss';
 import { Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/index';
 
-export default class Login extends Component {
+function mapStateToProps(state) {
+  return {
+    token: state.authentication,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logIn: (token) => dispatch(actions.logIn(token)),
+  };
+}
+class Login extends Component {
   constructor(props) {
     super(props);
     this.loginHandler = this.loginHandler.bind(this);
@@ -13,7 +27,6 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      loggedIn: false,
     };
   }
 
@@ -36,6 +49,9 @@ export default class Login extends Component {
       email,
       password,
     } = this.state;
+    const {
+      logIn,
+    } = this.props;
 
     fetch(url, {
       method: 'POST',
@@ -52,10 +68,7 @@ export default class Login extends Component {
         Swal.fire('Error', 'Unable to log in', 'error');
         return;
       }
-      sessionStorage.setItem('token', token);
-      this.setState({
-        loggedIn: true,
-      });
+      logIn(token);
     }).catch((err) => {
       Swal.fire('Error', `Error logging in, error: ${err.message}`, 'error');
     });
@@ -89,9 +102,8 @@ export default class Login extends Component {
   }
 
   render() {
-    const { loggedIn } = this.state;
-    const token = sessionStorage.getItem('token');
-    if (loggedIn || token) {
+    const { token } = this.props;
+    if (token) {
       return (
         <Redirect to="/" />
       );
@@ -115,3 +127,14 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  logIn: PropTypes.func.isRequired,
+  token: PropTypes.string,
+};
+
+Login.defaultProps = {
+  token: '',
+};

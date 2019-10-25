@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import './Login.scss';
 import { Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/index';
+import {
+  LoginContainer,
+  EmailInput,
+  EmailLabel,
+  LoginForm,
+  PasswordInput,
+  PasswordLabel,
+  SubmitButton,
+  Title,
+} from './Layout';
 
 function mapStateToProps(state) {
   return {
@@ -110,21 +119,21 @@ class Login extends Component {
       );
     }
     return (
-      <div className="login-container">
-        <form onSubmit={this.loginHandler} className="login">
-          <div className="title">Bookshelf</div>
-          <label className="email-label" htmlFor="email">
+      <LoginContainer>
+        <LoginForm onSubmit={this.loginHandler}>
+          <Title>Bookshelf</Title>
+          <EmailLabel htmlFor="email">
             Email
-            <input onChange={this.emailInputHandler} id="email" type="email" className="email-input" />
-          </label>
-          <label className="password-label" htmlFor="password">
+            <EmailInput onChange={this.emailInputHandler} id="email" type="email" />
+          </EmailLabel>
+          <PasswordLabel htmlFor="password">
             Password
-            <input onChange={this.passwordInputHandler} id="password" type="password" className="password-input" />
-          </label>
-          <input type="submit" className="submit-button" value="Log in" />
-          <input type="button" onClick={this.registerHandler} className="submit-button" value="Register" />
-        </form>
-      </div>
+            <PasswordInput onChange={this.passwordInputHandler} id="password" type="password" />
+          </PasswordLabel>
+          <SubmitButton type="submit" value="Log in" />
+          <SubmitButton type="button" onClick={this.registerHandler} value="Register" />
+        </LoginForm>
+      </LoginContainer>
     );
   }
 }

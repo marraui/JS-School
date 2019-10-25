@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import './BookGroup.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import Book from '../book/Book';
+import {
+  BookGroupContainer,
+  LoadContainer,
+} from './Layout';
 
 function mapStateToProps(state) {
   return {
@@ -50,13 +53,13 @@ class BookGroup extends Component {
     } = this.props;
     if (loading) {
       return (
-        <div className="load-container">
+        <LoadContainer>
           <ReactLoading type="spin" color="#5EB4DD" />
-        </div>
+        </LoadContainer>
       );
     }
     return (
-      <div className="book-view">
+      <BookGroupContainer>
         {books.map((book) => (
           <Book
             title={book.title}
@@ -73,7 +76,7 @@ class BookGroup extends Component {
             unselectBook={this.unselectBook}
           />
         ))}
-      </div>
+      </BookGroupContainer>
     );
   }
 }

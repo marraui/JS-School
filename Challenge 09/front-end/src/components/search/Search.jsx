@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Search.scss';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history as historyPropTypes } from 'history-prop-types';
 import objectToQueryString from '../../utils/object-to-query-string';
+import {
+  SearchContainer,
+  BookshelfTitle,
+  SearchBox,
+  InputWrapper,
+  SubmitButton,
+} from './Layout';
 
 function mapStateToProps(state) {
   return {
@@ -47,10 +53,10 @@ class Search extends Component {
   render() {
     const { searchInput } = this.state;
     return (
-      <div className="search">
-        <div className="bookshelf-title">Bookshelf</div>
-        <form onSubmit={this.handleSubmit} className="searchbox">
-          <label htmlFor="searchbox-input" className="input-wrapper">
+      <SearchContainer>
+        <BookshelfTitle>Bookshelf</BookshelfTitle>
+        <SearchBox onSubmit={this.handleSubmit}>
+          <InputWrapper htmlFor="searchbox-input">
             <i className="fa fa-search" />
             <input
               id="searchbox-input"
@@ -59,10 +65,10 @@ class Search extends Component {
               value={searchInput}
               onChange={this.handleInputChange}
             />
-          </label>
-          <input type="submit" value="Submit" className="submit" />
-        </form>
-      </div>
+          </InputWrapper>
+          <SubmitButton type="submit" value="Submit" />
+        </SearchBox>
+      </SearchContainer>
     );
   }
 }

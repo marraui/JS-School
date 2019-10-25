@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import './BookGroup.scss';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import Book from '../book/Book';
 
+function mapStateToProps(state) {
+  return {
+    books: state.books,
+    fetchingBooks: state.fetchingBooks,
+  };
+}
 class BookGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      query: '',
-      loading: false,
       bookSelected: null,
     };
     this.params = {
@@ -21,82 +25,6 @@ class BookGroup extends Component {
 
     this.selectBook = this.selectBook.bind(this);
     this.unselectBook = this.unselectBook.bind(this);
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.location.search === prevState.query) return null;
-    return {
-      query: nextProps.location.search,
-    };
-  }
-
-  componentDidMount() {
-    const { location } = this.props;
-    this.setState({
-      query: location.search,
-    });
-    this.fetchBooks();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { query } = this.state;
-
-    if (prevState.query !== query) {
-      this.fetchBooks();
-    }
-  }
-
-  fetchBooks() {
-    const { query } = this.state;
-    const urlSearchParams = new URLSearchParams(query);
-    const params = Object.fromEntries(urlSearchParams);
-
-    const token = sessionStorage.getItem('token');
-    if (!params.searchInput) delete params.searchInput;
-
-    const headers = new Headers();
-    headers.set('Authorization', `JWT ${token}`);
-    const url = new URL('http://localhost:3001/api/book');
-    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
-
-    this.setState({
-      loading: true,
-    });
-
-    fetch(url, {
-      headers,
-    }).then((response) => response.json()).then((jsonResponse) => {
-      const {
-        books,
-        resPerPage,
-        page,
-        totalResults,
-      } = jsonResponse;
-
-      const bookElements = books.map((book) => ({
-        title: book.title,
-        author: book.author,
-        publishedDate: book.publishedDate ? book.publishedDate.split('-')[0] : 'Not available',
-        description: book.description,
-        roundedAverageRating: book.averageRating ? Math.round(book.averageRating) : 0,
-        thumbnail: book.thumbnail,
-        id: book.id,
-        key: book.id,
-        pageCount: `${book.pageCount}`,
-      }));
-
-      const { updateCallback } = this.props;
-      updateCallback({
-        resPerPage,
-        page,
-        totalResults,
-      });
-
-      this.setState({
-        books: bookElements,
-        loading: false,
-      });
-    });
   }
 
   selectBook(bookId) {
@@ -115,7 +43,11 @@ class BookGroup extends Component {
   }
 
   render() {
-    const { books, loading, bookSelected } = this.state;
+    const { bookSelected } = this.state;
+    const {
+      books,
+      fetchingBooks: loading,
+    } = this.props;
     if (loading) {
       return (
         <div className="load-container">
@@ -149,17 +81,23 @@ class BookGroup extends Component {
 BookGroup.paramKeys = ['searchInput', 'city', 'format', 'page', 'resPerPage'];
 
 BookGroup.propTypes = {
-  updateCallback: PropTypes.func,
-  location: PropTypes.shape({
-    search: PropTypes.string,
+  fetchingBooks: PropTypes.bool,
+  books: PropTypes.arrayOf({
+    title: PropTypes.string,
+    author: PropTypes.string,
+    publishedDate: PropTypes.string,
+    description: PropTypes.string,
+    roundedAverageRating: PropTypes.number,
+    thumbnail: PropTypes.string,
+    id: PropTypes.string,
+    key: PropTypes.string,
+    pageCount: PropTypes.string,
   }),
 };
 
 BookGroup.defaultProps = {
-  updateCallback: () => {},
-  location: {
-    search: '',
-  },
+  fetchingBooks: false,
+  books: [],
 };
 
-export default withRouter(BookGroup);
+export default withRouter(connect(mapStateToProps)(BookGroup));

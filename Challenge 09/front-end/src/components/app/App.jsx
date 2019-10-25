@@ -3,33 +3,103 @@ import './App.scss';
 import { Redirect } from 'react-router-dom';
 import { history as historyPropTypes } from 'history-prop-types';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Header from '../header/Header';
 import BookDisplay from '../book-display/BookDisplay';
 import objectToQueryString from '../../utils/object-to-query-string';
+import * as actions from '../../actions/index';
 
-export default class App extends Component {
+function mapDispatchToProps(dispatch) {
+  return {
+    selectPage: (page) => dispatch(actions.selectPage(page)),
+    selectCity: (city) => dispatch(actions.selectCity(city)),
+    unselectCity: () => dispatch(actions.unselectCity()),
+    selectFormat: (format) => dispatch(actions.selectFormat(format)),
+    unselectFormat: () => dispatch(actions.unselectFormat()),
+    searchBook: (searchInput) => dispatch(actions.searchBook(searchInput)),
+    fetchingBooks: (isFetching) => dispatch(actions.fetchingBooks(isFetching)),
+    booksFetched: (books) => dispatch(actions.booksFetched(books)),
+    totalOfBooks: (number) => dispatch(actions.totalOfBooks(number)),
+    resPerPage: (number) => dispatch(actions.resPerPage(number)),
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    city: state.city,
+    format: state.format,
+    token: state.authentication,
+  };
+}
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       leftSideBarOpen: false,
       rightSideBarOpen: false,
-      leftItemSelected: 0,
+      query: '',
     };
 
     this.clickLeftSideBarButtonHandler = this.clickLeftSideBarButtonHandler.bind(this);
     this.clickRightSideBarButtonHandler = this.clickRightSideBarButtonHandler.bind(this);
     this.clickLeftSideBarItemHandler = this.clickLeftSideBarItemHandler.bind(this);
-    this.onSearch = this.onSearch.bind(this);
-
     this.bookDisplay = React.createRef();
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.location.search === prevState.query) return null;
+    return {
+      query: nextProps.location.search,
+    };
+  }
+
   componentDidMount() {
-    const { location } = this.props;
-    const params = Object.fromEntries(new URLSearchParams(location.search));
     let index;
-    if (params.city) {
-      switch (params.city) {
+
+    const { location } = this.props;
+    const query = location.search;
+    this.setState({
+      query: location.search,
+      leftItemSelected: index,
+    });
+    const urlSearchParams = new URLSearchParams(query);
+    const params = Object.fromEntries(urlSearchParams);
+    this.fetchBooks(params);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { query } = this.state;
+    if (prevState.query === query) return;
+    const {
+      selectPage,
+      selectCity,
+      selectFormat,
+      searchBook,
+      unselectCity,
+      unselectFormat,
+    } = this.props;
+
+    const urlSearchParams = new URLSearchParams(query);
+    const params = Object.fromEntries(urlSearchParams);
+    selectPage(params.page ? params.page : 1);
+
+    if (params.city) selectCity(params.city);
+    else unselectCity();
+
+    if (params.format) selectFormat(params.format);
+    else unselectFormat();
+
+    if (params.searchInput) searchBook(params.searchInput);
+    else searchBook();
+
+    this.fetchBooks(params);
+  }
+
+  getLeftItemSelected() {
+    const { city, format } = this.props;
+    let index = 0;
+    if (city) {
+      switch (city) {
         case 'Quito': {
           index = 1;
           break;
@@ -49,8 +119,8 @@ export default class App extends Component {
           index = 0;
         }
       }
-    } else if (params.format) {
-      switch (params.format) {
+    } else if (format) {
+      switch (format) {
         case 'Digital': {
           index = 4;
           break;
@@ -61,15 +131,55 @@ export default class App extends Component {
         }
       }
     }
-
-    this.setState({
-      leftItemSelected: index,
-    });
+    return index;
   }
 
-  onSearch(searchInput) {
-    const bookGroup = this.bookDisplay.current.bookGroup.current;
-    bookGroup.params.searchInput = searchInput;
+  fetchBooks(params) {
+    const {
+      token,
+      selectPage,
+      fetchingBooks,
+      booksFetched,
+      resPerPage: resPerPageCreator,
+      totalOfBooks: totalOfBooksCreator,
+    } = this.props;
+
+    const headers = new Headers();
+    headers.set('Authorization', `JWT ${token}`);
+    const url = new URL('http://localhost:3001/api/book');
+    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
+    fetchingBooks(true);
+    fetch(url, {
+      headers,
+    }).then((response) => {
+      if (response.status === 400) throw new Error('No content');
+      return response.json();
+    }).then((jsonResponse) => {
+      if (jsonResponse.message) throw new Error(jsonResponse.message);
+      const {
+        books,
+        resPerPage,
+        page,
+        totalResults,
+      } = jsonResponse;
+
+      const bookElements = books.map((book) => ({
+        title: book.title,
+        author: book.author,
+        publishedDate: book.publishedDate ? book.publishedDate.split('-')[0] : 'Not available',
+        description: book.description,
+        roundedAverageRating: book.averageRating ? Math.round(book.averageRating) : 0,
+        thumbnail: book.thumbnail,
+        id: book.id,
+        key: book.id,
+        pageCount: `${book.pageCount}`,
+      }));
+
+      resPerPageCreator(resPerPage);
+      selectPage(page);
+      totalOfBooksCreator(totalResults);
+      booksFetched(bookElements);
+    });
   }
 
 
@@ -108,6 +218,8 @@ export default class App extends Component {
         ...params,
         ...App.leftItemsParams[itemNumber],
       };
+      if (params.city === 'any') delete params.city;
+      if (params.format === 'any') delete params.format;
       params.page = 1;
       queryString = objectToQueryString(params);
       history.push(`?${queryString}`);
@@ -134,10 +246,17 @@ export default class App extends Component {
     const {
       leftSideBarOpen,
       rightSideBarOpen,
-      leftItemSelected,
     } = this.state;
+    const { city, format, token } = this.props;
+    let leftItemSelected = 0;
 
-    const token = sessionStorage.getItem('token');
+    App.leftItemsParams.forEach((params, index) => {
+      const curCity = params.city;
+      const curFormat = params.format;
+      if (curCity === city && curFormat === format) {
+        leftItemSelected = index;
+      }
+    });
     if (!token) {
       return (
         <Redirect to="/login" />
@@ -146,7 +265,7 @@ export default class App extends Component {
 
     return (
       <div className="grid-container">
-        <Header onSearch={this.onSearch} />
+        <Header />
         <div
           className="collapsible-button-left-wrapper"
           onClick={this.clickLeftSideBarButtonHandler}
@@ -309,27 +428,52 @@ App.propTypes = {
     search: PropTypes.string,
   }),
   history: PropTypes.shape(historyPropTypes).isRequired,
+  selectPage: PropTypes.func.isRequired,
+  selectCity: PropTypes.func.isRequired,
+  selectFormat: PropTypes.func.isRequired,
+  searchBook: PropTypes.func.isRequired,
+  totalOfBooks: PropTypes.func.isRequired,
+  resPerPage: PropTypes.func.isRequired,
+  fetchingBooks: PropTypes.func.isRequired,
+  booksFetched: PropTypes.func.isRequired,
+  unselectCity: PropTypes.func.isRequired,
+  unselectFormat: PropTypes.func.isRequired,
+  city: PropTypes.string,
+  format: PropTypes.string,
+  token: PropTypes.string,
 };
 
 App.defaultProps = {
   location: {
     search: '',
   },
+  city: 'any',
+  format: 'any',
+  token: '',
 };
 
 
-App.leftItemsParams = {
-  0: {},
-  1: {
+App.leftItemsParams = [
+  {
+    city: 'any',
+    format: 'any',
+  },
+  {
     city: 'Quito',
+    format: 'any',
   },
-  2: {
+  {
     city: 'Cartagena',
+    format: 'any',
   },
-  3: {
+  {
     city: 'Medellin',
+    format: 'any',
   },
-  4: {
+  {
+    city: 'any',
     format: 'Digital',
   },
-};
+];
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -68,6 +68,7 @@ class Login extends Component {
         Swal.fire('Error', 'Unable to log in', 'error');
         return;
       }
+      sessionStorage.setItem('token', token);
       logIn(token);
     }).catch((err) => {
       Swal.fire('Error', `Error logging in, error: ${err.message}`, 'error');

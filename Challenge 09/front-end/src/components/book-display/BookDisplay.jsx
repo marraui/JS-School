@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import './BookDisplay.scss';
 import { history as historyPropTypes } from 'history-prop-types';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import BookGroup from '../book-group/BookGroup';
 import objectToQueryString from '../../utils/object-to-query-string';
+import {
+  BookDisplayContainer,
+  BookDisplayHeader,
+  Pagination,
+  Arrow,
+} from './Layout';
 
 function mapStateToProps(state) {
   return {
@@ -50,8 +55,8 @@ class BookDisplay extends Component {
       totalResults,
     } = this.props;
     return (
-      <div className="main">
-        <div className="main-header">
+      <BookDisplayContainer>
+        <BookDisplayHeader>
           <div className="main-title">
             New Releases
           </div>
@@ -63,29 +68,29 @@ class BookDisplay extends Component {
             <i className="fa fa-th-large" />
             <i className="fa fa-th-list" />
           </div>
-          <div className="pagination">
-            <div
-              className={`arrow-container ${page === 1 ? 'not' : ''}`}
+          <Pagination>
+            <Arrow
+              show={page > 1}
               onClick={this.leftClickHandler}
               onKeyDown={(event) => (event.keyCode === 32 ? this.leftClickHandler(event) : null)}
               tabIndex="0"
               role="button"
             >
               <i className="fa fa-arrow-left" />
-            </div>
-            <div
-              className={`arrow-container ${page * resPerPage >= totalResults ? 'not' : ''}`}
+            </Arrow>
+            <Arrow
+              show={page * resPerPage < totalResults}
               onClick={this.rightClickHandler}
               onKeyDown={(event) => (event.keyCode ? this.rightClickHandler(event) : null)}
               tabIndex="0"
               role="button"
             >
               <i className="fa fa-arrow-right" />
-            </div>
-          </div>
-        </div>
+            </Arrow>
+          </Pagination>
+        </BookDisplayHeader>
         <BookGroup ref={this.bookGroup} />
-      </div>
+      </BookDisplayContainer>
     );
   }
 }

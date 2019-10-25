@@ -1,22 +1,26 @@
 import React from 'react';
 import {
   Route,
-  BrowserRouter as Router,
   Switch, Redirect,
+  BrowserRouter as Router,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import Login from '../login/Login';
 import App from '../app/App';
 import NotFound from '../notfound/NotFound';
+import store from '../../store/index';
 
 export default function Routing() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route exact path="/login" component={Login} />
-        <Route path="/404" component={NotFound} />
-        <Redirect to="/404" />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route exact path="/login" component={Login} />
+          <Route path="/404" component={NotFound} />
+          <Redirect to="/404" />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }

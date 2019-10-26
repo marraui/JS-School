@@ -61,6 +61,8 @@ export const UserProfile = styled.div`
     height: 100%;
     width: 100%;
     padding: 0.625rem 0rem;
+    box-sizing: border-box;
+    position: relative;
   }
 
   .user-name-dropdown {
@@ -70,6 +72,7 @@ export const UserProfile = styled.div`
     justify-content: flex-end;
     font-size: 0.6875rem;
     border-left: 0.0625rem solid #979797;
+    cursor: pointer;
   }
 
   .user-name-text {
@@ -95,6 +98,22 @@ export const UserProfile = styled.div`
 
   .user-image {
     max-height: 100%;
+  }
+
+  .log-out {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #FCF8F3;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+    border: 1px solid #979797;
+    cursor: pointer;
   }
   @media (max-width: 1020px) {
     grid-column: 2;

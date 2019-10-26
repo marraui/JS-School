@@ -71,8 +71,12 @@ class Login extends Component {
         email,
         password,
       }),
-    }).then((response) => response.json()).then((jsonResponse) => {
+    }).then((response) => {
+      if (response.status === 400) throw new Error('No content');
+      return response.json();
+    }).then((jsonResponse) => {
       const { token } = jsonResponse;
+      if (jsonResponse.message) throw new Error(jsonResponse.message);
       if (!token) {
         Swal.fire('Error', 'Unable to log in', 'error');
         return;
@@ -99,7 +103,11 @@ class Login extends Component {
         email,
         password,
       }),
-    }).then((response) => response.json()).then((jsonResponse) => {
+    }).then((response) => {
+      if (response.status === 400) throw new Error('No content');
+      return response.json();
+    }).then((jsonResponse) => {
+      if (jsonResponse.message) throw new Error(jsonResponse.message);
       const receivedMail = jsonResponse.email;
       if (!receivedMail) {
         Swal.fire('Error', 'Error registering user', 'error');

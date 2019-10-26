@@ -15,7 +15,7 @@ export default class Book extends Component {
       openedSeethroughOptions: false,
       openedDetails: false,
       openedLendOptions: false,
-      detailsReversed: true,
+      detailsReversed: false,
     };
 
     this.clickBookmarkHandler = this.clickBookmarkHandler.bind(this);
@@ -49,10 +49,15 @@ export default class Book extends Component {
     event.stopPropagation();
     const { openedLendOptions, openedDetails } = this.state;
     const { id, selectBook } = this.props;
+
+    const { innerWidth } = window;
+    // const bookWidth = this.offsetWidth;
+    const reversed = event.pageX > (innerWidth / 2);
     selectBook(id);
     this.setState({
       openedLendOptions: !openedLendOptions,
       openedDetails: openedLendOptions ? openedDetails : false,
+      lendReversed: reversed,
     });
   }
 
@@ -165,6 +170,7 @@ export default class Book extends Component {
       openedSeethroughOptions,
       openedLendOptions,
       detailsReversed,
+      lendReversed,
     } = this.state;
 
     return (
@@ -402,7 +408,7 @@ export default class Book extends Component {
           className={bookmarked ? 'bookmark-icon-selected' : 'bookmark-icon-unselected'}
           ref={this.bookmarkIcon}
         />
-        {openedLendOptions ? <Reservation bookId={id} closeListener={this.clickLendButtonHandler} /> : ''}
+        {openedLendOptions ? <Reservation bookId={id} closeListener={this.clickLendButtonHandler} openLeft={lendReversed} /> : ''}
       </div>
     );
   }

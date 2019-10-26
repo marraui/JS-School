@@ -66,7 +66,7 @@ class BookGroup extends Component {
             author={book.author}
             publishedDate={book.publishedDate}
             description={book.description}
-            roundedAverageRating={book.averageRating}
+            roundedAverageRating={book.roundedAverageRating}
             thumbnail={book.thumbnail}
             id={book.id}
             key={book.id}

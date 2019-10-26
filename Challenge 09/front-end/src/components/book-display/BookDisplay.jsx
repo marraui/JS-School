@@ -78,6 +78,7 @@ class BookDisplay extends Component {
             >
               <i className="fa fa-arrow-left" />
             </Arrow>
+            <div className="page-counter">{page}</div>
             <Arrow
               show={page * resPerPage < totalResults}
               onClick={this.rightClickHandler}

@@ -10,6 +10,12 @@ export const BookDisplayContainer = styled.div`
   background-color: #F5F6F8;
   padding: 1.5625rem 4.125rem 0rem 4.125rem;
   overflow: scroll;
+  
+  @media (max-width: 1020px) {
+    grid-column: 1/3;
+    grid-row: 6;
+    padding: 1.5625rem 1rem 0rem 1rem;
+  }
 `;
 
 export const BookDisplayHeader = styled.div`
@@ -17,13 +23,6 @@ export const BookDisplayHeader = styled.div`
   grid-row: 1;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 2fr;
-
-  .main-header {
-    grid-column: 1/5;
-    grid-row: 1;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
-  }
 
   .main-title {
     grid-column: 1;
@@ -84,6 +83,34 @@ export const BookDisplayHeader = styled.div`
     row-gap: 2.5rem;
     justify-content: center;
   }
+
+  @media (max-width: 1020px) {
+    grid-column: 1/5;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .main-title {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  
+    .sort-by {
+      grid-column: 1;
+      grid-row: 2;
+      display: unset;
+    }
+  
+    .release-date, .popularity {
+      display: inline-block;
+    }
+  
+    .view-style {
+      grid-column: 1;
+      grid-row: 3;
+      justify-self: start;
+    }
+  }
 `;
 
 export const Pagination = styled.div`
@@ -92,13 +119,20 @@ export const Pagination = styled.div`
   justify-content: center;
   display: grid;
   color: white;
-  grid-template-columns: min-content min-content;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-self: center;
   column-gap: 0.3rem;
+
+  .page-counter {
+    color: black;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const Arrow = styled.div`
   background-color: #6EC1E4;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  display: ${(props) => (props.show !== undefined ? (props.show && 'unset') || 'none' : 'unset')};
+  visibility: ${(props) => (props.show !== undefined ? (props.show && 'unset') || 'hidden' : 'unset')};
 `;

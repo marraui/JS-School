@@ -81,18 +81,26 @@ export default class Reservation extends Component {
     } = this.state;
     const {
       closeListener,
+      openLeft,
     } = this.props;
     return (
       <div
         onClick={closeListener}
         onSubmit={this.submitHandler}
-        className="reservation-container"
+        className={`reservation-container ${openLeft ? 'reversed' : ''}`}
         onKeyDown={this.submitHandler}
         role="button"
         tabIndex="0"
       >
         <form>
-          <label onClick={(event) => event.stopPropagation()} htmlFor="reservation-picker" className="form-input">
+          <label
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            htmlFor="reservation-picker"
+            className="form-input"
+          >
             Lend Date
             <DatePicker
               id="reservation-picker"
@@ -100,7 +108,14 @@ export default class Reservation extends Component {
               onChange={(date) => this.changeHandler(date, true)}
             />
           </label>
-          <label onClick={(event) => event.stopPropagation()} htmlFor="return-picker" className="form-input">
+          <label
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+            htmlFor="reservation-picker"
+            className="form-input"
+          >
             Return Date
             <DatePicker
               id="return-picker"
@@ -118,9 +133,11 @@ export default class Reservation extends Component {
 Reservation.propTypes = {
   bookId: PropTypes.string,
   closeListener: PropTypes.func,
+  openLeft: PropTypes.bool,
 };
 
 Reservation.defaultProps = {
   bookId: '',
   closeListener: () => {},
+  openLeft: false,
 };

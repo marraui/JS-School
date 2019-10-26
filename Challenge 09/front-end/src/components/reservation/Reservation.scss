@@ -1,27 +1,55 @@
 .reservation-container {
-    background: rgba(35, 31, 32, 0.88);
+    background: rgba(15, 11, 12, 0.88);
     color: white;
     font-family: 'Pluto Sans Regular';
-    font-size: 2rem;
+    font-size: 1.5rem;
     position: absolute;
     left: 10.3125rem;
     top: 0rem;
-    width: 19.375rem;
+    width: 16.375rem;
     z-index: 1;
     padding: 1.5625rem;
     border-radius: 0.25rem;
+    &.reversed {
+        left: -20.625rem;
+        
+        .bubble-text-arrow {
+        left: unset;
+        right: -0.625rem;
+        }
+
+        .bubble-text-arrow-top {
+        border-color: transparent transparent rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88);
+        }
+
+        .bubble-text-arrow-bottom {
+        border-color: rgba(35, 31, 32, 0.88) transparent transparent rgba(35, 31, 32, 0.88);
+        }
+    }
 }
 
 .form-input {
     display: grid;
     grid-template-columns: min-content;
+    margin-bottom: 1rem;
+}
+
+.submit-button {
+    padding: 0.4rem;
+    border-radius: 10%;
+    background-color: #5EB4DD;
+    color: #FFFFFF;
+    font-size: 1rem;
+    white-space: unset;
+    border-style: unset;
+    border-width: 0;
 }
 
 @media (max-width: 1020px) {
     
     .reservation-container {
         top: 0rem;
-        left: 0rem;
+        left: 0rem !important;
         width: 100vw;
         height: 100vh;
         position: fixed;

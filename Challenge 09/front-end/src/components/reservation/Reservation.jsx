@@ -54,7 +54,7 @@ export default class Reservation extends Component {
     }).then((jsonResponse) => {
       if (jsonResponse.message) throw new Error(jsonResponse.message);
       Swal.fire('Success!', 'Reservation done successfully', 'success');
-      closeListener();
+      closeListener(event);
     }).catch((err) => {
       Swal.fire('Error', `Error while trying to make reservation, error: ${err.message}`, 'error');
     });
@@ -86,12 +86,10 @@ export default class Reservation extends Component {
       returnDate,
     } = this.state;
     const {
-      closeListener,
       openLeft,
     } = this.props;
     return (
       <ReservationContainer
-        onClick={closeListener}
         onSubmit={this.submitHandler}
         reversed={openLeft}
         onKeyDown={this.submitHandler}
@@ -131,7 +129,12 @@ export default class Reservation extends Component {
               onChange={(date) => this.changeHandler(date, false)}
             />
           </FormInput>
-          <SubmitButton onClick={(event) => event.stopPropagation()} type="submit" />
+          <SubmitButton
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+            type="submit"
+          />
         </form>
       </ReservationContainer>
     );

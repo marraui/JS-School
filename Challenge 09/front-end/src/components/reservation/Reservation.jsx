@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
-import './Reservation.scss';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import Swal from 'sweetalert2';
+import {
+  FormInput,
+  ReservationContainer,
+  SubmitButton,
+  BubbleTextArrow,
+} from './Layout';
 
 export default class Reservation extends Component {
   constructor(props) {
@@ -84,22 +90,25 @@ export default class Reservation extends Component {
       openLeft,
     } = this.props;
     return (
-      <div
+      <ReservationContainer
         onClick={closeListener}
         onSubmit={this.submitHandler}
-        className={`reservation-container ${openLeft ? 'reversed' : ''}`}
+        reversed={openLeft}
         onKeyDown={this.submitHandler}
         role="button"
         tabIndex="0"
       >
+        <BubbleTextArrow reversed={openLeft}>
+          <div className="bubble-text-arrow-top" />
+          <div className="bubble-text-arrow-bottom" />
+        </BubbleTextArrow>
         <form>
-          <label
+          <FormInput
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
             }}
             htmlFor="reservation-picker"
-            className="form-input"
           >
             Lend Date
             <DatePicker
@@ -107,14 +116,13 @@ export default class Reservation extends Component {
               selected={reservationDate}
               onChange={(date) => this.changeHandler(date, true)}
             />
-          </label>
-          <label
+          </FormInput>
+          <FormInput
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
             }}
             htmlFor="reservation-picker"
-            className="form-input"
           >
             Return Date
             <DatePicker
@@ -122,10 +130,10 @@ export default class Reservation extends Component {
               selected={returnDate}
               onChange={(date) => this.changeHandler(date, false)}
             />
-          </label>
-          <input onClick={(event) => event.stopPropagation()} className="submit-button" type="submit" />
+          </FormInput>
+          <SubmitButton onClick={(event) => event.stopPropagation()} type="submit" />
         </form>
-      </div>
+      </ReservationContainer>
     );
   }
 }

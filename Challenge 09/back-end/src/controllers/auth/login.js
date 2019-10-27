@@ -15,7 +15,7 @@ export async function login (req, res, next) {
     
     if (!password) {
         console.log(`Login -> Missing password`);
-        res.status(HttpStatus.BAD_REQUEST).send({ messge: 'No password provided' });
+        res.status(HttpStatus.BAD_REQUEST).send({ message: 'No password provided' });
         return;
     }
 

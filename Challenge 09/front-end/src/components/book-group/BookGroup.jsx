@@ -127,6 +127,7 @@ class BookGroup extends Component {
         id: book.id,
         key: book.id,
         pageCount: `${book.pageCount}`,
+        format: book.format,
       }));
 
       resPerPageCreator(resPerPage);
@@ -177,6 +178,7 @@ class BookGroup extends Component {
             id={book.id}
             key={book.id}
             pageCount={`${book.pageCount}`}
+            format={book.format}
             selected={bookSelected && bookSelected === book.id}
             selectBook={this.selectBook}
             unselectBook={this.unselectBook}

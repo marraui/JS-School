@@ -1,9 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Book.scss';
 import bookmarkImage from '../../assets/images/bookmark.png';
 import userImage from '../../assets/images/user_image.jpg';
 import Reservation from '../reservation/Reservation';
+import {
+  BookAuthor,
+  BookContainer,
+  BookCover,
+  BookDetails,
+  BookRating,
+  BookTitle,
+  BookmarkButton,
+  BookmarkIcon,
+  BubbleTextArrow,
+  DescriptionButton,
+  DetailsHead,
+  DetailsRating,
+  DetailsRecommended,
+  DetailsSummary,
+  HeartButton,
+  LendButton,
+  Overlay,
+  Seethrough,
+  SeethroughRating,
+  SeethroughTitle,
+} from './Layout';
 
 export default class Book extends Component {
   constructor(props) {
@@ -57,7 +78,7 @@ export default class Book extends Component {
     this.setState({
       openedLendOptions: !openedLendOptions,
       openedDetails: openedLendOptions ? openedDetails : false,
-      lendReversed: reversed,
+      ...(openedLendOptions ? {} : { lendReversed: reversed }),
     });
   }
 
@@ -84,6 +105,7 @@ export default class Book extends Component {
 
   clickSeethroughHandler(event) {
     event.stopPropagation();
+    event.preventDefault();
     const { openedSeethroughOptions } = this.state;
     const { id, selectBook } = this.props;
     selectBook(id);
@@ -115,6 +137,7 @@ export default class Book extends Component {
   }
 
   clickDescriptionHandler(event) {
+    event.preventDefault();
     event.stopPropagation();
     const { openedDetails, openedLendOptions } = this.state;
     const { id, selectBook } = this.props;
@@ -160,6 +183,7 @@ export default class Book extends Component {
       roundedAverageRating,
       thumbnail,
       id,
+      format,
     } = this.props;
 
     const {
@@ -174,7 +198,7 @@ export default class Book extends Component {
     } = this.state;
 
     return (
-      <div className="book-container" ref={this.bookContainerRef}>
+      <BookContainer ref={this.bookContainerRef}>
         <div
           className="label-btn"
           onMouseEnter={this.mouseEnterSeethroughHandler}
@@ -184,12 +208,11 @@ export default class Book extends Component {
           tabIndex="0"
           role="button"
         >
-          <div className="book-cover-wrapper">
+          <BookCover>
             <img src={thumbnail} alt="Everything I never told you" className="book-cover" />
-            <div className={`${openedSeethroughOptions ? 'book-cover-seethrough-selected' : 'book-cover-seethrough-unselected'}`}>
+            <Seethrough selected={openedSeethroughOptions}>
               <div className="heart-button-cell">
-                <div
-                  className="heart-button-wrapper"
+                <HeartButton
                   onClick={this.clickLikeHandler}
                   onTouchEnd={this.clickLikeHandler}
                   onKeyDown={(event) => (
@@ -200,11 +223,10 @@ export default class Book extends Component {
                   tabIndex="0"
                 >
                   <i className={`${liked ? 'fa' : 'far'} fa-heart`} />
-                </div>
+                </HeartButton>
               </div>
               <div className="bookmark-button-cell">
-                <div
-                  className="bookmark-button-wrapper"
+                <BookmarkButton
                   onClick={this.clickBookmarkHandler}
                   onTouchEnd={this.clickBookmarkHandler}
                   onKeyDown={(event) => (
@@ -215,12 +237,13 @@ export default class Book extends Component {
                   tabIndex="0"
                 >
                   <i className={`${bookmarked ? 'fa' : 'far'} fa-bookmark`} />
-                </div>
+                </BookmarkButton>
               </div>
               <div className="description-button-cell">
-                <div
+                <DescriptionButton
                   className="description-button-wrapper"
                   onClick={this.clickDescriptionHandler}
+                  onTouchEnd={this.clickDescriptionHandler}
                   onKeyDown={(event) => (
                     event.keyCode === 32
                       ? this.clickDescriptionHandler(event)
@@ -229,13 +252,13 @@ export default class Book extends Component {
                   tabIndex="0"
                 >
                   <i className="fa fa-book-open" />
-                </div>
+                </DescriptionButton>
               </div>
               <div className="seethrough-title-rating">
-                <div className="seethrough-title">
-                    RATE THIS BOOK
-                </div>
-                <div className="seethrough-rating">
+                <SeethroughTitle>
+                  RATE THIS BOOK
+                </SeethroughTitle>
+                <SeethroughRating>
                   <i
                     className={`${userRating >= 1 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 1)}
@@ -298,16 +321,16 @@ export default class Book extends Component {
                     role="button"
                     aria-label="Rate 5 stars"
                   />
-                </div>
+                </SeethroughRating>
               </div>
-            </div>
-          </div>
+            </Seethrough>
+          </BookCover>
           {
             openedDetails
               ? (
-                <div
-                  className="viewport-container"
+                <Overlay
                   onClick={this.clickOutsideHandler}
+                  onTouchEnd={this.clickOutsideHandler}
                   onKeyDown={(event) => (
                     event.keyCode === 32
                       ? this.clickOutsideHandler(event)
@@ -320,9 +343,11 @@ export default class Book extends Component {
               )
               : null
           }
-          <div
-            className={`${openedDetails ? 'book-details-selected' : 'book-details-unselected'} ${detailsReversed ? 'reversed' : ''}`}
+          <BookDetails
+            reversed={detailsReversed}
+            selected={openedDetails}
             onClick={this.clickDescriptionHandler}
+            onTouchEnd={this.clickDescriptionHandler}
             onKeyDown={(event) => (
               event.keyCode === 32
                 ? this.clickDescriptionHandler(event)
@@ -331,11 +356,11 @@ export default class Book extends Component {
             role="button"
             tabIndex="0"
           >
-            <div className="bubble-text-arrow">
+            <BubbleTextArrow>
               <div className="bubble-text-arrow-top" />
               <div className="bubble-text-arrow-bottom" />
-            </div>
-            <div className="book-details-head">
+            </BubbleTextArrow>
+            <DetailsHead>
               <div className="book-details-title">
                 {title}
               </div>
@@ -352,14 +377,14 @@ export default class Book extends Component {
                 {`${pageCount} `}
                 pages
               </div>
-            </div>
-            <div className="book-details-summary">
+            </DetailsHead>
+            <DetailsSummary>
               <div className="book-details-section-title">SUMMARY</div>
               <div className="book-details-summary-body">
                 {description}
               </div>
-            </div>
-            <div className="book-details-rating">
+            </DetailsSummary>
+            <DetailsRating>
               <div className="book-details-section-title">RATING</div>
               <div className="book-details-rating-stars">
                 <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
@@ -368,48 +393,69 @@ export default class Book extends Component {
                 <i className={`${roundedAverageRating >= 4 ? 'fa' : 'far'} fa-star`} />
                 <i className={`${roundedAverageRating >= 5 ? 'fa' : 'far'} fa-star`} />
               </div>
-            </div>
-            <div className="book-details-recommended">
+            </DetailsRating>
+            <DetailsRecommended>
               <div className="book-details-section-title">RECOMMENDED BY</div>
               <div className="book-details-recommended-body">
                 <div className="book-details-recommended-img-wrapper">
                   <img src={userImage} alt="user" className="book-details-recommended-img" />
                 </div>
               </div>
-            </div>
-          </div>
+            </DetailsRecommended>
+          </BookDetails>
         </div>
-        <div className="book-title">
+        <BookTitle className="book-title">
           {title}
-        </div>
-        <div className="book-author">
+        </BookTitle>
+        <BookAuthor className="book-author">
           {author}
-        </div>
-        <div
-          className="book-lend-button"
+        </BookAuthor>
+        <LendButton
           role="button"
-          onClick={this.clickLendButtonHandler}
+          available={format === 'Physical'}
+          onClick={(event) => (format === 'Physical' ? this.clickLendButtonHandler(event) : null)}
           onKeyDown={(event) => (event.keyCode === 32 ? this.clickLendButtonHandler(event) : null)}
           tabIndex="0"
         >
-          Reserve
-        </div>
-        <div className="book-rating">
+          {format === 'Physical' ? 'Reserve' : format}
+        </LendButton>
+        <BookRating className="book-rating">
           <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
           <i className={`${roundedAverageRating >= 2 ? 'fa' : 'far'} fa-star`} />
           <i className={`${roundedAverageRating >= 3 ? 'fa' : 'far'} fa-star`} />
           <i className={`${roundedAverageRating >= 4 ? 'fa' : 'far'} fa-star`} />
           <i className={`${roundedAverageRating >= 5 ? 'fa' : 'far'} fa-star`} />
-        </div>
+        </BookRating>
 
-        <img
+        <BookmarkIcon
           src={bookmarkImage}
           alt="bookmark-icon"
-          className={bookmarked ? 'bookmark-icon-selected' : 'bookmark-icon-unselected'}
           ref={this.bookmarkIcon}
         />
-        {openedLendOptions ? <Reservation bookId={id} closeListener={this.clickLendButtonHandler} openLeft={lendReversed} /> : ''}
-      </div>
+
+        {openedLendOptions
+          ? (
+            <>
+              <Overlay
+                onClick={this.clickOutsideHandler}
+                onKeyDown={(event) => (
+                  event.keyCode === 32
+                    ? this.clickOutsideHandler(event)
+                    : null
+                )}
+                role="button"
+                tabIndex="0"
+                aria-label="Overlay"
+              />
+              <Reservation
+                bookId={id}
+                closeListener={this.clickLendButtonHandler}
+                openLeft={lendReversed}
+              />
+            </>
+          )
+          : ''}
+      </BookContainer>
     );
   }
 }
@@ -422,6 +468,7 @@ Book.propTypes = {
   pageCount: PropTypes.string,
   roundedAverageRating: PropTypes.number,
   thumbnail: PropTypes.string,
+  format: PropTypes.string,
   id: PropTypes.string,
   selected: PropTypes.bool,
   selectBook: PropTypes.func,
@@ -434,6 +481,7 @@ Book.defaultProps = {
   publishedDate: 'No published date',
   description: 'No description',
   pageCount: 'Not available',
+  format: 'Unavailable',
   roundedAverageRating: 0,
   thumbnail: '',
   id: '',

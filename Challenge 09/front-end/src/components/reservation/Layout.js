@@ -8,10 +8,11 @@ export const ReservationContainer = styled.div`
   position: absolute;
   left: ${(props) => (props.reversed ? '-20.625rem' : '10.3125rem')};
   top: 0rem;
-  width: 16.375rem;
+  width: 19.375rem;
   z-index: 100 !important;
   padding: 1.5625rem;
   border-radius: 0.25rem;
+  box-sizing: border-box;
 
   @media (max-width: 1020px) {
     top: 0rem;
@@ -37,6 +38,10 @@ export const BubbleTextArrow = styled.div`
     top: 0.625rem;
     border: 0.3125rem solid;
     border-color: ${(props) => (props.reversed ? 'rgba(35, 31, 32, 0.88) transparent transparent rgba(35, 31, 32, 0.88)' : 'rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88) transparent transparent')};
+  }
+
+  @media(max-width: 1020px) {
+    display: none;
   }
 `;
 

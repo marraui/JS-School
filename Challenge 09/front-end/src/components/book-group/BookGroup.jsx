@@ -97,7 +97,6 @@ class BookGroup extends Component {
       resPerPage: resPerPageCreator,
       totalOfBooks: totalOfBooksCreator,
     } = this.props;
-
     const headers = new Headers();
     headers.set('Authorization', `JWT ${token}`);
     const url = new URL('http://localhost:3001/api/book');
@@ -106,7 +105,7 @@ class BookGroup extends Component {
     fetch(url, {
       headers,
     }).then((response) => {
-      if (response.status === 400) throw new Error('No content');
+      if (response.status === 204) throw new Error('No content');
       return response.json();
     }).then((jsonResponse) => {
       if (jsonResponse.message) throw new Error(jsonResponse.message);

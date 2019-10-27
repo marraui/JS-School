@@ -72,7 +72,7 @@ class Login extends Component {
         password,
       }),
     }).then((response) => {
-      if (response.status === 400) throw new Error('No content');
+      if (response.status === 204) throw new Error('No content');
       return response.json();
     }).then((jsonResponse) => {
       const { token } = jsonResponse;
@@ -104,7 +104,7 @@ class Login extends Component {
         password,
       }),
     }).then((response) => {
-      if (response.status === 400) throw new Error('No content');
+      if (response.status === 204) throw new Error('No content');
       return response.json();
     }).then((jsonResponse) => {
       if (jsonResponse.message) throw new Error(jsonResponse.message);

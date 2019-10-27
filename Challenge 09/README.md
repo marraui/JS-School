@@ -1,6 +1,6 @@
-# Challenge 08
+# Challenge 09
 
-For this challenge we had to add routing to a login page, authentication handling, and routing to last week's project. 
+For this challenge we had to refactor the code in order to use Redux and styled components inside the application. 
 
 ## How to run
 
@@ -8,23 +8,31 @@ Make sure to read the README files inside the front-end and back-end directory. 
 
 ## How it works
 
-### Login Component
+### Redux
 
-The login component is a form with an email input and a password input, along side with the button that allow for both registering a new user and also logging in with an already existing user. Once the user logs in, the server responds with a javascript web token that is used for all requests inside the application.
+A global state is kept using redux, inside it the application stores the following information:
 
-### Reservation Component
+* Authorization token for a user when he's logged in.
 
-In order to make use of the lend access point inside the server a new component needed to be made that allows the user to make a reservation of any physical book in an interval of time. This component asks for the date for when the book will me taken, and an input for when the book will be returned. In order to ask for date's input the react-datepicker library was used.
+* Books being displayed.
 
-### Router
+* Filtering parameters:
+    * Search input
+    * City
+    * Format
+    * Page
 
-Since now the application had two views, the main one, and the login view, it was necessary to handle routing inside the website. The router will show login view if there's no token inside the session storage, otherwise it will show the main view.
+In order to use redux inside the application redux, and react-redux were added as dependencies to the project. There are also 3 new subdirectories inside the front-end directory:
 
-The application stores the filtering parameters in the url, that way, when the user add a new filter, the application adds it to the url and the necessary components update automatically.
+* store: Where the Redux store is created.
+* actions: Where all the action creators are defined.
+* reducers: Where all the reducers are defined
 
-### Pagination
+There's also a new filed action-types.js, inside a constants directory, that exports all actions types as const variables to avoid typos.
 
-Pagination parameter were added to the backend, by default it shows 9 results per page. Because of this now the structure for the response of ```api/book``` changed a bit, now the results are inside a ```books``` variable and along side it there's some metadata, that being, the current page and the total number of books.
+### Styled components
+
+Inside each component folder a new file called Layout.js was created, inside it there are all the styled components necessary to build the component. The sass filed inside each component were removed.
 
 ## Notes
 

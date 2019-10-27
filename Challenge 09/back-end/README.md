@@ -1,8 +1,8 @@
 # Run the Back End
 
-* Install docker in your computer
+* Install docker in your computer. [Instructions for installing docker](https://docs.docker.com/install/)
 
-* Go inside the back-end directory: ```cd ./Challenge\ 08/back-end```.
+* Go inside the back-end directory: ```cd ./Challenge\ 09/back-end```.
 
 * Make sure to store your private key inside a "private-key.txt" file, inside the back-end directory.
 

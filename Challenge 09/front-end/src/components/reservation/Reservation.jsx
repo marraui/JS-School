@@ -87,12 +87,13 @@ export default class Reservation extends Component {
     } = this.state;
     const {
       openLeft,
+      closeListener,
     } = this.props;
     return (
       <ReservationContainer
         onSubmit={this.submitHandler}
+        onClick={closeListener}
         reversed={openLeft}
-        onKeyDown={this.submitHandler}
         role="button"
         tabIndex="0"
       >

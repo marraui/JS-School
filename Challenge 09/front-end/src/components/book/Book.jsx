@@ -262,6 +262,7 @@ export default class Book extends Component {
                   <i
                     className={`${userRating >= 1 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 1)}
+                    onTouchEnd={(event) => this.clickRatingHandler(event, 1)}
                     onKeyDown={(event) => (
                       event.keyCode === 32
                         ? this.clickRatingHandler(event, 1)
@@ -274,6 +275,7 @@ export default class Book extends Component {
                   <i
                     className={`${userRating >= 2 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 2)}
+                    onTouchEnd={(event) => this.clickRatingHandler(event, 2)}
                     onKeyDown={(event) => (
                       event.keyCode === 32
                         ? this.clickRatingHandler(event, 2)
@@ -286,6 +288,7 @@ export default class Book extends Component {
                   <i
                     className={`${userRating >= 3 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 3)}
+                    onTouchEnd={(event) => this.clickRatingHandler(event, 3)}
                     onKeyDown={(event) => (
                       event.keyCode === 32
                         ? this.clickRatingHandler(event, 3)
@@ -298,6 +301,7 @@ export default class Book extends Component {
                   <i
                     className={`${userRating >= 4 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 4)}
+                    onTouchEnd={(event) => this.clickRatingHandler(event, 4)}
                     onKeyDown={
                       (event) => (
                         event.keyCode === 32
@@ -312,6 +316,7 @@ export default class Book extends Component {
                   <i
                     className={`${userRating >= 5 ? 'fa' : 'far'} fa-star`}
                     onClick={(event) => this.clickRatingHandler(event, 5)}
+                    onTouchEnd={(event) => this.clickRatingHandler(event, 5)}
                     onKeyDown={(event) => (
                       event.keyCode === 32
                         ? this.clickRatingHandler(event, 5)
@@ -428,6 +433,7 @@ export default class Book extends Component {
         </BookRating>
 
         <BookmarkIcon
+          selected={bookmarked}
           src={bookmarkImage}
           alt="bookmark-icon"
           ref={this.bookmarkIcon}

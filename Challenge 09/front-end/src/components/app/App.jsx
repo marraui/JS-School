@@ -87,7 +87,7 @@ class App extends Component {
     else unselectFormat();
 
     if (params.searchInput) searchBook(params.searchInput);
-    else searchBook();
+    else searchBook('');
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -113,7 +113,7 @@ class App extends Component {
     else unselectFormat();
 
     if (params.searchInput) searchBook(params.searchInput);
-    else searchBook();
+    else searchBook('');
   }
 
   clickLeftSideBarItemHandler(event, itemNumber) {

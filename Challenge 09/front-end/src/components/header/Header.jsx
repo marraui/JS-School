@@ -31,6 +31,7 @@ class Header extends Component {
   logoutHandler(event) {
     event.stopPropagation();
     const { logOut } = this.props;
+    sessionStorage.removeItem('token');
     logOut();
   }
 

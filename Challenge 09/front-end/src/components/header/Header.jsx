@@ -95,7 +95,7 @@ class Header extends Component {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);
 
 Header.propTypes = {
   onSearch: PropTypes.func,

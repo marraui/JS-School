@@ -94,8 +94,8 @@ export const HeartButton = styled.div`
   grid-column: 1;
   grid-row: 1;
   border-radius: 100%;
-  background-color: #FFFFFF;
-  color: #9E9E9E;
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.lightSecondaryText};
   width: 1.5625rem;
   height: 1.5625rem;
   display: flex;
@@ -108,8 +108,8 @@ export const BookmarkButton = styled.div`
   grid-column: 3;
   grid-row: 1;
   border-radius: 100%;
-  background-color: #FFFFFF;
-  color: #9E9E9E;
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.lightSecondaryText};
   width: 1.5625rem;
   height: 1.5625rem;
   display: flex;
@@ -122,8 +122,8 @@ export const DescriptionButton = styled.div`
   grid-column: 2;
   grid-row: 2;
   border-radius: 100%;
-  background-color: #FFFFFF;
-  color: #6EC1E4;
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.secondary};
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -134,13 +134,13 @@ export const DescriptionButton = styled.div`
 export const SeethroughTitle = styled.div`
   font-family: 'Pluto Sans Cond Medium';
   font-size: 0.625rem;
-  color: #FCF8F3;
+  color: ${(props) => props.theme.lightPrimary};
   margin-bottom: 0.25rem;
 `;
 
 export const SeethroughRating = styled.div`
   font-size: 0.625rem;
-  color: #E9BD49;
+  color: ${(props) => props.theme.userStar};
 `;
 
 export const BookDetails = styled.div`
@@ -159,7 +159,7 @@ export const BookDetails = styled.div`
 
   .book-details-section-title {
     font-family: 'Pluto Sans Cond Bold';
-    color: #858585;
+    color: ${(props) => props.theme.darkSecondaryText};
     font-size: 0.6875rem;
   }
 
@@ -184,13 +184,13 @@ export const BubbleTextArrow = styled.div`
 
   .bubble-text-arrow-top {
     border: 0.3125rem solid;
-    border-color: ${(props) => (props.reversed ? 'transparent transparent rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88)' : 'transparent rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88) transparent')};
+    border-color: ${(props) => (props.reversed ? `transparent transparent ${props.theme.seethrough} ${props.theme.seethrough}` : `transparent ${props.theme.seethrough} ${props.theme.seethrough} transparent`)};
   }
   
   .bubble-text-arrow-bottom {
     top: 0.625rem;
     border: 0.3125rem solid;
-    border-color: ${(props) => (props.reversed ? 'rgba(35, 31, 32, 0.88) transparent transparent rgba(35, 31, 32, 0.88)' : 'rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88) transparent transparent')};
+    border-color: ${(props) => (props.reversed ? `${props.theme.seethrough} transparent transparent ${props.theme.seethrough}` : `${props.theme.seethrough} ${props.theme.seethrough} transparent transparent`)};
   }
 
   @media(max-width: 1020px) {
@@ -208,13 +208,13 @@ export const DetailsHead = styled.div`
   .book-details-title {
     text-transform: uppercase;
     grid-column: 1;
-    color: #5EB4DD;
+    color: ${(props) => props.theme.lightSecondary};
     font-family: 'Pluto Sans Cond Bold';
   }
   
   .book-details-year {
     grid-column: 2;
-    color: #858585;
+    color: ${(props) => props.theme.darkSecondaryText};
     font-family: 'Pluto Sans Cond Regular';
   }
   
@@ -224,19 +224,19 @@ export const DetailsHead = styled.div`
   }
   
   .book-details-novel-by {
-    color: #FFFFFF;
+    color: ${(props) => props.theme.primary};
     display: inline-block;
   }
   
   .book-details-author-name {
-    color: #858585;
+    color: ${(props) => props.theme.darkSecondaryText};
     display: inline-block;
   }
   
   .book-details-pages {
     font-family: 'Pluto Sans Cond Regular';
     grid-column: 1;
-    color: #FFFFFF;
+    color: ${(props) => props.theme.primary};
   }
 
   @media(max-width: 1020px) {
@@ -253,7 +253,7 @@ export const DetailsSummary = styled.div`
   
   .book-details-summary-body {
     font-family: 'Pluto Sans Cond Regular';
-    color: #FFFFFF;
+    color: ${(props) => props.theme.primary};
   }  
 
   @media(max-width: 1020px) {
@@ -270,7 +270,7 @@ export const DetailsRating = styled.div`
   .book-details-rating-stars {
     grid-column: 1fr;
     font-size: 0.6875rem;
-    color: #6EC1E4;
+    color: ${(props) => props.theme.secondary};
   }
 
   @media(max-width: 1020px) {
@@ -311,7 +311,7 @@ export const BookTitle = styled.div`
   overflow: hidden;
   font-family: 'Pluto Sans Cond Medium';
   font-size: 0.75rem;
-  color: #383838;
+  color: ${(props) => props.theme.bookTitle};
 `;
 
 export const BookAuthor = styled.div`
@@ -320,14 +320,14 @@ export const BookAuthor = styled.div`
   overflow: hidden;
   font-family: 'Pluto Sans Cond Light';
   font-size: 0.625rem;
-  color: #9E9E9E;
+  color: ${(props) => props.theme.lightSecondaryText};
 `;
 
 export const LendButton = styled.div`
   font-family: 'Pluto Sans Cond Light';
   font-size: 0.625rem;
-  color: #FFFFFF;
-  background-color: ${(props) => (props.available ? '#6EC1E4' : 'gray')};
+  color: ${(props) => props.theme.primary};
+  background-color: ${(props) => (props.available ? props.theme.secondary : props.theme.secondaryText)};
   border-radius: 0.3rem;
   justify-self: flex-start;
   padding: 0.3rem;
@@ -336,5 +336,5 @@ export const LendButton = styled.div`
 
 export const BookRating = styled.div`
   font-size: 0.6875rem;
-  color: #6EC1E4;
+  color: ${(props) => props.theme.secondary};
 `;

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ReservationContainer = styled.div`
   background: rgba(35, 31, 32, 0.88);
-  color: white;
+  color: ${(props) => props.theme.primary};
   font-family: 'Pluto Sans Regular';
   font-size: 1.5rem;
   position: absolute;
@@ -31,13 +31,13 @@ export const BubbleTextArrow = styled.div`
 
   .bubble-text-arrow-top {
     border: 0.3125rem solid;
-    border-color: ${(props) => (props.reversed ? 'transparent transparent rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88)' : 'transparent rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88) transparent')};
+    border-color: ${(props) => (props.reversed ? `transparent transparent ${props.theme.seethrough} ${props.theme.seethrough}` : `transparent ${props.theme.seethrough} ${props.theme.seethrough} transparent`)};
   }
   
   .bubble-text-arrow-bottom {
     top: 0.625rem;
     border: 0.3125rem solid;
-    border-color: ${(props) => (props.reversed ? 'rgba(35, 31, 32, 0.88) transparent transparent rgba(35, 31, 32, 0.88)' : 'rgba(35, 31, 32, 0.88) rgba(35, 31, 32, 0.88) transparent transparent')};
+    border-color: ${(props) => (props.reversed ? `${props.theme.seethrough} transparent transparent ${props.theme.seethrough}` : `${props.theme.seethrough} ${props.theme.seethrough} transparent transparent`)};
   }
 
   @media(max-width: 1020px) {
@@ -54,8 +54,8 @@ export const FormInput = styled.label`
 export const SubmitButton = styled.input`
   padding: 0.4rem;
   border-radius: 10%;
-  background-color: #5EB4DD;
-  color: #FFFFFF;
+  background-color: ${(props) => props.theme.lightSecondary};
+  color: ${(props) => props.theme.primary};
   font-size: 1rem;
   white-space: unset;
   border-style: unset;

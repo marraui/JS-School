@@ -5,7 +5,7 @@ export const AppContainer = styled.div`
   grid-template-columns: 12.3125rem 39fr 12.3125rem;
   grid-template-rows: 80fr 921fr;
   height: 53.5625rem;
-  background-color: #F5F6F8;
+  background-color: ${(props) => props.theme.lighterPrimary};
 
   @media (max-width: 1020px) {
     grid-template-columns: 2fr 1fr;
@@ -24,11 +24,11 @@ export const CollapsibleButton = styled.div`
     grid-column: ${(props) => ((props.toTheRight && '2') || '1')};
     grid-row: 3;
     justify-self: ${(props) => ((props.toTheRight && 'right') || 'left')};
-    background: #231F20;
+    background: ${(props) => props.theme.primaryText};
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff;
+    color: ${(props) => props.theme.primary};
     padding: 1.25rem;
     border-radius: ${(props) => ((props.toTheRight && '0.625rem 0rem 0rem 0.625rem') || '0rem 0.625rem 0.625rem 0rem')};
   }
@@ -41,7 +41,7 @@ export const LeftSideBar = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content;
   row-gap: 2.9375rem;
-  background-color: #231F20;
+  background-color: ${(props) => props.theme.primaryText};
   padding: 1.875rem 2rem;
 
   @media (max-width: 1020px) {
@@ -61,7 +61,7 @@ export const SubLeftSideBar = styled.div`
 export const RightSideBar = styled.div`
   grid-column: 3/4;
   grid-row: 2/3;
-  background-color: #231F20;
+  background-color: ${(props) => props.theme.primaryText};
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: min-content;
@@ -76,7 +76,7 @@ export const RightSideBar = styled.div`
 `;
 
 export const LeftSideBarItem = styled.div`
-  color: ${(props) => ((props.selected && '#FFFFFF') || '#6EC1E4')};
+  color: ${(props) => ((props.selected && props.theme.primary) || props.theme.secondary)};
   font-size: 0.6875rem;
   font-family: "Pluto Sans Cond Light";
   cursor: pointer;
@@ -96,18 +96,18 @@ export const RightSideBarItem = styled.div`
   white-space: nowrap;
   overflow: hidden;
   font-family: 'Pluto Sans Cond Light';
-  color: #FCF8F3;
+  color: ${(props) => props.theme.lightPrimary};
   font-size: 0.6188rem;
 `;
 
 export const LeftSideBarTitle = styled.div`
   font-family: 'Pluto Sans Cond Light';
-  color: #FFFFFF;
+  color: ${(props) => props.theme.primary};
   font-size: 0.6875rem;
 `;
 
 export const RightSideBarTitle = styled.div`
   font-family: 'Pluto Sans Bold';
   font-size: 0.5625rem;
-  color: #FCF8F3;
+  color: ${(props) => props.theme.lightPrimary};
 `;

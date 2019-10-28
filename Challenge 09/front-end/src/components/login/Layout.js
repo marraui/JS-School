@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LoginContainer = styled.div`
-  background-color: #6EC1E4;
+  background-color: ${(props) => props.theme.secondary};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,7 @@ export const LoginContainer = styled.div`
 `;
 
 export const LoginForm = styled.form`
-  background-color: #FFFFFF;
+  background-color: ${(props) => props.theme.primary};
   border-radius: 20%;
   padding: 2rem;
   display: grid;
@@ -34,7 +34,7 @@ export const EmailLabel = styled.label`
 
 export const EmailInput = styled.input`
   border-radius: 20%;
-  border: 0.0625rem solid #6EC1E4;
+  border: 0.0625rem solid ${(props) => props.theme.secondary};
   border-radius: 1rem 1rem 1rem 1rem;
   height: 1.5rem;
   padding-left: 1rem;
@@ -51,7 +51,7 @@ export const PasswordLabel = styled.label`
 
 export const PasswordInput = styled.input`
   border-radius: 20%;
-  border: 0.0625rem solid #6EC1E4;
+  border: 0.0625rem solid ${(props) => props.theme.secondary};
   border-radius: 1rem 1rem 1rem 1rem;
   height: 1.5rem;
   padding-left: 1rem;

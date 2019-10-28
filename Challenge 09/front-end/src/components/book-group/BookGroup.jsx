@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+import { withTheme } from 'styled-components';
 import Book from '../book/Book';
 import {
   BookGroupContainer,
   LoadContainer,
 } from './Layout';
 import * as actions from '../../actions/index';
+import { themePropType } from '../../styles/theme';
 
 function mapStateToProps(state) {
   return {
@@ -156,11 +158,12 @@ class BookGroup extends Component {
     const {
       books,
       fetchingBooks: loading,
+      theme,
     } = this.props;
     if (loading) {
       return (
         <LoadContainer>
-          <ReactLoading type="spin" color="#5EB4DD" />
+          <ReactLoading type="spin" color={theme.lightSecondary} />
         </LoadContainer>
       );
     }
@@ -213,6 +216,7 @@ BookGroup.propTypes = {
   resPerPage: PropTypes.func.isRequired,
   totalOfBooks: PropTypes.func.isRequired,
   fetchingBooksCreator: PropTypes.func.isRequired,
+  theme: themePropType.isRequired,
 };
 
 BookGroup.defaultProps = {
@@ -225,4 +229,4 @@ BookGroup.defaultProps = {
   token: '',
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BookGroup));
+export default withRouter(withTheme(connect(mapStateToProps, mapDispatchToProps)(BookGroup)));

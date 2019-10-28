@@ -7,7 +7,7 @@ export const BookDisplayContainer = styled.div`
   grid-template-columns: 2fr 1fr 1fr 2fr;
   grid-template-rows: auto 1fr;
   row-gap: 1.125rem;
-  background-color: #F5F6F8;
+  background-color: ${(props) => props.theme.lighterPrimary};
   padding: 1.5625rem 4.125rem 0rem 4.125rem;
   overflow: scroll;
   
@@ -29,7 +29,7 @@ export const BookDisplayHeader = styled.div`
     grid-row: 1;
     font-family: 'Pluto Sans Cond Light';
     font-size: 1.0313rem;
-    color: #231F20;
+    color: ${(props) => props.theme.primaryText};
   }
 
   .sort-by {
@@ -44,12 +44,12 @@ export const BookDisplayHeader = styled.div`
     grid-row: 1;
     font-family: 'Pluto Sans Cond Medium';
     font-size: 0.7188rem;
-    color: #979797;
+    color: ${(props) => props.theme.secondaryText};
     justify-self: right;
     align-self: center;
     border-right-width: 0.0625rem;
     border-right-style: solid;
-    border-right-color: #979797;
+    border-right-color: ${(props) => props.theme.secondaryText};
     padding-right: 0.4375rem;
   }
 
@@ -58,7 +58,7 @@ export const BookDisplayHeader = styled.div`
     grid-row: 1;
     font-family: 'Pluto Sans Cond Regular';
     font-size: 0.7188rem;
-    color: #858585;
+    color: ${(props) => props.theme.darkSecondaryText};
     align-self: center;
     justify-self: left;
     padding-left: 0.4375rem;
@@ -68,7 +68,7 @@ export const BookDisplayHeader = styled.div`
     grid-column: 4;
     grid-row: 1;
     font-size: 1rem;
-    color: #6EC1E4;
+    color: ${(props) => props.theme.secondary};
     justify-self: end;
     align-self: center;
   }
@@ -118,20 +118,20 @@ export const Pagination = styled.div`
   align-items: center;
   justify-content: center;
   display: grid;
-  color: white;
+  color: ${(props) => props.theme.primary};
   grid-template-columns: 1fr 1fr 1fr;
   justify-self: center;
   column-gap: 0.3rem;
 
   .page-counter {
-    color: black;
+    color: ${(props) => props.theme.primaryText};
     display: flex;
     justify-content: center;
   }
 `;
 
 export const Arrow = styled.div`
-  background-color: #6EC1E4;
+  background-color: ${(props) => props.theme.secondary};
   border-radius: 0.5rem;
   padding: 0.5rem;
   visibility: ${(props) => (props.show !== undefined ? (props.show && 'unset') || 'hidden' : 'unset')};

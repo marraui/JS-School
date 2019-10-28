@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
 
 export const Logo = styled.div`
   font-family: 'Pluto Sans Cond Regular';
-  background-color: #FFFFFF;
+  background-color: ${(props) => props.theme.primary};
   text-align: center;
   grid-column: 1/2;
   grid-row: 1/2;
@@ -23,7 +23,7 @@ export const Logo = styled.div`
   justify-content: center;
   align-content: center;
   padding: 0.875rem 1.5625rem;
-  border-bottom: 0.0625rem solid #6EC1E4;
+  border-bottom: 0.0625rem solid ${(props) => props.theme.secondary};
 
   .jobsity-logo {
     grid-column: 1;
@@ -49,11 +49,11 @@ export const Logo = styled.div`
 `;
 
 export const UserProfile = styled.div`
-  background-color: #FCF8F3;
+  background-color: ${(props) => props.theme.lightPrimary};
   text-align: center;
   grid-column: 3/4;
   grid-row: 1/2;
-  border-bottom: 0.0625rem solid #6EC1E4;
+  border-bottom: 0.0625rem solid ${(props) => props.theme.secondary};
 
   .user-border-wrapper {
     display: grid;
@@ -71,7 +71,7 @@ export const UserProfile = styled.div`
     align-items: center;
     justify-content: flex-end;
     font-size: 0.6875rem;
-    border-left: 0.0625rem solid #979797;
+    border-left: 0.0625rem solid ${(props) => props.theme.secondaryText};
     cursor: pointer;
   }
 
@@ -89,7 +89,7 @@ export const UserProfile = styled.div`
   .circular-image-wrapper {
     width: 2.125rem;
     height: 2.125rem;
-    border: 0.125rem solid #6EC1E4;
+    border: 0.125rem solid ${(props) => props.theme.secondary};
     overflow: hidden;
     border-radius: 50%;
     display: flex;
@@ -109,10 +109,10 @@ export const UserProfile = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: #FCF8F3;
+    background-color: ${(props) => props.theme.lightPrimary};
     padding-right: 0.75rem;
     box-sizing: border-box;
-    border: 1px solid #979797;
+    border: 1px solid ${(props) => props.theme.secondaryText};
     cursor: pointer;
   }
   @media (max-width: 1020px) {

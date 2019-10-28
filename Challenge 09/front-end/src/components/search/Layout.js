@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const SearchContainer = styled.div`
-  background-color: #FCF8F3;
+  background-color: ${(props) => props.theme.lightPrimary};
   text-align: center;
   grid-column: 2/3;
   grid-row: 1/2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0rem 1.25rem;
-  border-bottom: 0.0625rem solid #6EC1E4;
+  border-bottom: 0.0625rem solid ${(props) => props.theme.secondary};
   @media (max-width: 1020px) {
     grid-column: 1/3;
     grid-row: 2;
@@ -32,10 +32,10 @@ export const SearchBox = styled.form`
 `;
 
 export const InputWrapper = styled.label`
-  border: 0.0625rem solid #6EC1E4;
+  border: 0.0625rem solid ${(props) => props.theme.secondary};
   border-radius: 1rem 1rem 1rem 1rem;
   padding: 0.3125rem 0.625rem;
-  background-color: #FFFFFF;
+  background-color: ${(props) => props.theme.primary};
   display: grid;
   grid-template-columns: min-content 1fr;
   column-gap: 0.3125rem;

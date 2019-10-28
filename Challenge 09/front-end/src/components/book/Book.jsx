@@ -359,7 +359,7 @@ export default class Book extends Component {
             role="button"
             tabIndex="0"
           >
-            <BubbleTextArrow>
+            <BubbleTextArrow reversed={detailsReversed}>
               <div className="bubble-text-arrow-top" />
               <div className="bubble-text-arrow-bottom" />
             </BubbleTextArrow>
@@ -371,7 +371,7 @@ export default class Book extends Component {
                 {publishedDate}
               </div>
               <div className="book-details-author">
-                <div className="book-details-novel-by">Novel by</div>
+                <div className="book-details-novel-by">Novel by&nbsp;</div>
                 <div className="book-details-author-name">
                   {` ${author}`}
                 </div>

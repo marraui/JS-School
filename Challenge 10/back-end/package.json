@@ -1,0 +1,36 @@
+{
+  "name": "challenge-06",
+  "version": "1.0.0",
+  "description": "Bookshelf server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/index.js",
+    "populate": "node populate_database.js",
+    "build": "gulp"
+  },
+  "author": "Camilo Rosales",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.6.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "core-js": "^3.2.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.3.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.3.2",
+    "regenerator-runtime": "^0.13.3",
+    "source-map-support": "^0.5.13"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.6.2",
+    "del": "^5.1.0",
+    "glob": "^7.1.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "node-fetch": "^2.6.0"
+  }
+}

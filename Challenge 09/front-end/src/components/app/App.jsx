@@ -49,7 +49,6 @@ class App extends Component {
     this.clickLeftSideBarButtonHandler = this.clickLeftSideBarButtonHandler.bind(this);
     this.clickRightSideBarButtonHandler = this.clickRightSideBarButtonHandler.bind(this);
     this.clickLeftSideBarItemHandler = this.clickLeftSideBarItemHandler.bind(this);
-    this.bookDisplay = React.createRef();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -348,7 +347,7 @@ class App extends Component {
             5. How Google Works
           </RightSideBarItem>
         </RightSideBar>
-        <BookDisplay ref={this.bookDisplay} />
+        <BookDisplay />
       </AppContainer>
     );
   }

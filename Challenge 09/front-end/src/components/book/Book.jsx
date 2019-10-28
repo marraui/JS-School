@@ -48,8 +48,6 @@ export default class Book extends Component {
     this.mouseLeaveSeethroughHanlder = this.mouseLeaveSeethroughHanlder.bind(this);
     this.clickLendButtonHandler = this.clickLendButtonHandler.bind(this);
     this.clickOutsideHandler = this.clickOutsideHandler.bind(this);
-
-    this.bookContainerRef = React.createRef();
   }
 
   static getDerivedStateFromProps(nextProps) {

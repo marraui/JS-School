@@ -125,7 +125,7 @@ export class DatabaseManager {
             ... (bookId ? {"book:id": bookId} : {}),
             ... (userEmail ? {"user.email": userEmail} : {}),
             ... (lentTime ? {lentTime: lentTime} : {}),
-            ... (returnedTime ? {returnedTime: retruned} : {})
+            ... (returnedTime ? {returnedTime: returnedTime} : {})
         }
         const lentInfos = await lendCollection.find(params).toArray();
         return lentInfos.map(lent => new LentInfo(lent));

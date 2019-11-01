@@ -49,6 +49,13 @@ export const FormInput = styled.label`
   display: grid;
   grid-template-columns: min-content;
   margin-bottom: 1rem;
+
+  .disabled-date {
+    pointer-events: none;
+    color: ${(props) => props.theme.primary};
+    background-color: ${(props) => props.theme.secondaryText};
+    border-radius: 0.3rem;
+  }
 `;
 
 export const SubmitButton = styled.input`

@@ -82,9 +82,7 @@ export async function lendBook(req, res, next) {
     if (error) return;
     book.available = false;
     socketManager.emitMessage(book.id, 'update-book', book);
-    const reservationDate = new Date(reservationTime);
-    const returnDate = new Date(returnTime);
-    console.log(`Lend book -> Book lent successfully from ${reservationDate} to ${returnDate}`);
+    console.log(`Lend book -> Book lent successfully`);
     res.status(HttpStatus.OK).json(updatedBook);
     return;
 }

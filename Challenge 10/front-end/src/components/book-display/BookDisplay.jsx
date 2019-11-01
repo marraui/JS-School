@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import BookGroup from '../book-group/BookGroup';
 import objectToQueryString from '../../utils/object-to-query-string';
+import queryStringToObject from '../../utils/query-string-to-object';
 import {
   BookDisplayContainer,
   BookDisplayHeader,
@@ -14,7 +15,6 @@ import {
 
 function mapStateToProps(state) {
   return {
-    page: state.page,
     resPerPage: state.resPerPage,
     totalResults: state.totalOfBooks,
   };
@@ -50,10 +50,13 @@ class BookDisplay extends Component {
 
   render() {
     const {
-      page,
       resPerPage,
       totalResults,
+      location,
     } = this.props;
+
+    let { page = '1' } = queryStringToObject(location.search);
+    page = Number(page);
     return (
       <BookDisplayContainer>
         <BookDisplayHeader>
@@ -103,7 +106,6 @@ BookDisplay.propTypes = {
     search: PropTypes.string,
   }),
   history: PropTypes.shape(historyPropTypes).isRequired,
-  page: PropTypes.number,
   resPerPage: PropTypes.number,
   totalResults: PropTypes.number,
 };
@@ -112,7 +114,6 @@ BookDisplay.defaultProps = {
   location: {
     search: '',
   },
-  page: 1,
   resPerPage: 0,
   totalResults: 0,
 };

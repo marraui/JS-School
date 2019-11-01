@@ -1,15 +1,3 @@
-export const SEARCH_BOOK = 'SEARCH_BOOK';
-
-export const SELECT_CITY = 'SELECT_CITY';
-
-export const SELECT_FORMAT = 'SELECT_FORMAT';
-
-export const UNSELECT_CITY = 'UNSELECT_CITY';
-
-export const UNSELECT_FORMAT = 'UNSELECT_FORMAT';
-
-export const SELECT_PAGE = 'SELECT_PAGE';
-
 export const BOOKS_FETCHED = 'BOOKS_FETCHED';
 
 export const FETCHING_BOOKS = 'FETCHING_BOOKS';

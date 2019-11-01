@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Header from '../header/Header';
 import BookDisplay from '../book-display/BookDisplay';
 import objectToQueryString from '../../utils/object-to-query-string';
-import * as actions from '../../actions/index';
+import queryStringToObject from '../../utils/query-string-to-object';
 import {
   AppContainer,
   CollapsibleButton,
@@ -19,21 +19,8 @@ import {
   SubLeftSideBar,
 } from './Layout';
 
-function mapDispatchToProps(dispatch) {
-  return {
-    selectPage: (page) => dispatch(actions.selectPage(page)),
-    selectCity: (city) => dispatch(actions.selectCity(city)),
-    unselectCity: () => dispatch(actions.unselectCity()),
-    selectFormat: (format) => dispatch(actions.selectFormat(format)),
-    unselectFormat: () => dispatch(actions.unselectFormat()),
-    searchBook: (searchInput) => dispatch(actions.searchBook(searchInput)),
-  };
-}
-
 function mapStateToProps(state) {
   return {
-    city: state.city,
-    format: state.format,
     token: state.authentication,
   };
 }
@@ -43,76 +30,11 @@ class App extends Component {
     this.state = {
       leftSideBarOpen: false,
       rightSideBarOpen: false,
-      query: '',
     };
 
     this.clickLeftSideBarButtonHandler = this.clickLeftSideBarButtonHandler.bind(this);
     this.clickRightSideBarButtonHandler = this.clickRightSideBarButtonHandler.bind(this);
     this.clickLeftSideBarItemHandler = this.clickLeftSideBarItemHandler.bind(this);
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.location.search === prevState.query) return null;
-    return {
-      query: nextProps.location.search,
-    };
-  }
-
-  componentDidMount() {
-    let index;
-
-    const {
-      location,
-      selectCity,
-      unselectCity,
-      selectFormat,
-      unselectFormat,
-      searchBook,
-      selectPage,
-    } = this.props;
-    const query = location.search;
-    this.setState({
-      query: location.search,
-      leftItemSelected: index,
-    });
-    const urlSearchParams = new URLSearchParams(query);
-    const params = Object.fromEntries(urlSearchParams);
-    selectPage(Number(params.page ? params.page : 1));
-
-    if (params.city) selectCity(params.city);
-    else unselectCity();
-
-    if (params.format) selectFormat(params.format);
-    else unselectFormat();
-
-    if (params.searchInput) searchBook(params.searchInput);
-    else searchBook('');
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { query } = this.state;
-    if (prevState.query === query) return;
-    const {
-      selectPage,
-      selectCity,
-      selectFormat,
-      searchBook,
-      unselectCity,
-      unselectFormat,
-    } = this.props;
-
-    const urlSearchParams = new URLSearchParams(query);
-    const params = Object.fromEntries(urlSearchParams);
-    selectPage(Number(params.page ? params.page : 1));
-
-    if (params.city) selectCity(params.city);
-    else unselectCity();
-
-    if (params.format) selectFormat(params.format);
-    else unselectFormat();
-
-    if (params.searchInput) searchBook(params.searchInput);
-    else searchBook('');
   }
 
   clickLeftSideBarItemHandler(event, itemNumber) {
@@ -181,7 +103,11 @@ class App extends Component {
       leftSideBarOpen,
       rightSideBarOpen,
     } = this.state;
-    const { city, format, token } = this.props;
+    const { token, location } = this.props;
+    const {
+      city = 'any',
+      format = 'any',
+    } = queryStringToObject(location.search);
     let leftItemSelected = 0;
 
     App.leftItemsParams.forEach((params, index) => {
@@ -202,27 +128,36 @@ class App extends Component {
         <Header />
         <CollapsibleButton
           onClick={this.clickLeftSideBarButtonHandler}
-          onKeyDown={(event) => (event.keyCode === 32 ? this.clickLeftSideBarButtonHandler : null)}
+          onKeyDown={(event) => (
+            event.keyCode === 32
+              ? this.clickLeftSideBarButtonHandler(event)
+              : null
+          )}
           role="button"
           tabIndex="0"
         >
           <i className="fa fa-bars" />
         </CollapsibleButton>
         <LeftSideBar opened={leftSideBarOpen}>
-          {App.leftSidebar.map((subSidebar) => (
-            <SubLeftSideBar>
+          {App.leftSidebar.map((subSidebar, subSideBarIndex) => (
+            <SubLeftSideBar key={subSidebar.title}>
               <LeftSideBarTitle>{subSidebar.title}</LeftSideBarTitle>
               {subSidebar.items.map((listItem, index) => (
                 <LeftSideBarItem
-                  selected={leftItemSelected === index + 1}
-                  onClick={(event) => this.clickLeftSideBarItemHandler(event, index + 1)}
+                  selected={leftItemSelected === index + 1 && subSideBarIndex === 0}
+                  onClick={(event) => (
+                    subSideBarIndex === 0
+                      ? this.clickLeftSideBarItemHandler(event, index + 1)
+                      : null
+                  )}
                   onKeyDown={(event) => (
-                    event.keyCode === 32
+                    event.keyCode === 32 && subSideBarIndex === 0
                       ? this.clickLeftSideBarItemHandler(event, index + 1)
                       : null
                   )}
                   role="button"
                   tabIndex="0"
+                  key={listItem.name}
                 >
                   <i className={`fa ${listItem.icon} fa-fw`} />
                   {listItem.name}
@@ -252,7 +187,7 @@ class App extends Component {
             {App.rightSidebar.title}
           </RightSideBarTitle>
           {App.rightSidebar.items.map((item) => (
-            <RightSideBarItem>
+            <RightSideBarItem key={item}>
               {item}
             </RightSideBarItem>
           ))}
@@ -340,14 +275,6 @@ App.propTypes = {
     search: PropTypes.string,
   }),
   history: PropTypes.shape(historyPropTypes).isRequired,
-  selectPage: PropTypes.func.isRequired,
-  selectCity: PropTypes.func.isRequired,
-  selectFormat: PropTypes.func.isRequired,
-  searchBook: PropTypes.func.isRequired,
-  unselectCity: PropTypes.func.isRequired,
-  unselectFormat: PropTypes.func.isRequired,
-  city: PropTypes.string,
-  format: PropTypes.string,
   token: PropTypes.string,
 };
 
@@ -355,8 +282,6 @@ App.defaultProps = {
   location: {
     search: '',
   },
-  city: 'any',
-  format: 'any',
   token: '',
 };
 
@@ -384,4 +309,4 @@ App.leftItemsParams = [
   },
 ];
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

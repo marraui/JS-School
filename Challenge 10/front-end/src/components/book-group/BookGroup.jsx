@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { withTheme } from 'styled-components';
 import { from } from 'rxjs';
+import { history as historyPropTypes } from 'history-prop-types';
 import { flatMap, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import Book from '../book/Book';
@@ -14,22 +15,19 @@ import {
 } from './Layout';
 import * as actions from '../../actions/index';
 import { themePropType } from '../../styles/theme';
+import queryStringToObject from '../../utils/query-string-to-object';
+import objectToQueryString from '../../utils/object-to-query-string';
 
 function mapStateToProps(state) {
   return {
     books: state.books,
     fetchingBooks: state.fetchingBooks,
-    page: state.page,
-    city: state.city,
-    format: state.format,
-    searchInput: state.search,
     token: state.authentication,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectPage: (page) => dispatch(actions.selectPage(page)),
     booksFetched: (books) => dispatch(actions.booksFetched(books)),
     resPerPage: (payload) => dispatch(actions.resPerPage(payload)),
     totalOfBooks: (payload) => dispatch(actions.totalOfBooks(payload)),
@@ -54,12 +52,15 @@ class BookGroup extends Component {
 
   componentDidMount() {
     const {
-      page,
-      city,
-      format,
-      searchInput,
+      location,
     } = this.props;
 
+    const {
+      page = '1',
+      city = 'any',
+      format = 'any',
+      searchInput = '',
+    } = queryStringToObject(location.search);
     const params = {
       page,
       ...(searchInput ? { searchInput } : {}),
@@ -74,16 +75,26 @@ class BookGroup extends Component {
 
   componentDidUpdate(prevProps) {
     const {
-      page,
-      city,
-      format,
-      searchInput,
+      location,
     } = this.props;
 
-    const pageChanged = prevProps.page !== page;
-    const cityChanged = prevProps.city !== city;
-    const formatChanged = prevProps.format !== format;
-    const searchChanged = prevProps.searchInput !== searchInput;
+    const {
+      page = '1',
+      city = 'any',
+      format = 'any',
+      searchInput = '',
+    } = queryStringToObject(location.search);
+
+    const {
+      page: prevPage = '1',
+      city: prevCity = 'any',
+      format: prevFormat = 'any',
+      searchInput: prevSearchInput = '',
+    } = queryStringToObject(prevProps.location.search);
+    const pageChanged = prevPage !== page;
+    const cityChanged = prevCity !== city;
+    const formatChanged = prevFormat !== format;
+    const searchChanged = prevSearchInput !== searchInput;
 
     if (pageChanged || cityChanged || formatChanged || searchChanged) {
       const params = {
@@ -100,11 +111,12 @@ class BookGroup extends Component {
   fetchBooks(params) {
     const {
       token,
-      selectPage,
       fetchingBooksCreator,
       booksFetched,
       resPerPage: resPerPageCreator,
       totalOfBooks: totalOfBooksCreator,
+      history,
+      location,
     } = this.props;
     const headers = new Headers();
     headers.set('Authorization', `JWT ${token}`);
@@ -143,7 +155,11 @@ class BookGroup extends Component {
       }));
 
       resPerPageCreator(resPerPage);
-      selectPage(Number(page));
+
+      const currentParams = queryStringToObject(location.search);
+      currentParams.page = Number(page);
+      history.push(`?${objectToQueryString(currentParams)}`);
+
       totalOfBooksCreator(totalResults);
       booksFetched(bookElements);
     }, (err) => {
@@ -221,27 +237,25 @@ BookGroup.propTypes = {
     pageCount: PropTypes.string,
     available: PropTypes.bool,
   })),
-  page: PropTypes.number,
-  city: PropTypes.string,
-  format: PropTypes.string,
-  searchInput: PropTypes.string,
   token: PropTypes.string,
-  selectPage: PropTypes.func.isRequired,
   booksFetched: PropTypes.func.isRequired,
   resPerPage: PropTypes.func.isRequired,
   totalOfBooks: PropTypes.func.isRequired,
   fetchingBooksCreator: PropTypes.func.isRequired,
   theme: themePropType.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }),
+  history: PropTypes.shape(historyPropTypes).isRequired,
 };
 
 BookGroup.defaultProps = {
   fetchingBooks: false,
   books: [],
-  page: 1,
-  format: 'any',
-  searchInput: '',
-  city: 'any',
   token: '',
+  location: {
+    search: '',
+  },
 };
 
 export default withRouter(withTheme(connect(mapStateToProps, mapDispatchToProps)(BookGroup)));

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import PropTypes from 'prop-types';
-
+import { from } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 import 'react-datepicker/dist/react-datepicker.css';
 import Swal from 'sweetalert2';
 import {
@@ -14,15 +15,10 @@ import {
 export default class Reservation extends Component {
   constructor(props) {
     super(props);
-    const currentDateStart = new Date();
-    currentDateStart.setHours(0, 0, 0, 0);
     const currentDateEnd = new Date();
     currentDateEnd.setHours(23, 59, 59, 999);
     this.state = {
-      reservationDate: currentDateStart,
       returnDate: currentDateEnd,
-      reservationTime: currentDateStart.getTime(),
-      returnTime: currentDateEnd.getTime(),
     };
     this.submitHandler = this.submitHandler.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
@@ -32,9 +28,16 @@ export default class Reservation extends Component {
     event.preventDefault();
     event.stopPropagation();
     const {
-      reservationTime,
-      returnTime,
+      returnDate,
     } = this.state;
+
+    const reservationDate = new Date();
+    reservationDate.setHours(0, 0, 0, 0);
+    const reservationTime = reservationDate.getTime();
+
+    returnDate.setHours(23, 59, 59, 999);
+    const returnTime = returnDate.getTime();
+
 
     const token = sessionStorage.getItem('token');
     const headers = new Headers();
@@ -45,44 +48,37 @@ export default class Reservation extends Component {
 
     url.searchParams.append('reservationTime', reservationTime);
     url.searchParams.append('returnTime', returnTime);
-    fetch(url, {
+
+    from(fetch(url, {
       headers,
-    }).then((response) => {
-      if (response.status === 204) throw new Error('Book is already lent to another user during that time');
-      if (!response) throw new Error('No response from the server');
-      return response.json();
-    }).then((jsonResponse) => {
-      if (jsonResponse.message) throw new Error(jsonResponse.message);
+    })).pipe(
+      flatMap((response) => {
+        if (response.status === 204) throw new Error('Book is already lent to another user during that time');
+        if (!response) throw new Error('No response from the server');
+        return response.json();
+      }),
+      map((jsonResponse) => {
+        if (jsonResponse && jsonResponse.message) throw new Error(jsonResponse.message);
+        return jsonResponse;
+      }),
+    ).subscribe(() => {
       Swal.fire('Success!', 'Reservation done successfully', 'success');
       closeListener(event);
-    }).catch((err) => {
+    }, (err) => {
       Swal.fire('Error', `Error while trying to make reservation, error: ${err.message}`, 'error');
     });
   }
 
-  changeHandler(date, isReservation) {
-    let change;
-    if (isReservation) {
-      const auxDate = date;
-      auxDate.setHours(0, 0, 0, 0);
-      change = {
-        reservationDate: date,
-        reservationTime: (date && date.getTime && date.getTime()) || null,
-      };
-    } else {
-      const auxDate = date;
-      auxDate.setHours(23, 59, 59, 999);
-      change = {
-        returnDate: date,
-        returnTime: (date && date.getTime && date.getTime()) || null,
-      };
-    }
-    this.setState(change);
+  changeHandler(date) {
+    const auxDate = date;
+    auxDate.setHours(23, 59, 59, 999);
+    this.setState({
+      returnDate: auxDate,
+    });
   }
 
   render() {
     const {
-      reservationDate,
       returnDate,
     } = this.state;
     const {
@@ -109,25 +105,20 @@ export default class Reservation extends Component {
             }}
             htmlFor="reservation-picker"
           >
-            Lend Date
-            <DatePicker
-              id="reservation-picker"
-              selected={reservationDate}
-              onChange={(date) => this.changeHandler(date, true)}
-            />
-          </FormInput>
-          <FormInput
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-            htmlFor="reservation-picker"
-          >
             Return Date
             <DatePicker
-              id="return-picker"
+              id="reservation-picker"
               selected={returnDate}
-              onChange={(date) => this.changeHandler(date, false)}
+              onChange={(date) => this.changeHandler(date, true)}
+              dayClassName={(date) => {
+                const auxDate = new Date();
+                auxDate.setHours(0, 0, 0, 0);
+                if (date.getTime() < auxDate.getTime()) return 'disabled-date';
+                const diff = date - auxDate;
+                const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                if (diffDays > 15) return 'disabled-date';
+                return undefined;
+              }}
             />
           </FormInput>
           <SubmitButton

@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { withTheme } from 'styled-components';
+import { from } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 import Book from '../book/Book';
 import {
   BookGroupContainer,
@@ -63,7 +66,10 @@ class BookGroup extends Component {
       ...(city !== 'any' ? { city } : {}),
       ...(format !== 'any' ? { format } : {}),
     };
-    this.fetchBooks(params);
+
+    if (params.page && params.page !== 0) {
+      this.fetchBooks(params);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -86,6 +92,7 @@ class BookGroup extends Component {
         ...(city !== 'any' ? { city } : {}),
         ...(format !== 'any' ? { format } : {}),
       };
+
       this.fetchBooks(params);
     }
   }
@@ -104,13 +111,16 @@ class BookGroup extends Component {
     const url = new URL('http://localhost:3001/api/book');
     Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
     fetchingBooksCreator(true);
-    fetch(url, {
-      headers,
-    }).then((response) => {
-      if (response.status === 204) throw new Error('No content');
-      return response.json();
-    }).then((jsonResponse) => {
-      if (jsonResponse.message) throw new Error(jsonResponse.message);
+    from(fetch(url, { headers })).pipe(
+      flatMap((response) => {
+        if (response.status === 204) throw new Error('No content');
+        return response.json();
+      }),
+      map((jsonResponse) => {
+        if (jsonResponse.message) throw new Error(jsonResponse.message);
+        return jsonResponse;
+      }),
+    ).subscribe((jsonResponse) => {
       const {
         books,
         resPerPage,
@@ -129,12 +139,15 @@ class BookGroup extends Component {
         key: book.id,
         pageCount: `${book.pageCount}`,
         format: book.format,
+        available: book.available,
       }));
 
       resPerPageCreator(resPerPage);
-      selectPage(page);
+      selectPage(Number(page));
       totalOfBooksCreator(totalResults);
       booksFetched(bookElements);
+    }, (err) => {
+      Swal.fire('Error', `There was an error trying to fetch books, Error: ${err.message}`, 'error');
     });
   }
 
@@ -184,6 +197,7 @@ class BookGroup extends Component {
             selected={bookSelected && bookSelected === book.id}
             selectBook={this.selectBook}
             unselectBook={this.unselectBook}
+            available={book.available}
           />
         ))}
       </BookGroupContainer>
@@ -195,7 +209,7 @@ BookGroup.paramKeys = ['searchInput', 'city', 'format', 'page', 'resPerPage'];
 
 BookGroup.propTypes = {
   fetchingBooks: PropTypes.bool,
-  books: PropTypes.arrayOf({
+  books: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     author: PropTypes.string,
     publishedDate: PropTypes.string,
@@ -205,7 +219,8 @@ BookGroup.propTypes = {
     id: PropTypes.string,
     key: PropTypes.string,
     pageCount: PropTypes.string,
-  }),
+    available: PropTypes.bool,
+  })),
   page: PropTypes.number,
   city: PropTypes.string,
   format: PropTypes.string,

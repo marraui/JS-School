@@ -18,7 +18,7 @@ export const LoginForm = styled.form`
   grid-row-gap: 1rem;
 `;
 
-export const Title = styled.form`
+export const Title = styled.div`
   font-family: 'Pluto Sans Bold';
   font-size: 3rem;
   margin-bottom: 2rem;

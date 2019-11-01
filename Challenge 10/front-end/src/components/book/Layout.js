@@ -6,6 +6,8 @@ export const BookContainer = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: repeat(4, min-content);
   row-gap: 0.375rem;
+  top: ${(props) => (props.up ? '-1rem' : '0rem')};
+  transition: top 0.25s;
   
   .label-btn {
     position: relative;

@@ -77,7 +77,7 @@ class App extends Component {
     });
     const urlSearchParams = new URLSearchParams(query);
     const params = Object.fromEntries(urlSearchParams);
-    selectPage(params.page ? params.page : 1);
+    selectPage(Number(params.page ? params.page : 1));
 
     if (params.city) selectCity(params.city);
     else unselectCity();
@@ -103,7 +103,7 @@ class App extends Component {
 
     const urlSearchParams = new URLSearchParams(query);
     const params = Object.fromEntries(urlSearchParams);
-    selectPage(params.page ? params.page : 1);
+    selectPage(Number(params.page ? params.page : 1));
 
     if (params.city) selectCity(params.city);
     else unselectCity();

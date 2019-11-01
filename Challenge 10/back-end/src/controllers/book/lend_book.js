@@ -1,14 +1,17 @@
 import * as HttpStatus from 'http-status-codes';
 import { dbConnection } from '../../models/dbmanager';
 import { LentInfo } from '../../models/lent';
+import { socketManager } from '../../models/socket-manager';
 
 export async function lendBook(req, res, next) {
     const user = req.user;
     const id = req.params.id;
-    const {
+    let {
         reservationTime,
         returnTime,
     } = req.query;
+    reservationTime = Number(reservationTime);
+    returnTime = Number(returnTime);
 
     if (!reservationTime) {
         console.log(`Lend book -> No reservation time provided`);
@@ -77,8 +80,11 @@ export async function lendBook(req, res, next) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: 'Error inserting information'});
     });
     if (error) return;
-
-    console.log(`Lend book -> Book lent successfully`);
+    book.available = false;
+    socketManager.emitMessage(book.id, 'update-book', book);
+    const reservationDate = new Date(reservationTime);
+    const returnDate = new Date(returnTime);
+    console.log(`Lend book -> Book lent successfully from ${reservationDate} to ${returnDate}`);
     res.status(HttpStatus.OK).json(updatedBook);
     return;
 }

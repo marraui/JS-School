@@ -1,17 +1,24 @@
 import express from 'express';
+import http from 'http';
 import * as bodyParser from 'body-parser';
 import { login, register, loginRequired } from './controllers/login';
 import { dbConnection } from './models/dbmanager';
 import { verifyWebToken} from './middleware/verify_webtoken';
 import * as book from './routes/book';
 import cors from 'cors';
+import { socketManager } from './models/socket-manager';
+import { checkChanges } from './utils/check_changes';
 
 export class App {
     constructor () {
         this.port = process.env.PORT || 3001;
         this.app = express();
+        this.server = http.Server(this.app);
         dbConnection.connect().then(() => {
             console.log('Connected succesfully to database');
+            socketManager.initialize(this.server);
+            checkChanges();
+
             this.app.use(bodyParser.urlencoded({extended: true}));
             this.app.use(bodyParser.json());
 
@@ -34,7 +41,7 @@ export class App {
             this.app.use(verifyWebToken);
             this.app.use('/api', loginRequired);
             this.app.use('/api/book', book.router);
-            this.app.listen(this.port, '0.0.0.0', () => {
+            this.server.listen(this.port, '0.0.0.0', () => {
                 console.error(`Server listening on port ${this.port}`);
             });
             

@@ -54,7 +54,6 @@ export const LeftSideBar = styled.div`
 export const SubLeftSideBar = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(${(props) => ((props.isBottom && '5') || '7')}, 1fr);
   row-gap: 1.2188rem;
 `;
 

@@ -209,107 +209,27 @@ class App extends Component {
           <i className="fa fa-bars" />
         </CollapsibleButton>
         <LeftSideBar opened={leftSideBarOpen}>
-          <SubLeftSideBar>
-            <LeftSideBarTitle className="left-sidebar-title">MAIN</LeftSideBarTitle>
-
-            <LeftSideBarItem
-              selected={leftItemSelected === 1}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 1)}
-              onKeyDown={(event) => (
-                event.keyCode === 32
-                  ? this.clickLeftSideBarItemHandler(event, 1)
-                  : null
-              )}
-              role="button"
-              tabIndex="0"
-            >
-              <i className="fa fa-globe fa-fw" />
-              Quito
-            </LeftSideBarItem>
-
-            <LeftSideBarItem
-              selected={leftItemSelected === 2}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 2)}
-              onKeyDown={(event) => (
-                event.keyCode === 32
-                  ? this.clickLeftSideBarItemHandler(event, 2)
-                  : null
-              )}
-              role="button"
-              tabIndex="0"
-            >
-              <i className="fa fa-globe fa-fw" />
-              Cartagena
-            </LeftSideBarItem>
-
-            <LeftSideBarItem
-              selected={leftItemSelected === 3}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 3)}
-              onKeyDown={(event) => (
-                event.keyCode
-                  ? this.clickLeftSideBarItemHandler(event, 3)
-                  : null
-              )}
-              role="button"
-              tabIndex="0"
-            >
-              <i className="fa fa-globe fa-fw" />
-              Medellín
-            </LeftSideBarItem>
-            <LeftSideBarItem
-              selected={leftItemSelected === 4}
-              onClick={(event) => this.clickLeftSideBarItemHandler(event, 4)}
-              onKeyDown={(event) => (
-                event.keyCode
-                  ? this.clickLeftSideBarItemHandler(event, 4)
-                  : null
-              )}
-              role="button"
-              tabIndex="0"
-            >
-              <i className="fa fa-tablet-alt fa-fw" />
-              Digital
-            </LeftSideBarItem>
-
-            <LeftSideBarItem
-              selected={leftItemSelected === 5}
-            >
-              <i className="fa fa-user-tag fa-fw" />
-              Personal Loans
-            </LeftSideBarItem>
-
-            <LeftSideBarItem
-              selected={leftItemSelected === 6}
-            >
-              <i className="fa fa-tags fa-fw" />
-              New Releases
-            </LeftSideBarItem>
-
-          </SubLeftSideBar>
-          <SubLeftSideBar isBottom>
-            <LeftSideBarTitle>YOUR BOOKS</LeftSideBarTitle>
-
-            <LeftSideBarItem>
-              <i className="fa fa-book-open fa-fw" />
-              Readings
-            </LeftSideBarItem>
-
-            <LeftSideBarItem>
-              <i className="fa fa-history fa-fw" />
-              History
-            </LeftSideBarItem>
-
-            <LeftSideBarItem>
-              <i className="fa fa-bookmark fa-fw" />
-              Read later
-            </LeftSideBarItem>
-
-            <LeftSideBarItem>
-              <i className="fa fa-heart fa-fw" />
-              Favorites
-            </LeftSideBarItem>
-
-          </SubLeftSideBar>
+          {App.leftSidebar.map((subSidebar) => (
+            <SubLeftSideBar>
+              <LeftSideBarTitle>{subSidebar.title}</LeftSideBarTitle>
+              {subSidebar.items.map((listItem, index) => (
+                <LeftSideBarItem
+                  selected={leftItemSelected === index + 1}
+                  onClick={(event) => this.clickLeftSideBarItemHandler(event, index + 1)}
+                  onKeyDown={(event) => (
+                    event.keyCode === 32
+                      ? this.clickLeftSideBarItemHandler(event, index + 1)
+                      : null
+                  )}
+                  role="button"
+                  tabIndex="0"
+                >
+                  <i className={`fa ${listItem.icon} fa-fw`} />
+                  {listItem.name}
+                </LeftSideBarItem>
+              ))}
+            </SubLeftSideBar>
+          ))}
         </LeftSideBar>
 
         <CollapsibleButton
@@ -329,29 +249,91 @@ class App extends Component {
 
         <RightSideBar opened={rightSideBarOpen}>
           <RightSideBarTitle>
-            MOST READ BOOKS
+            {App.rightSidebar.title}
           </RightSideBarTitle>
-          <RightSideBarItem>
-            1. Hooked: How to Build Habit-Forming Products
-          </RightSideBarItem>
-          <RightSideBarItem>
-            2. The Inevitable: Understanding the 12 Technological Forces That Will Shape our Future
-          </RightSideBarItem>
-          <RightSideBarItem>
-            3. Lean In: Women, Work, and the Will to Lead
-          </RightSideBarItem>
-          <RightSideBarItem>
-            4. Building a Business When There Are No Easy Answers
-          </RightSideBarItem>
-          <RightSideBarItem>
-            5. How Google Works
-          </RightSideBarItem>
+          {App.rightSidebar.items.map((item) => (
+            <RightSideBarItem>
+              {item}
+            </RightSideBarItem>
+          ))}
         </RightSideBar>
         <BookDisplay />
       </AppContainer>
     );
   }
 }
+
+App.leftSidebar = [
+  {
+    title: 'MAIN',
+    items: [
+      {
+        name: 'Quito',
+        isCity: true,
+        icon: 'fa-globe',
+        value: 'Quito',
+      },
+      {
+        name: 'Cartagena',
+        isCity: true,
+        icon: 'fa-globe',
+        value: 'Cartagena',
+      },
+      {
+        name: 'Medellin',
+        isCity: true,
+        icon: 'fa-globe',
+        value: 'Medellin',
+      },
+      {
+        name: 'Digital',
+        isCity: false,
+        icon: 'fa-tablet-alt',
+        value: 'Digital',
+      },
+      {
+        name: 'Personal Loans',
+        icon: 'fa-user-tag',
+      },
+      {
+        name: 'New Releases',
+        icon: 'fa-tags',
+      },
+    ],
+  },
+  {
+    title: 'YOUR BOOKS',
+    items: [
+      {
+        name: 'Readings',
+        icon: 'fa-book-open',
+      },
+      {
+        name: 'History',
+        icon: 'fa-history',
+      },
+      {
+        name: 'Read Later',
+        icon: 'fa-bookmark',
+      },
+      {
+        name: 'Favorites',
+        icon: 'fa-heart',
+      },
+    ],
+  },
+];
+
+App.rightSidebar = {
+  title: 'MOST READ BOOKS',
+  items: [
+    '1. Hooked: How to Build Habit - Forming Products',
+    '2. The Inevitable: Understanding the 12 Technological Forces That Will Shape our Future',
+    '3. Lean In: Women, Work, and the Will to Lead',
+    '4. Building a Business When There Are No Easy Answers',
+    '5. How Google Works',
+  ],
+};
 
 App.propTypes = {
   location: PropTypes.shape({

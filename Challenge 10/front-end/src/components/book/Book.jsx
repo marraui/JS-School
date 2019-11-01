@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import io from 'socket.io-client';
+import { connect } from 'react-redux';
+import { withToastManager } from 'react-toast-notifications';
+import { timer } from 'rxjs';
 import bookmarkImage from '../../assets/images/bookmark.png';
 import userImage from '../../assets/images/user_image.jpg';
 import Reservation from '../reservation/Reservation';
+import * as actions from '../../actions/index';
 import {
   BookAuthor,
   BookContainer,
@@ -26,7 +31,12 @@ import {
   SeethroughTitle,
 } from './Layout';
 
-export default class Book extends Component {
+function mapDispatchToProps(dispatch) {
+  return {
+    updateBook: (newBook) => dispatch(actions.updateBook(newBook)),
+  };
+}
+class Book extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,6 +47,7 @@ export default class Book extends Component {
       openedDetails: false,
       openedLendOptions: false,
       detailsReversed: false,
+      up: false,
     };
 
     this.clickBookmarkHandler = this.clickBookmarkHandler.bind(this);
@@ -48,6 +59,7 @@ export default class Book extends Component {
     this.mouseLeaveSeethroughHanlder = this.mouseLeaveSeethroughHanlder.bind(this);
     this.clickLendButtonHandler = this.clickLendButtonHandler.bind(this);
     this.clickOutsideHandler = this.clickOutsideHandler.bind(this);
+    this.onBookUpdated = this.onBookUpdated.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -62,6 +74,35 @@ export default class Book extends Component {
       };
     }
     return null;
+  }
+
+  componentDidMount() {
+    const socket = io('http://localhost:3001', { forceNew: true });
+    const { id } = this.props;
+    socket.emit('subscribe', id);
+    socket.on('update-book', this.onBookUpdated);
+  }
+
+  onBookUpdated(newBook) {
+    const { updateBook, title, toastManager } = this.props;
+    toastManager.add(`Book "${title}" updated`, {
+      appearance: 'info',
+      autoDismiss: true,
+      autoDismissTimeout: 5000,
+    });
+    updateBook(newBook);
+    this.setState({
+      up: true,
+    });
+    const source = timer(500);
+    source.subscribe(() => {
+      this.setState({
+        up: false,
+      });
+    }, (err) => {
+      // eslint-disable-next-line no-console
+      console.log(`Error: ${err.message}`);
+    });
   }
 
   clickLendButtonHandler(event) {
@@ -182,6 +223,7 @@ export default class Book extends Component {
       thumbnail,
       id,
       format,
+      available,
     } = this.props;
 
     const {
@@ -193,10 +235,11 @@ export default class Book extends Component {
       openedLendOptions,
       detailsReversed,
       lendReversed,
+      up,
     } = this.state;
 
     return (
-      <BookContainer ref={this.bookContainerRef}>
+      <BookContainer up={up}>
         <div
           className="label-btn"
           onMouseEnter={this.mouseEnterSeethroughHandler}
@@ -415,12 +458,12 @@ export default class Book extends Component {
         </BookAuthor>
         <LendButton
           role="button"
-          available={format === 'Physical'}
-          onClick={(event) => (format === 'Physical' ? this.clickLendButtonHandler(event) : null)}
+          available={available}
+          onClick={(event) => (available ? this.clickLendButtonHandler(event) : null)}
           onKeyDown={(event) => (event.keyCode === 32 ? this.clickLendButtonHandler(event) : null)}
           tabIndex="0"
         >
-          {format === 'Physical' ? 'Reserve' : format}
+          {available ? 'Reserve' : ((format === 'Digital' && format) || 'Unavailable')}
         </LendButton>
         <BookRating className="book-rating">
           <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
@@ -464,6 +507,8 @@ export default class Book extends Component {
   }
 }
 
+export default withToastManager(connect(null, mapDispatchToProps)(Book));
+
 Book.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
@@ -477,6 +522,11 @@ Book.propTypes = {
   selected: PropTypes.bool,
   selectBook: PropTypes.func,
   unselectBook: PropTypes.func,
+  available: PropTypes.bool,
+  updateBook: PropTypes.func.isRequired,
+  toastManager: PropTypes.shape({
+    add: PropTypes.func,
+  }),
 };
 
 Book.defaultProps = {
@@ -486,10 +536,14 @@ Book.defaultProps = {
   description: 'No description',
   pageCount: 'Not available',
   format: 'Unavailable',
+  available: false,
   roundedAverageRating: 0,
   thumbnail: '',
   id: '',
   selected: false,
   selectBook: () => {},
   unselectBook: () => {},
+  toastManager: {
+    add: () => {},
+  },
 };

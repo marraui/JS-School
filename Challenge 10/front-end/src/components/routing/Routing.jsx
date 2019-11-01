@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import { ToastProvider } from 'react-toast-notifications';
 import Login from '../login/Login';
 import App from '../app/App';
 import NotFound from '../notfound/NotFound';
@@ -17,12 +18,14 @@ export default function Routing() {
     <Provider store={store}>
       <Router>
         <ThemeProvider theme={theme}>
-          <Switch>
-            <Route exact path="/" component={App} />
-            <Route exact path="/login" component={Login} />
-            <Route path="/404" component={NotFound} />
-            <Redirect to="/404" />
-          </Switch>
+          <ToastProvider>
+            <Switch>
+              <Route exact path="/" component={App} />
+              <Route exact path="/login" component={Login} />
+              <Route path="/404" component={NotFound} />
+              <Redirect to="/404" />
+            </Switch>
+          </ToastProvider>
         </ThemeProvider>
       </Router>
     </Provider>

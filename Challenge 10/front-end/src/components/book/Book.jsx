@@ -300,73 +300,22 @@ class Book extends Component {
                   RATE THIS BOOK
                 </SeethroughTitle>
                 <SeethroughRating>
-                  <i
-                    className={`${userRating >= 1 ? 'fa' : 'far'} fa-star`}
-                    onClick={(event) => this.clickRatingHandler(event, 1)}
-                    onTouchEnd={(event) => this.clickRatingHandler(event, 1)}
-                    onKeyDown={(event) => (
-                      event.keyCode === 32
-                        ? this.clickRatingHandler(event, 1)
-                        : null
-                    )}
-                    tabIndex="0"
-                    role="button"
-                    aria-label="Rate 1 star"
-                  />
-                  <i
-                    className={`${userRating >= 2 ? 'fa' : 'far'} fa-star`}
-                    onClick={(event) => this.clickRatingHandler(event, 2)}
-                    onTouchEnd={(event) => this.clickRatingHandler(event, 2)}
-                    onKeyDown={(event) => (
-                      event.keyCode === 32
-                        ? this.clickRatingHandler(event, 2)
-                        : null
-                    )}
-                    tabIndex="0"
-                    role="button"
-                    aria-label="Rate 2 stars"
-                  />
-                  <i
-                    className={`${userRating >= 3 ? 'fa' : 'far'} fa-star`}
-                    onClick={(event) => this.clickRatingHandler(event, 3)}
-                    onTouchEnd={(event) => this.clickRatingHandler(event, 3)}
-                    onKeyDown={(event) => (
-                      event.keyCode === 32
-                        ? this.clickRatingHandler(event, 3)
-                        : null
-                    )}
-                    tabIndex="0"
-                    role="button"
-                    aria-label="Rate 3 stars"
-                  />
-                  <i
-                    className={`${userRating >= 4 ? 'fa' : 'far'} fa-star`}
-                    onClick={(event) => this.clickRatingHandler(event, 4)}
-                    onTouchEnd={(event) => this.clickRatingHandler(event, 4)}
-                    onKeyDown={
-                      (event) => (
+                  {[...Array(5).keys()].map((index) => (
+                    <i
+                      className={`${userRating >= index + 1 ? 'fa' : 'far'} fa-star`}
+                      onClick={(event) => this.clickRatingHandler(event, index + 1)}
+                      onTouchEnd={(event) => this.clickRatingHandler(event, index + 1)}
+                      onKeyDown={(event) => (
                         event.keyCode === 32
-                          ? this.clickRatingHandler(event, 4)
+                          ? this.clickRatingHandler(event, index + 1)
                           : null
-                      )
-                    }
-                    tabIndex="0"
-                    role="button"
-                    aria-label="Rate 4 stars"
-                  />
-                  <i
-                    className={`${userRating >= 5 ? 'fa' : 'far'} fa-star`}
-                    onClick={(event) => this.clickRatingHandler(event, 5)}
-                    onTouchEnd={(event) => this.clickRatingHandler(event, 5)}
-                    onKeyDown={(event) => (
-                      event.keyCode === 32
-                        ? this.clickRatingHandler(event, 5)
-                        : null
-                    )}
-                    tabIndex="0"
-                    role="button"
-                    aria-label="Rate 5 stars"
-                  />
+                      )}
+                      tabIndex="0"
+                      role="button"
+                      aria-label={`Rate ${index + 1} star`}
+                      key={index}
+                    />
+                  ))}
                 </SeethroughRating>
               </div>
             </Seethrough>
@@ -433,11 +382,9 @@ class Book extends Component {
             <DetailsRating>
               <div className="book-details-section-title">RATING</div>
               <div className="book-details-rating-stars">
-                <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
-                <i className={`${roundedAverageRating >= 2 ? 'fa' : 'far'} fa-star`} />
-                <i className={`${roundedAverageRating >= 3 ? 'fa' : 'far'} fa-star`} />
-                <i className={`${roundedAverageRating >= 4 ? 'fa' : 'far'} fa-star`} />
-                <i className={`${roundedAverageRating >= 5 ? 'fa' : 'far'} fa-star`} />
+                {[...Array(5).keys()].map((index) => (
+                  <i key={index} className={`${roundedAverageRating >= index + 1 ? 'fa' : 'far'} fa-star`} />
+                ))}
               </div>
             </DetailsRating>
             <DetailsRecommended>
@@ -466,11 +413,9 @@ class Book extends Component {
           {available ? 'Reserve' : ((format === 'Digital' && format) || 'Unavailable')}
         </LendButton>
         <BookRating className="book-rating">
-          <i className={`${roundedAverageRating >= 1 ? 'fa' : 'far'} fa-star`} />
-          <i className={`${roundedAverageRating >= 2 ? 'fa' : 'far'} fa-star`} />
-          <i className={`${roundedAverageRating >= 3 ? 'fa' : 'far'} fa-star`} />
-          <i className={`${roundedAverageRating >= 4 ? 'fa' : 'far'} fa-star`} />
-          <i className={`${roundedAverageRating >= 5 ? 'fa' : 'far'} fa-star`} />
+          {[...Array(5).keys()].map((index) => (
+            <i key={index} className={`${roundedAverageRating >= index + 1 ? 'fa' : 'far'} fa-star`} />
+          ))}
         </BookRating>
 
         <BookmarkIcon

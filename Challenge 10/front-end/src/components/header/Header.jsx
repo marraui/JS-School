@@ -9,6 +9,7 @@ import {
   HeaderContainer,
   Logo,
   UserProfile,
+  Overlay,
 } from './Layout';
 import * as actions from '../../actions/index';
 
@@ -78,15 +79,28 @@ class Header extends Component {
             </div>
             {
               logOutOpened ? (
-                <div
-                  onClick={this.logoutHandler}
-                  onKeyDown={(event) => (event.keyCode === 32 ? this.logoutHandler(event) : null)}
-                  className="log-out"
-                  role="button"
-                  tabIndex="0"
-                >
-                  Log out
-                </div>
+                <>
+                  <Overlay
+                    onClick={this.clickUserOptionsHandler}
+                    onKeyDown={(event) => (
+                      event.keyCode === 32
+                        ? this.clickUserOptionsHandler(event)
+                        : null
+                    )}
+                    role="button"
+                    tabIndex="0"
+                    aria-label="Overlay"
+                  />
+                  <div
+                    onClick={this.logoutHandler}
+                    onKeyDown={(event) => (event.keyCode === 32 ? this.logoutHandler(event) : null)}
+                    className="log-out"
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Log out
+                  </div>
+                </>
               ) : null
             }
           </div>

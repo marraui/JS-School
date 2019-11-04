@@ -3,8 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { from } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { ajax } from 'rxjs/ajax';
 import * as actions from '../../actions/index';
 import {
   LoginContainer,
@@ -55,7 +54,6 @@ class Login extends Component {
 
   loginHandler(event) {
     event.preventDefault();
-    const url = 'http://localhost:3001/login';
     const {
       email,
       password,
@@ -64,34 +62,9 @@ class Login extends Component {
       logIn,
     } = this.props;
 
-    from(fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })).pipe(
-      flatMap((response) => {
-        if (response.status === 204) throw new Error('No content');
-        return response.json();
-      }),
-      map((jsonResponse) => {
-        if (jsonResponse.message) throw new Error(jsonResponse.message);
-        return jsonResponse;
-      }),
-    ).subscribe((jsonResponse) => {
-      const { token } = jsonResponse;
-      if (!token) {
-        Swal.fire('Error', 'Unable to log in', 'error');
-        return;
-      }
-      sessionStorage.setItem('token', token);
-      logIn(token);
-    }, (err) => {
-      Swal.fire('Error', `Error logging in, error: ${err.message}`, 'error');
+    logIn({
+      email,
+      password,
     });
   }
 
@@ -102,33 +75,22 @@ class Login extends Component {
       password,
     } = this.state;
 
-    from(fetch(url, {
+    ajax({
+      url: url,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
+      body: {
         email,
         password,
-      }),
-    })).pipe(
-      flatMap((response) => {
-        if (response.status === 204) throw new Error('No content');
-        return response.json();
-      }),
-      map((jsonResponse) => {
-        if (jsonResponse.message) throw new Error(jsonResponse.message);
-        return jsonResponse;
-      }),
-    ).subscribe((jsonResponse) => {
-      const receivedMail = jsonResponse.email;
-      if (!receivedMail) {
-        Swal.fire('Error', 'Error registering user', 'error');
-        return;
-      }
+      },
+    }).subscribe((response) => {
+      const receivedMail = response.response.email;
       Swal.fire('Success!', `User ${receivedMail} registered successfully`, 'success');
     }, (err) => {
-      Swal.fire('Error', `Error registering, error: ${err.message}`, 'error');
+      const message = err.status !== 204 ? err.response.message : 'No content';
+      Swal.fire('Error', `Error registering, error: ${message}`, 'error');
     });
   }
 

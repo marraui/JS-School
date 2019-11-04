@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { withTheme } from 'styled-components';
-import { from } from 'rxjs';
 import { history as historyPropTypes } from 'history-prop-types';
-import { flatMap, map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 import Book from '../book/Book';
+import objectToQueryString from '../../utils/object-to-query-string';
 import {
   BookGroupContainer,
   LoadContainer,
@@ -16,7 +14,6 @@ import {
 import * as actions from '../../actions/index';
 import { themePropType } from '../../styles/theme';
 import queryStringToObject from '../../utils/query-string-to-object';
-import objectToQueryString from '../../utils/object-to-query-string';
 
 function mapStateToProps(state) {
   return {
@@ -112,58 +109,14 @@ class BookGroup extends Component {
     const {
       token,
       fetchingBooksCreator,
-      booksFetched,
-      resPerPage: resPerPageCreator,
-      totalOfBooks: totalOfBooksCreator,
-      history,
-      location,
     } = this.props;
     const headers = new Headers();
     headers.set('Authorization', `JWT ${token}`);
     const url = new URL('http://localhost:3001/api/book');
     Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
-    fetchingBooksCreator(true);
-    from(fetch(url, { headers })).pipe(
-      flatMap((response) => {
-        if (response.status === 204) throw new Error('No content');
-        return response.json();
-      }),
-      map((jsonResponse) => {
-        if (jsonResponse.message) throw new Error(jsonResponse.message);
-        return jsonResponse;
-      }),
-    ).subscribe((jsonResponse) => {
-      const {
-        books,
-        resPerPage,
-        page,
-        totalResults,
-      } = jsonResponse;
-
-      const bookElements = books.map((book) => ({
-        title: book.title,
-        author: book.author,
-        publishedDate: book.publishedDate ? book.publishedDate.split('-')[0] : 'Not available',
-        description: book.description,
-        roundedAverageRating: book.averageRating ? Math.round(book.averageRating) : 0,
-        thumbnail: book.thumbnail,
-        id: book.id,
-        key: book.id,
-        pageCount: `${book.pageCount}`,
-        format: book.format,
-        available: book.available,
-      }));
-
-      resPerPageCreator(resPerPage);
-
-      const currentParams = queryStringToObject(location.search);
-      currentParams.page = Number(page);
-      history.push(`?${objectToQueryString(currentParams)}`);
-
-      totalOfBooksCreator(totalResults);
-      booksFetched(bookElements);
-    }, (err) => {
-      Swal.fire('Error', `There was an error trying to fetch books, Error: ${err.message}`, 'error');
+    fetchingBooksCreator({
+      token,
+      params: objectToQueryString(params),
     });
   }
 

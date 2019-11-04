@@ -114,6 +114,7 @@ export const UserProfile = styled.div`
     box-sizing: border-box;
     border: 1px solid ${(props) => props.theme.secondaryText};
     cursor: pointer;
+    z-index: 3;
   }
   @media (max-width: 1020px) {
     grid-column: 2;

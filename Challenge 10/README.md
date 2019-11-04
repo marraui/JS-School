@@ -18,6 +18,10 @@ When a user makes a book reservation a message is emitted to any other users vie
 
 All ajax request were changed to be made using RxJS. RxJS was also used in the backend in order to run a daily task at midnight for checking any books that recently became available.
 
+### Redux Observables
+
+Redux observables were used to handle the login request, and the fetch books request. Now the logic for these two requests is handled inside the actions creators and reducers instead of inside the component.
+
 ## Notes
 
 This time npm was changed for yarn. Make sure yarn is installed globally in your machine.

@@ -77,19 +77,36 @@ class Book extends Component {
   }
 
   componentDidMount() {
-    const socket = io('http://localhost:3001', { forceNew: true });
+    this.socket = io('http://localhost:3001', { forceNew: true });
     const { id } = this.props;
-    socket.emit('subscribe', id);
-    socket.on('update-book', this.onBookUpdated);
+    this.socket.emit('subscribe', id);
+    this.socket.on('update-book', this.onBookUpdated);
   }
 
-  onBookUpdated(newBook) {
+  componentWillUnmount() {
+    if (this.socket) this.socket.close();
+  }
+
+  onBookUpdated(book) {
     const { updateBook, title, toastManager } = this.props;
     toastManager.add(`Book "${title}" updated`, {
       appearance: 'info',
       autoDismiss: true,
       autoDismissTimeout: 5000,
     });
+    const newBook = {
+      title: book.title,
+      author: book.author,
+      publishedDate: book.publishedDate ? book.publishedDate.split('-')[0] : 'Not available',
+      description: book.description,
+      roundedAverageRating: book.averageRating ? Math.round(book.averageRating) : 0,
+      thumbnail: book.thumbnail,
+      id: book.id,
+      key: book.id,
+      pageCount: `${book.pageCount}`,
+      format: book.format,
+      available: book.available,
+    }
     updateBook(newBook);
     this.setState({
       up: true,

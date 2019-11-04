@@ -1,14 +1,21 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { createEpicMiddleware } from 'redux-observable';
 import rootReducer from '../reducers/index';
+import rootEpic from '../epics/index';
 
 const token = sessionStorage.getItem('token');
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const epicMiddleware = createEpicMiddleware();
 const store = createStore(
   rootReducer,
   {
     authentication: token || '',
   },
   // eslint-disable-next-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  composeEnhancers(
+    applyMiddleware(epicMiddleware),
+  ),
 );
 
+epicMiddleware.run(rootEpic);
 export default store;

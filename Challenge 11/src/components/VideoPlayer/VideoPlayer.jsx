@@ -25,6 +25,7 @@ export default class VideoPlayer extends Component {
     this.durationChangeHandler = this.durationChangeHandler.bind(this);
     this.endedHandler = this.endedHandler.bind(this);
     this.clickProgressBarHandler = this.clickProgressBarHandler.bind(this);
+    this.pauseHandler = this.pauseHandler.bind(this);
   }
 
   playToggleHandler() {
@@ -77,6 +78,12 @@ export default class VideoPlayer extends Component {
     });
   }
 
+  pauseHandler() {
+    this.setState({
+      playing: false,
+    });
+  }
+
   render() {
     const {
       currentTime,
@@ -106,8 +113,9 @@ export default class VideoPlayer extends Component {
           onTimeUpdate={this.timeUpdateHandler}
           onDurationChange={this.durationChangeHandler}
           onEnded={this.endedHandler}
+          onPause={this.pauseHandler}
         >
-          <source src={`${process.env.PUBLIC_URL}/video.mp4`} type="video/mp4" />
+          <source src={`${process.env.PUBLIC_URL}/video.mp4#t=30,40`} type="video/mp4" />
         </video>
       </Container>
     );

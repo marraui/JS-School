@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import video from './video.mp4';
 
 import {
   Container,
@@ -108,7 +107,7 @@ export default class VideoPlayer extends Component {
           onDurationChange={this.durationChangeHandler}
           onEnded={this.endedHandler}
         >
-          <source src={video} type="video/mp4" />
+          <source src={`${process.env.PUBLIC_URL}/video.mp4`} type="video/mp4" />
         </video>
       </Container>
     );

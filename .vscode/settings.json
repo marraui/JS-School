@@ -1,0 +1,7 @@
+{
+    "eslint.enable": true,
+    "eslint.workingDirectories": [
+        {"directory": "Challenge 10/front-end"},
+        {"directory": "Challenge 11"}
+    ]
+}

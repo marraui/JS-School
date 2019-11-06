@@ -1,1 +1,5 @@
 export const ADD_INTERVAL = 'ADD_INTERVAL';
+
+export const SELECT_INTERVAL = 'SELECT_INTERVAL';
+
+export const UPDATE_INTERVAL = 'UPDATE_INTERVAL';

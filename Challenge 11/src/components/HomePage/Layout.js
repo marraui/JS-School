@@ -12,3 +12,9 @@ export const VideoContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const ClipContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+`;

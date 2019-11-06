@@ -9,7 +9,7 @@ export default {
   secondaryText: '#979797',
   darkSecondaryText: '#858585',
   lightSecondaryText: '#9E9E9E',
-  lightSecondary: '#5EB4DD',
+  darkSecondary: '#5EB4DD',
 };
 
 export const themePropType = PropTypes.shape({

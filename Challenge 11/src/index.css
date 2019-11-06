@@ -1,3 +1,85 @@
+/* Adding pluto sans fonts */
+@font-face {
+  font-family: 'Pluto Sans Black';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansBlack.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Bold';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansBold.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Black';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondBlack.otf');
+  font-stretch: condensed;
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Bold';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondBold.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond ExLight';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondExLight.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Heavy';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondHeavy.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Light';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondLight.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Medium';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondMedium.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Regular';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondRegular.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Cond Thin';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansCondThin.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Extra Light';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansExtraLight.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Heavy';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansHeavy.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Light';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansLight.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Medium';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansMedium.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Regular';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansRegular.otf');
+}
+
+@font-face {
+  font-family: 'Pluto Sans Thin';
+  src: url('assets/PlutoSans-font/HVD Fonts - PlutoSansThin.otf');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

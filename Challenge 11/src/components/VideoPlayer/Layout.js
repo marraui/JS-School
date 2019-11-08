@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+  height: min-content;
 `;
 
 export const Controls = styled.div`
@@ -9,7 +10,7 @@ export const Controls = styled.div`
   bottom: 1rem;
   display: grid;
   grid-template-columns: min-content 1fr min-content;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
 `;
 
@@ -26,6 +27,7 @@ export const ProgressBarContainer = styled.div`
   height: 0.5rem;
   align-self: center;
   cursor: pointer;
+  position: relative;
 `;
 
 export const ProgressBar = styled.div`
@@ -40,4 +42,17 @@ export const ClipButton = styled.div`
   font-size: 1rem;
   cursor: pointer;
   padding: 0.5rem;
+`;
+
+export const Video = styled.video`
+  width: 100%;
+`;
+
+export const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
 `;

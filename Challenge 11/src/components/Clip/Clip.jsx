@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateInterval } from '../../actions/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInterval, selectInterval } from '../../actions/index';
 import {
   ClipWrapper,
   InvisibleInput,
@@ -15,11 +15,21 @@ export default function Clip(interval) {
       title: val,
     }));
   }
+
+  function clickClipHandler() {
+    dispatch(selectInterval(interval));
+  }
+
   const {
     title,
+    id,
   } = interval;
+  const selectedInterval = useSelector((state) => state.selectedInterval);
+  const {
+    id: selectedId,
+  } = selectedInterval;
   return (
-    <ClipWrapper>
+    <ClipWrapper selected={id === selectedId} onClick={clickClipHandler}>
       <InvisibleInput value={title} onChange={changeHanlder} />
     </ClipWrapper>
   );

@@ -1,14 +1,17 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { updateInterval, selectInterval } from '../../actions/index';
+import TagDisplay from '../TagDisplay/TagDisplay';
 import {
   ClipWrapper,
   InvisibleInput,
+  Label,
 } from './Layout';
 
-export default function Clip(interval) {
+export default function Clip({ interval }) {
   const dispatch = useDispatch();
-  function changeHanlder(event) {
+  function changeHandler(event) {
     const val = event.target.value;
     dispatch(updateInterval({
       ...interval,
@@ -22,15 +25,20 @@ export default function Clip(interval) {
 
   const {
     title,
-    id,
   } = interval;
-  const selectedInterval = useSelector((state) => state.selectedInterval);
-  const {
-    id: selectedId,
-  } = selectedInterval;
   return (
-    <ClipWrapper selected={id === selectedId} onClick={clickClipHandler}>
-      <InvisibleInput value={title} onChange={changeHanlder} />
+    <ClipWrapper onClick={clickClipHandler}>
+      <Label htmlFor="clip-input">
+        Clip:
+        <InvisibleInput id="clip-input" value={title} onChange={changeHandler} />
+      </Label>
+      <TagDisplay interval={interval} />
     </ClipWrapper>
   );
 }
+
+Clip.propTypes = {
+  interval: PropTypes.shape({
+    title: PropTypes.string,
+  }).isRequired,
+};

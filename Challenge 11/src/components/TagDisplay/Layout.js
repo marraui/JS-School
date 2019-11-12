@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
-export const ClipWrapper = styled.div`
+export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  background-color: ${(props) => props.theme.primary};
-  border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0rem 0rem 0.1rem;
+`;
+
+export const SubmitButton = styled.input`
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1rem;
+  background-color: ${({ theme }) => (theme.secondary)};
+  border-style: unset;
+  border-radius: 0.2rem;
+  font-family: 'Pluto Sans Cond Regular';
   cursor: pointer;
-  &:hover {
-    background-color: ${(props) => props.theme.darkSecondary};
-  }
+  color: ${({ theme }) => theme.secondaryText};
 `;
 
 export const Label = styled.label`
@@ -26,5 +30,5 @@ export const InvisibleInput = styled.input`
   border-bottom: 1px solid ${(props) => props.theme.lightSecondaryText};
   font-family: 'Pluto Sans Cond Regular';
   font-size: 1rem;
-  color: ${(props) => props.theme.primaryText}
+  color: ${(props) => props.theme.primaryText};
 `;

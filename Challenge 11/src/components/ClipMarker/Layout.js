@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
-export const MarkerContainer = styled.div`
-  color: ${(props) => props.theme.secondary};
+export const MarkerContainer = styled.div.attrs((props) => ({
+  style: {
+    color: props.theme.secondary,
+    left: (props.position ? `${props.position * 100}%` : '0'),
+  },
+}))`
   position: absolute;
-  left: ${(props) => (props.position ? `${props.position * 100}%` : '0')};
   bottom: 0.5rem;
+  z-index: 4;
 `;
 
 export const Marker = styled.div`
   margin-left: -50%;
   font-size: 1rem;
+  z-index: 5;
 `;

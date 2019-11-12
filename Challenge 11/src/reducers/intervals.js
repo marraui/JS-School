@@ -5,6 +5,7 @@ export default function intervals(state = [{
   end: null,
   title: 'Full clip',
   id: 0,
+  tags: [],
 }], action) {
   if (action.type === ADD_INTERVAL) {
     return state.concat([action.payload]);

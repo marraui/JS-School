@@ -6,10 +6,20 @@ export default {
   primaryText: '#231F20',
   secondary: '#6EC1E4',
   lightPrimary: '#FCF8F3',
-  secondaryText: '#979797',
+  secondaryText: '#FFFFFF',
   darkSecondaryText: '#858585',
   lightSecondaryText: '#9E9E9E',
   darkSecondary: '#5EB4DD',
+};
+
+export const alternativeTheme = {
+  primary: '#6EC1E4',
+  lighterPrimary: '#5EB4DD',
+  secondary: '#FFFFFF',
+  primaryText: '#FFFFFF',
+  secondaryText: '#231F20',
+  darkSecondaryText: '#858585',
+  lightSecondaryText: '#9E9E9E',
 };
 
 export const themePropType = PropTypes.shape({

@@ -11,7 +11,14 @@ export const Container = styled.div`
 `;
 
 export const VideoContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+`;
+
+export const VideoTitle = styled.div`
+  font-family: 'Pluto Sans Cond Regular';
+  font-size: 2rem;
 `;
 
 export const ClipContainer = styled.div`

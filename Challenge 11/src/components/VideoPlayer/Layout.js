@@ -23,7 +23,7 @@ export const PlayButton = styled.div`
 
 export const ProgressBarContainer = styled.div`
   border-radius: 1rem;
-  background-color: ${(props) => props.theme.secondaryText};
+  background-color: ${(props) => props.theme.lightSecondaryText};
   height: 0.5rem;
   align-self: center;
   cursor: pointer;

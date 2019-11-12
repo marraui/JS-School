@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -24,6 +25,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addInterval: (interval) => dispatch(actions.addInterval(interval)),
+    selectInterval: (interval) => dispatch(actions.selectInterval(interval)),
   };
 }
 class VideoPlayer extends Component {
@@ -36,6 +38,7 @@ class VideoPlayer extends Component {
       ended: false,
       clipSelected: false,
       firstInterval: null,
+      hoveringClipMarker: null,
     };
     this.video = React.createRef();
     this.progressBarContainer = React.createRef();
@@ -47,6 +50,9 @@ class VideoPlayer extends Component {
     this.pauseHandler = this.pauseHandler.bind(this);
     this.clipSelectedHandler = this.clipSelectedHandler.bind(this);
     this.clickOutsideClipHandler = this.clickOutsideClipHandler.bind(this);
+    this.mouseOverProgressBarHandler = this.mouseOverProgressBarHandler.bind(this);
+    this.mouseExitProgressBarHandler = this.mouseExitProgressBarHandler.bind(this);
+    this.mouseMoveInsideProgresBarHandler = this.mouseMoveInsideProgresBarHandler.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -159,8 +165,53 @@ class VideoPlayer extends Component {
         end: Math.round(newTime),
         id: new Date().getTime(),
         title: 'New Interval',
+        tags: [],
       });
     }
+  }
+
+  mouseOverProgressBarHandler(event) {
+    const { duration } = this.state;
+    const { interval } = this.props;
+    const {
+      start,
+      end,
+    } = interval;
+    const rect = this.progressBarContainer.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const width = rect.right - rect.left;
+
+    const clipDuration = end ? end - start : duration;
+    const newTime = start + clipDuration * (x / width);
+    this.setState({
+      hoveringClipMarker: newTime,
+    });
+  }
+
+  mouseMoveInsideProgresBarHandler(event) {
+    const { hoveringClipMarker, duration } = this.state;
+    if (hoveringClipMarker === null) return;
+
+    const { interval } = this.props;
+    const {
+      start,
+      end,
+    } = interval;
+    const rect = this.progressBarContainer.current.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const width = rect.right - rect.left;
+
+    const clipDuration = end ? end - start : duration;
+    const newTime = start + clipDuration * (x / width);
+    this.setState({
+      hoveringClipMarker: newTime,
+    });
+  }
+
+  mouseExitProgressBarHandler() {
+    this.setState({
+      hoveringClipMarker: null,
+    });
   }
 
   pauseHandler() {
@@ -186,8 +237,13 @@ class VideoPlayer extends Component {
       ended,
       clipSelected,
       firstInterval,
+      hoveringClipMarker,
     } = this.state;
-    const { interval, intervals } = this.props;
+    const {
+      interval,
+      intervals,
+      selectInterval,
+    } = this.props;
 
     const {
       start,
@@ -205,6 +261,9 @@ class VideoPlayer extends Component {
           <ProgressBarContainer
             ref={this.progressBarContainer}
             onClick={this.clickProgressBarHandler}
+            onMouseOver={this.mouseOverProgressBarHandler}
+            onMouseLeave={this.mouseExitProgressBarHandler}
+            onMouseMove={this.mouseMoveInsideProgresBarHandler}
           >
             <ProgressBar progress={`${currentTimePercent * 100}%`} />
             {intervals
@@ -219,19 +278,28 @@ class VideoPlayer extends Component {
                       <ClipMarker
                         position={clipDuration ? ((curStart - start) / clipDuration) : 0}
                         key={`${id}-start`}
+                        onSelect={() => selectInterval(intervalObj)}
                       />
                     ) : null}
                     {curEnd >= start && (end === null || curEnd <= end) ? (
                       <ClipMarker
                         position={clipDuration ? ((curEnd - start) / clipDuration) : 0}
                         key={`${id}-end`}
+                        onSelect={() => selectInterval(intervalObj)}
                       />
                     ) : null}
                   </Fragment>
                 );
               })}
             {firstInterval ? (
-              <ClipMarker position={clipDuration ? ((firstInterval - start) / clipDuration) : 0} />
+              <ClipMarker
+                position={clipDuration ? ((firstInterval - start) / clipDuration) : 0}
+              />
+            ) : null}
+            {clipSelected && hoveringClipMarker !== null ? (
+              <ClipMarker
+                position={clipDuration ? ((hoveringClipMarker - start) / clipDuration) : 0}
+              />
             ) : null}
           </ProgressBarContainer>
           <ClipButton onClick={this.clipSelectedHandler}>
@@ -267,6 +335,7 @@ VideoPlayer.propTypes = {
     title: PropTypes.string,
   })),
   addInterval: PropTypes.func.isRequired,
+  selectInterval: PropTypes.func.isRequired,
 };
 
 VideoPlayer.defaultProps = {

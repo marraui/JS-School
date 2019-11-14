@@ -25,4 +25,5 @@ export const ClipContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: min-content;
+  row-gap: 1.5rem;
 `;

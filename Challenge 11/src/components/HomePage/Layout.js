@@ -3,11 +3,18 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 23.6rem;
-  width: 100vw;
-  height: 100vh;
+  grid-template-rows: repeat(2, min-content);
+  width: 100%;
   box-sizing: border-box;
   padding: 1.5rem 4.5rem;
   column-gap: 1.6rem;
+  row-gap: 2rem;
+
+  @media (max-width: 1020px) {
+    grid-template-columns: 1fr;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 `;
 
 export const VideoContainer = styled.div`

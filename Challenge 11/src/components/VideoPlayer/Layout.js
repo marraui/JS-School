@@ -84,6 +84,16 @@ export const ClipMessage = styled.div`
     left: 50%;
     margin-left: -0.6rem;
   }
+
+  @media (max-width: 1020px) {
+    left: 100%;
+    margin-left: -6rem;
+
+    &::before {
+      left: 100%;
+      margin-left: -1.5rem;
+    }
+  }
 `;
 
 export const ProgressBarMessage = styled.div`

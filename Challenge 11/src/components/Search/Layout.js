@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.form`
-  width: 100vw;
+  width: 100%;
   height: 3.2rem;
   background-color: ${({ theme }) => theme.lightSecondaryText};
   display: flex;

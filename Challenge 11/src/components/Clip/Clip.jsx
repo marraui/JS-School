@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import SweetAlert from 'sweetalert2';
 import { updateInterval, selectInterval, removeInterval } from '../../actions/index';
 import TagDisplay from '../TagDisplay/TagDisplay';
 import {
@@ -32,6 +33,7 @@ export default function Clip({ interval }) {
       ...intervalsStored,
       [id]: interval,
     }));
+    SweetAlert.fire('Success', 'Clip stored successfully', 'success');
   }
 
   function deleteHandler(event) {
@@ -48,6 +50,7 @@ export default function Clip({ interval }) {
       title: 'Full clip',
       tags: [],
     }));
+    SweetAlert.fire('Success', 'Clip deleted successfully', 'success');
   }
 
   const {

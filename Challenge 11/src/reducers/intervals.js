@@ -1,4 +1,4 @@
-import { ADD_INTERVAL, UPDATE_INTERVAL } from '../constants/action-types';
+import { ADD_INTERVAL, UPDATE_INTERVAL, REMOVE_INTERVAL } from '../constants/action-types';
 
 export default function intervals(state = [{
   start: 0,
@@ -16,5 +16,9 @@ export default function intervals(state = [{
       return interval;
     });
   }
+  if (action.type === REMOVE_INTERVAL) {
+    return state.filter((interval) => interval.id !== action.payload);
+  }
+
   return state;
 }

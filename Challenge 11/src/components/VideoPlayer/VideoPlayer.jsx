@@ -58,10 +58,10 @@ class VideoPlayer extends Component {
   componentDidUpdate(prevProps) {
     const { interval } = this.props;
     if (interval.id !== prevProps.interval.id) {
-      this.video.current.currentTime = Math.ceil(interval.start);
+      this.video.current.currentTime = interval.start;
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        currentTime: Math.ceil(interval.start),
+        currentTime: interval.start,
       });
     }
   }
@@ -153,7 +153,7 @@ class VideoPlayer extends Component {
       });
     } else if (firstInterval === null) {
       this.setState({
-        firstInterval: Math.round(newTime),
+        firstInterval: newTime,
       });
     } else {
       this.setState({
@@ -162,7 +162,7 @@ class VideoPlayer extends Component {
       });
       addInterval({
         start: firstInterval,
-        end: Math.round(newTime),
+        end: newTime,
         id: new Date().getTime(),
         title: 'New Interval',
         tags: [],
@@ -251,7 +251,10 @@ class VideoPlayer extends Component {
     } = interval;
 
     const clipDuration = end ? end - start : duration;
-    const currentTimePercent = clipDuration ? ((currentTime - start) / clipDuration) : 0;
+    const currentTimePercent = Math.max(clipDuration
+      ? ((currentTime - start) / clipDuration)
+      : 0,
+    0);
     return (
       <Container>
         <Controls>

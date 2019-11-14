@@ -8,11 +8,14 @@ import {
   Label,
   SubmitButton,
   InvisibleInput,
+  LabelText,
+  Form,
 } from './Layout';
 
 export default function TagDisplay({ interval }) {
   const dispatch = useDispatch();
   const [currentTag, setCurrentTag] = useState('');
+
   const { tags } = interval;
   function submitHandler(event) {
     event.preventDefault();
@@ -36,9 +39,9 @@ export default function TagDisplay({ interval }) {
   }
   return (
     <Container>
-      <form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler}>
         <Label htmlFor="tag-input">
-          Tag:
+          <LabelText>Tag:</LabelText>
           <InvisibleInput
             id="tag-input"
             type="text"
@@ -47,7 +50,7 @@ export default function TagDisplay({ interval }) {
           />
         </Label>
         <SubmitButton type="submit" value="+" />
-      </form>
+      </Form>
       <div>
         {tags.map((tag) => (
           <Tag value={tag} onRemove={removeTag} />

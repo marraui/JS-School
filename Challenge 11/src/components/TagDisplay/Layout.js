@@ -17,11 +17,23 @@ export const SubmitButton = styled.input`
   color: ${({ theme }) => theme.secondaryText};
 `;
 
+export const Form = styled.form`
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  column-gap: 1rem;
+`;
+
 export const Label = styled.label`
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+`;
+
+export const LabelText = styled.div`
+  color: ${(props) => props.theme.primaryText};
   font-family: 'Pluto Sans Cond Regular';
   font-size: 0.8rem;
-  margin-right: 0.5rem;
-  color: ${(props) => props.theme.primaryText};
+  display: flex;
+  align-items: flex-end;
 `;
 
 export const InvisibleInput = styled.input`

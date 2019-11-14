@@ -10,6 +10,7 @@ export default {
   darkSecondaryText: '#858585',
   lightSecondaryText: '#9E9E9E',
   darkSecondary: '#5EB4DD',
+  seethrough: 'rgba(35, 31, 32, 0.88)',
 };
 
 export const alternativeTheme = {
@@ -20,6 +21,7 @@ export const alternativeTheme = {
   secondaryText: '#231F20',
   darkSecondaryText: '#858585',
   lightSecondaryText: '#9E9E9E',
+  seethrough: 'rgba(35, 31, 32, 0.88)',
 };
 
 export const themePropType = PropTypes.shape({
@@ -32,4 +34,5 @@ export const themePropType = PropTypes.shape({
   darkSecondaryText: PropTypes.string,
   lightSecondaryText: PropTypes.string,
   lightSecondary: PropTypes.string,
+  seethrough: PropTypes.string,
 });

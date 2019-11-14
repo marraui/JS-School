@@ -14,6 +14,8 @@ import {
   ProgressBarContainer,
   Overlay,
   Video,
+  ClipMessage,
+  ProgressBarMessage,
 } from './Layout';
 
 function mapStateToProps(state) {
@@ -308,9 +310,19 @@ class VideoPlayer extends Component {
                 position={clipDuration ? ((hoveringClipMarker - start) / clipDuration) : 0}
               />
             ) : null}
+            {clipSelected ? (
+              <ProgressBarMessage>
+                Click on the progress bar to mark clip
+              </ProgressBarMessage>
+            ) : null}
           </ProgressBarContainer>
           <ClipButton onClick={this.clipSelectedHandler}>
             <i className="fa fa-map-marker" />
+            {!clipSelected ? (
+              <ClipMessage>
+                Click here to make new clip
+              </ClipMessage>
+            ) : null}
           </ClipButton>
         </Controls>
         {clipSelected ? <Overlay onClick={this.clickOutsideClipHandler} /> : null}

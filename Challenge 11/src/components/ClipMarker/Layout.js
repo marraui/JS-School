@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const MarkerContainer = styled.div.attrs((props) => ({
   style: {
-    color: props.theme.secondary,
+    color: props.color,
     left: (props.position ? `${props.position * 100}%` : '0'),
   },
 }))`

@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import theme from '../../styles/theme';
 import * as actions from '../../actions/index';
 import ClipMarker from '../ClipMarker/ClipMarker';
 import {
@@ -166,6 +167,7 @@ class VideoPlayer extends Component {
         id: new Date().getTime(),
         title: 'New Interval',
         tags: [],
+        color: theme.secondary,
       });
     }
   }
@@ -272,7 +274,7 @@ class VideoPlayer extends Component {
             {intervals
               .filter((intervalObj) => intervalObj.id !== interval.id)
               .map((intervalObj) => {
-                const { start: curStart, id } = intervalObj;
+                const { start: curStart, id, color } = intervalObj;
                 let { end: curEnd } = intervalObj;
                 curEnd = curEnd === null ? duration : curEnd;
                 return (
@@ -282,6 +284,7 @@ class VideoPlayer extends Component {
                         position={clipDuration ? ((curStart - start) / clipDuration) : 0}
                         key={`${id}-start`}
                         onSelect={() => selectInterval(intervalObj)}
+                        color={color}
                       />
                     ) : null}
                     {curEnd >= start && (end === null || curEnd <= end) ? (
@@ -289,6 +292,7 @@ class VideoPlayer extends Component {
                         position={clipDuration ? ((curEnd - start) / clipDuration) : 0}
                         key={`${id}-end`}
                         onSelect={() => selectInterval(intervalObj)}
+                        color={color}
                       />
                     ) : null}
                   </Fragment>

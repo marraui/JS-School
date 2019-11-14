@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
 import getStoredIntervals from '../utils/get-stored-intervals';
 import rootReducer from '../reducers/index';
+import theme from '../styles/theme';
 
 const storedIntervals = getStoredIntervals();
 const store = createStore(
@@ -13,6 +14,7 @@ const store = createStore(
         title: 'Full clip',
         id: 0,
         tags: [],
+        color: theme.secondary,
       },
       ...storedIntervals,
     ],

@@ -1,4 +1,5 @@
 import { ADD_INTERVAL, UPDATE_INTERVAL, REMOVE_INTERVAL } from '../constants/action-types';
+import theme from '../styles/theme';
 
 export default function intervals(state = [{
   start: 0,
@@ -6,6 +7,7 @@ export default function intervals(state = [{
   title: 'Full clip',
   id: 0,
   tags: [],
+  color: theme.secondary,
 }], action) {
   if (action.type === ADD_INTERVAL) {
     return state.concat([action.payload]);

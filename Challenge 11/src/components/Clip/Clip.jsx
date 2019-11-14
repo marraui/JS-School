@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert2';
+import { HuePicker } from 'react-color';
 import { updateInterval, selectInterval, removeInterval } from '../../actions/index';
 import TagDisplay from '../TagDisplay/TagDisplay';
 import {
@@ -53,9 +54,17 @@ export default function Clip({ interval }) {
     SweetAlert.fire('Success', 'Clip deleted successfully', 'success');
   }
 
+  function changeColorHandler(color) {
+    dispatch(updateInterval({
+      ...interval,
+      color: color.hex,
+    }));
+  }
+
   const {
     id,
     title,
+    color,
   } = interval;
   return (
     <ClipWrapper onClick={clickClipHandler}>
@@ -64,17 +73,23 @@ export default function Clip({ interval }) {
         <InvisibleInput type="text" id="clip-input" value={title} onChange={changeHandler} />
       </Label>
 
-      <TagDisplay interval={interval} />
       {id !== 0
         ? (
-          <div>
-            <IconButton onClick={saveHandler}>
-              <i className="fa fa-save" />
-            </IconButton>
-            <IconButton onClick={deleteHandler}>
-              <i className="fa fa-trash" />
-            </IconButton>
-          </div>
+          <>
+            <Label htmlFor="color-input">
+              <LabelText>Color: </LabelText>
+              <HuePicker onChange={changeColorHandler} color={color} />
+            </Label>
+            <TagDisplay interval={interval} />
+            <div>
+              <IconButton onClick={saveHandler}>
+                <i className="fa fa-save" />
+              </IconButton>
+              <IconButton onClick={deleteHandler}>
+                <i className="fa fa-trash" />
+              </IconButton>
+            </div>
+          </>
         ) : null}
     </ClipWrapper>
   );
@@ -84,5 +99,6 @@ Clip.propTypes = {
   interval: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
+    color: PropTypes.string,
   }).isRequired,
 };

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateInterval, selectInterval } from '../../actions/index';
+import { updateInterval, selectInterval, removeInterval } from '../../actions/index';
 import TagDisplay from '../TagDisplay/TagDisplay';
 import {
   ClipWrapper,
   InvisibleInput,
   Label,
+  IconButton,
+  LabelText,
 } from './Layout';
 
 export default function Clip({ interval }) {
@@ -23,22 +25,61 @@ export default function Clip({ interval }) {
     dispatch(selectInterval(interval));
   }
 
+  function saveHandler() {
+    const { id } = interval;
+    const intervalsStored = JSON.parse(sessionStorage.getItem('intervals')) || {};
+    sessionStorage.setItem('intervals', JSON.stringify({
+      ...intervalsStored,
+      [id]: interval,
+    }));
+  }
+
+  function deleteHandler(event) {
+    event.stopPropagation();
+    const { id } = interval;
+    const intervalsStored = JSON.parse(sessionStorage.getItem('intervals')) || {};
+    delete intervalsStored[id];
+    sessionStorage.setItem('intervals', JSON.stringify(intervalsStored));
+    dispatch(removeInterval(id));
+    dispatch(selectInterval({
+      start: 0,
+      end: null,
+      id: 0,
+      title: 'Full clip',
+      tags: [],
+    }));
+  }
+
   const {
+    id,
     title,
   } = interval;
   return (
     <ClipWrapper onClick={clickClipHandler}>
       <Label htmlFor="clip-input">
-        Clip:
-        <InvisibleInput id="clip-input" value={title} onChange={changeHandler} />
+        <LabelText>Clip:</LabelText>
+        <InvisibleInput type="text" id="clip-input" value={title} onChange={changeHandler} />
       </Label>
+
       <TagDisplay interval={interval} />
+      {id !== 0
+        ? (
+          <div>
+            <IconButton onClick={saveHandler}>
+              <i className="fa fa-save" />
+            </IconButton>
+            <IconButton onClick={deleteHandler}>
+              <i className="fa fa-trash" />
+            </IconButton>
+          </div>
+        ) : null}
     </ClipWrapper>
   );
 }
 
 Clip.propTypes = {
   interval: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
   }).isRequired,
 };

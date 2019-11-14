@@ -13,7 +13,6 @@ const store = createStore(
         title: 'Full clip',
         id: 0,
         tags: [],
-        saved: true,
       },
       ...storedIntervals,
     ],

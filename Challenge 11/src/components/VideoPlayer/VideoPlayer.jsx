@@ -104,7 +104,7 @@ class VideoPlayer extends Component {
     } else {
       this.setState({
         currentTime: videoElement.currentTime,
-        ended: videoElement.currentTime === (end || duration),
+        ended: Math.abs(videoElement.currentTime - (end || duration)) < 0.0001,
       });
     }
   }
@@ -259,6 +259,7 @@ class VideoPlayer extends Component {
       ? ((currentTime - start) / clipDuration)
       : 0,
     0);
+
     return (
       <Container>
         <Controls>

@@ -51,7 +51,7 @@ export default function TagDisplay({ interval, updateInterval }) {
       </Form>
       <div>
         {tags.map((tag) => (
-          <Tag value={tag} onRemove={removeTag} />
+          <Tag key={`tag-${interval.id}-${tag}`} value={tag} onRemove={removeTag} />
         ))}
       </div>
     </Container>

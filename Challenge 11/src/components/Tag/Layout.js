@@ -4,7 +4,7 @@ export const TagContainer = styled.div`
   border-radius: 1rem;
   background-color: ${({ theme, selected }) => (selected ? theme.primary : theme.secondary)};
   display: inline-flex;
-  padding: 0.2rem;
+  padding: 0.2rem 0.5rem;
   margin: 0.2rem;
   align-items: center;
 `;

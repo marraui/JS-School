@@ -59,7 +59,7 @@ export default function TagDisplay({ interval, updateInterval }) {
 }
 
 TagDisplay.propTypes = {
-  interval: PropTypes.shape(intervalPropType).isRequired,
+  interval: intervalPropType.isRequired,
   updateInterval: PropTypes.func,
 };
 

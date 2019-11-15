@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert2';
 import { HuePicker } from 'react-color';
+import { intervalPropType } from '../../constants/proptypes-shape';
 import TagDisplay from '../TagDisplay/index';
 import {
   ClipWrapper,
@@ -98,11 +99,7 @@ export default function Clip({
 }
 
 Clip.propTypes = {
-  interval: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    color: PropTypes.string,
-  }).isRequired,
+  interval: intervalPropType.isRequired,
   updateInterval: PropTypes.func,
   selectInterval: PropTypes.func,
   removeInterval: PropTypes.func,

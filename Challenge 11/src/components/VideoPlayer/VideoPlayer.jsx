@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { intervalPropType } from '../../constants/proptypes-shape';
+import defaultInterval from '../../constants/default-interval';
 import theme from '../../styles/theme';
 import ClipMarker from '../ClipMarker/ClipMarker';
 import {
@@ -327,33 +329,13 @@ export default class VideoPlayer extends Component {
 }
 
 VideoPlayer.propTypes = {
-  interval: PropTypes.shape({
-    start: PropTypes.number,
-    end: PropTypes.number,
-    id: PropTypes.number,
-    title: PropTypes.string,
-  }),
-  intervals: PropTypes.arrayOf(PropTypes.shape({
-    start: PropTypes.number,
-    end: PropTypes.number,
-    id: PropTypes.number,
-    title: PropTypes.string,
-  })),
+  interval: intervalPropType,
+  intervals: PropTypes.arrayOf(intervalPropType),
   addInterval: PropTypes.func.isRequired,
   selectInterval: PropTypes.func.isRequired,
 };
 
 VideoPlayer.defaultProps = {
-  interval: {
-    start: 0,
-    end: null,
-    id: 0,
-    title: 'Full video',
-  },
-  intervals: [{
-    start: 0,
-    end: null,
-    id: 0,
-    title: 'Full video',
-  }],
+  interval: defaultInterval,
+  intervals: [defaultInterval],
 };

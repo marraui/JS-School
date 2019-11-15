@@ -1,6 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
+import { intervalPropType } from '../../constants/proptypes-shape';
+import defaultInterval from '../../constants/default-interval';
 import {
   Container,
   VideoContainer,
@@ -12,16 +14,11 @@ import Search from '../Search/Search';
 import theme, { alternativeTheme } from '../../styles/theme';
 import Clip from '../Clip/index';
 
-export default function HomePage() {
-  const {
-    intervals,
-    searchValue,
-    selectedInterval,
-  } = useSelector((state) => ({
-    intervals: state.intervals,
-    searchValue: state.searchValue,
-    selectedInterval: state.selectedInterval,
-  }));
+export default function HomePage({
+  intervals,
+  searchValue,
+  selectedInterval,
+}) {
   const { title } = selectedInterval;
   const searchRegEx = new RegExp(`${searchValue}`, 'i');
   const shouldDisplayInterval = (interval) => (
@@ -63,3 +60,15 @@ export default function HomePage() {
     </>
   );
 }
+
+HomePage.propTypes = {
+  intervals: PropTypes.arrayOf(intervalPropType),
+  searchValue: PropTypes.string,
+  selectedInterval: intervalPropType,
+};
+
+HomePage.defaultProps = {
+  intervals: [],
+  searchValue: '',
+  selectedInterval: defaultInterval,
+};

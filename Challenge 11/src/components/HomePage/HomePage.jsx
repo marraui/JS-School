@@ -10,12 +10,18 @@ import {
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import Search from '../Search/Search';
 import theme, { alternativeTheme } from '../../styles/theme';
-import Clip from '../Clip/Clip';
+import Clip from '../Clip/index';
 
 export default function HomePage() {
-  const intervals = useSelector((state) => state.intervals);
-  const searchValue = useSelector((state) => state.searchValue);
-  const selectedInterval = useSelector((state) => state.selectedInterval);
+  const {
+    intervals,
+    searchValue,
+    selectedInterval,
+  } = useSelector((state) => ({
+    intervals: state.intervals,
+    searchValue: state.searchValue,
+    selectedInterval: state.selectedInterval,
+  }));
   const { title } = selectedInterval;
   const searchRegEx = new RegExp(`${searchValue}`, 'i');
   const shouldDisplayInterval = (interval) => (

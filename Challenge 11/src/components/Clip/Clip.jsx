@@ -1,9 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert2';
 import { HuePicker } from 'react-color';
-import { updateInterval, selectInterval, removeInterval } from '../../actions/index';
 import TagDisplay from '../TagDisplay/TagDisplay';
 import {
   ClipWrapper,
@@ -13,18 +11,22 @@ import {
   LabelText,
 } from './Layout';
 
-export default function Clip({ interval }) {
-  const dispatch = useDispatch();
+export default function Clip({
+  interval,
+  updateInterval,
+  selectInterval,
+  removeInterval,
+}) {
   function changeHandler(event) {
     const val = event.target.value;
-    dispatch(updateInterval({
+    updateInterval({
       ...interval,
       title: val,
-    }));
+    });
   }
 
   function clickClipHandler() {
-    dispatch(selectInterval(interval));
+    selectInterval(interval);
   }
 
   function saveHandler() {
@@ -43,22 +45,22 @@ export default function Clip({ interval }) {
     const intervalsStored = JSON.parse(sessionStorage.getItem('intervals')) || {};
     delete intervalsStored[id];
     sessionStorage.setItem('intervals', JSON.stringify(intervalsStored));
-    dispatch(removeInterval(id));
-    dispatch(selectInterval({
+    removeInterval(id);
+    selectInterval({
       start: 0,
       end: null,
       id: 0,
       title: 'Full clip',
       tags: [],
-    }));
+    });
     SweetAlert.fire('Success', 'Clip deleted successfully', 'success');
   }
 
   function changeColorHandler(color) {
-    dispatch(updateInterval({
+    updateInterval({
       ...interval,
       color: color.hex,
-    }));
+    });
   }
 
   const {
@@ -101,4 +103,13 @@ Clip.propTypes = {
     title: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
+  updateInterval: PropTypes.func,
+  selectInterval: PropTypes.func,
+  removeInterval: PropTypes.func,
+};
+
+Clip.defaultProps = {
+  updateInterval: () => {},
+  selectInterval: () => {},
+  removeInterval: () => {},
 };

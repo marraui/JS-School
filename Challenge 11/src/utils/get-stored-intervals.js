@@ -1,5 +1,5 @@
 export default function getStoredIntervals() {
-  const intervals = JSON.parse(sessionStorage.getItem('intervals')) || {};
+  const intervals = JSON.parse(localStorage.getItem('intervals')) || {};
   return Object
     .keys(intervals || {})
     .sort()

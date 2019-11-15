@@ -32,8 +32,8 @@ export default function Clip({
 
   function saveHandler() {
     const { id } = interval;
-    const intervalsStored = JSON.parse(sessionStorage.getItem('intervals')) || {};
-    sessionStorage.setItem('intervals', JSON.stringify({
+    const intervalsStored = JSON.parse(localStorage.getItem('intervals')) || {};
+    localStorage.setItem('intervals', JSON.stringify({
       ...intervalsStored,
       [id]: interval,
     }));
@@ -43,9 +43,9 @@ export default function Clip({
   function deleteHandler(event) {
     event.stopPropagation();
     const { id } = interval;
-    const intervalsStored = JSON.parse(sessionStorage.getItem('intervals')) || {};
+    const intervalsStored = JSON.parse(localStorage.getItem('intervals')) || {};
     delete intervalsStored[id];
-    sessionStorage.setItem('intervals', JSON.stringify(intervalsStored));
+    localStorage.setItem('intervals', JSON.stringify(intervalsStored));
     removeInterval(id);
     selectInterval({
       start: 0,

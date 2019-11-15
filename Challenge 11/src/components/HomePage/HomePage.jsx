@@ -9,7 +9,7 @@ import {
   ClipContainer,
   VideoTitle,
 } from './Layout';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import VideoPlayer from '../VideoPlayer/index';
 import Search from '../Search/index';
 import theme, { alternativeTheme } from '../../styles/theme';
 import Clip from '../Clip/index';

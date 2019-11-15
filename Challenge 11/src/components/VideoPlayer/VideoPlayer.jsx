@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import theme from '../../styles/theme';
-import * as actions from '../../actions/index';
 import ClipMarker from '../ClipMarker/ClipMarker';
 import {
   Container,
@@ -18,20 +16,7 @@ import {
   ProgressBarMessage,
 } from './Layout';
 
-function mapStateToProps(state) {
-  return {
-    interval: state.selectedInterval,
-    intervals: state.intervals,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addInterval: (interval) => dispatch(actions.addInterval(interval)),
-    selectInterval: (interval) => dispatch(actions.selectInterval(interval)),
-  };
-}
-class VideoPlayer extends Component {
+export default class VideoPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -372,5 +357,3 @@ VideoPlayer.defaultProps = {
     title: 'Full video',
   }],
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoPlayer);

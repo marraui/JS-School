@@ -1,15 +1,12 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateSearchValue } from '../../actions/index';
+import PropTypes from 'prop-types';
 import {
   HeaderContainer,
   SearchInput,
 } from './Layout';
 
-export default function Search() {
-  const searchValue = useSelector((state) => state.searchValue);
-  const dispatch = useDispatch();
-  const changeHandler = (event) => dispatch(updateSearchValue(event.target.value));
+export default function Search({ searchValue, updateSearchValue }) {
+  const changeHandler = (event) => updateSearchValue(event.target.value);
 
   return (
     <HeaderContainer>
@@ -22,3 +19,13 @@ export default function Search() {
     </HeaderContainer>
   );
 }
+
+Search.propTypes = {
+  searchValue: PropTypes.string,
+  updateSearchValue: PropTypes.func,
+};
+
+Search.defaultProps = {
+  searchValue: '',
+  updateSearchValue: () => {},
+};

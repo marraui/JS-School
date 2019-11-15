@@ -10,7 +10,7 @@ import {
   VideoTitle,
 } from './Layout';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
-import Search from '../Search/Search';
+import Search from '../Search/index';
 import theme, { alternativeTheme } from '../../styles/theme';
 import Clip from '../Clip/index';
 

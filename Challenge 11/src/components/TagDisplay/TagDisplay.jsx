@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { updateInterval } from '../../actions/index';
+import { intervalPropType } from '../../constants/proptypes-shape';
 import Tag from '../Tag/Tag';
 import {
   Container,
@@ -12,8 +11,7 @@ import {
   Form,
 } from './Layout';
 
-export default function TagDisplay({ interval }) {
-  const dispatch = useDispatch();
+export default function TagDisplay({ interval, updateInterval }) {
   const [currentTag, setCurrentTag] = useState('');
 
   const { tags } = interval;
@@ -25,14 +23,14 @@ export default function TagDisplay({ interval }) {
       tags: [...interval.tags, currentTag],
     };
     setCurrentTag('');
-    dispatch(updateInterval(newInterval));
+    updateInterval(newInterval);
   }
   function removeTag(tag) {
     const newInterval = {
       ...interval,
       tags: interval.tags.filter((t) => t !== tag),
     };
-    dispatch(updateInterval(newInterval));
+    updateInterval(newInterval);
   }
   function changeHandler(event) {
     setCurrentTag(event.target.value);
@@ -61,7 +59,10 @@ export default function TagDisplay({ interval }) {
 }
 
 TagDisplay.propTypes = {
-  interval: PropTypes.shape({
-    tags: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
+  interval: PropTypes.shape(intervalPropType).isRequired,
+  updateInterval: PropTypes.func,
+};
+
+TagDisplay.defaultProps = {
+  updateInterval: () => {},
 };

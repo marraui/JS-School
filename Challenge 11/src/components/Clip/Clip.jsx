@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SweetAlert from 'sweetalert2';
 import { HuePicker } from 'react-color';
-import TagDisplay from '../TagDisplay/TagDisplay';
+import TagDisplay from '../TagDisplay/index';
 import {
   ClipWrapper,
   InvisibleInput,

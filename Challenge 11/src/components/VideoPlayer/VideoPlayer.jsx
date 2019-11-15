@@ -234,6 +234,7 @@ export default class VideoPlayer extends Component {
       interval,
       intervals,
       selectInterval,
+      editable,
     } = this.props;
 
     const {
@@ -304,14 +305,16 @@ export default class VideoPlayer extends Component {
               </ProgressBarMessage>
             ) : null}
           </ProgressBarContainer>
-          <ClipButton onClick={this.clipSelectedHandler}>
-            <i className="fa fa-map-marker" />
-            {!clipSelected ? (
-              <ClipMessage>
+          {editable ? (
+            <ClipButton onClick={this.clipSelectedHandler}>
+              <i className="fa fa-map-marker" />
+              {!clipSelected ? (
+                <ClipMessage>
                 Click here to make new clip
-              </ClipMessage>
-            ) : null}
-          </ClipButton>
+                </ClipMessage>
+              ) : null}
+            </ClipButton>
+          ) : <div />}
         </Controls>
         {clipSelected ? <Overlay onClick={this.clickOutsideClipHandler} /> : null}
         <Video
@@ -333,9 +336,11 @@ VideoPlayer.propTypes = {
   intervals: PropTypes.arrayOf(intervalPropType),
   addInterval: PropTypes.func.isRequired,
   selectInterval: PropTypes.func.isRequired,
+  editable: PropTypes.bool,
 };
 
 VideoPlayer.defaultProps = {
   interval: defaultInterval,
   intervals: [defaultInterval],
+  editable: true,
 };

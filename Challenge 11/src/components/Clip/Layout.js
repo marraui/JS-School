@@ -6,11 +6,12 @@ export const ClipWrapper = styled.div`
   background-color: ${(props) => props.theme.primary};
   border-radius: 1rem;
   padding: 1rem;
-  box-shadow: 0rem 0rem 0.1rem;
   row-gap: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s cubic-bezier(.25,.8,.25,1);
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.darkSecondary};
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   }
 `;
 

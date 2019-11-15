@@ -41,6 +41,7 @@ export default function HomePage() {
         <ClipContainer>
           {intervalsToDisplay.map((interval) => (
             <ThemeProvider
+              key={`themeprovider-${interval.id}`}
               theme={interval.id === selectedInterval.id
                 ? alternativeTheme
                 : theme}

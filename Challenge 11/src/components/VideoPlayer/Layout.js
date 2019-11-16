@@ -123,3 +123,22 @@ export const ProgressBarMessage = styled.div`
     margin-left: -0.6rem;
   }
 `;
+
+export const CountDown = styled.div`
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.seethrough};
+  color: ${({ theme }) => theme.secondaryText};
+  font-size: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+
+  &::before {
+    content: "${({ count }) => count}"
+  }
+`;

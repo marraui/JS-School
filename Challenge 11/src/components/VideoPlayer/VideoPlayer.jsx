@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { take } from 'rxjs/operators';
+import { timer } from 'rxjs';
 import { intervalPropType } from '../../constants/proptypes-shape';
 import defaultInterval from '../../constants/default-interval';
 import theme from '../../styles/theme';
@@ -16,6 +18,7 @@ import {
   Video,
   ClipMessage,
   ProgressBarMessage,
+  CountDown,
 } from './Layout';
 
 export default class VideoPlayer extends Component {
@@ -29,7 +32,10 @@ export default class VideoPlayer extends Component {
       clipSelected: false,
       firstInterval: null,
       hoveringClipMarker: null,
+      countDown: null,
     };
+    this.countDownTimer$ = null;
+
     this.video = React.createRef();
     this.progressBarContainer = React.createRef();
     this.playToggleHandler = this.playToggleHandler.bind(this);
@@ -45,13 +51,24 @@ export default class VideoPlayer extends Component {
     this.mouseMoveInsideProgresBarHandler = this.mouseMoveInsideProgresBarHandler.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', (event) => {
+      if (event.keyCode === 39) this.goToNextInterval();
+      else if (event.keyCode === 37) this.goToPrevInterval();
+    });
+  }
+
   componentDidUpdate(prevProps) {
-    const { interval } = this.props;
+    const { interval, autoPlay } = this.props;
     if (interval.id !== prevProps.interval.id) {
-      this.video.current.currentTime = interval.start;
+      const videoElement = this.video.current;
+      videoElement.currentTime = interval.start;
+      if (autoPlay) videoElement.play();
+
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         currentTime: interval.start,
+        playing: autoPlay,
       });
     }
   }
@@ -77,7 +94,7 @@ export default class VideoPlayer extends Component {
   timeUpdateHandler() {
     const videoElement = this.video.current;
     const { duration } = this.state;
-    const { interval } = this.props;
+    const { interval, intervals } = this.props;
     const { end } = interval;
     if (interval.end !== null && videoElement.currentTime >= interval.end) {
       videoElement.pause();
@@ -89,10 +106,17 @@ export default class VideoPlayer extends Component {
         playing: false,
       });
     } else {
+      const isEnd = Math.abs(videoElement.currentTime - (end || duration)) < 0.0001;
       this.setState({
         currentTime: videoElement.currentTime,
-        ended: Math.abs(videoElement.currentTime - (end || duration)) < 0.0001,
+        ended: isEnd,
       });
+      if (isEnd) {
+        const index = intervals.findIndex((auxInterval) => auxInterval.id === interval.id);
+        if (index + 1 < intervals.length) this.initCountDown();
+      } else if (this.countDownTimerSubscription) {
+        this.countDownTimerSubscription.unsubscribe();
+      }
     }
   }
 
@@ -109,6 +133,9 @@ export default class VideoPlayer extends Component {
       ended: videoElement.ended,
       playing: false,
     });
+    const { intervals, interval } = this.props;
+    const index = intervals.findIndex((auxInterval) => auxInterval.id === interval.id);
+    if (index + 1 < intervals.length) this.initCountDown();
   }
 
   clipSelectedHandler() {
@@ -220,6 +247,45 @@ export default class VideoPlayer extends Component {
     });
   }
 
+  goToNextInterval() {
+    const {
+      intervals,
+      interval,
+      selectInterval,
+    } = this.props;
+    const index = intervals.findIndex((auxInterval) => auxInterval.id === interval.id);
+    if (index + 1 < intervals.length) selectInterval(intervals[index + 1]);
+  }
+
+  goToPrevInterval() {
+    const {
+      intervals,
+      interval,
+      selectInterval,
+    } = this.props;
+    const index = intervals.findIndex((auxInterval) => auxInterval === interval.id);
+    if (index - 1 >= 0) selectInterval(intervals[index - 1]);
+  }
+
+  initCountDown() {
+    const { autoPlay } = this.props;
+    if (!autoPlay) return;
+    if (this.countDownTimerSubscription) this.countDownTimerSubscription.unsubscribe();
+    this.setState({
+      countDown: 3,
+    });
+    this.countDownTimerSubscription = timer(1000, 1000).pipe(
+      take(3),
+    ).subscribe(() => {
+      const { countDown } = this.state;
+      this.setState({
+        countDown: countDown - 1,
+      });
+    }, () => { }, () => {
+      this.goToNextInterval();
+    });
+  }
+
   render() {
     const {
       currentTime,
@@ -229,6 +295,7 @@ export default class VideoPlayer extends Component {
       clipSelected,
       firstInterval,
       hoveringClipMarker,
+      countDown,
     } = this.state;
     const {
       interval,
@@ -326,6 +393,7 @@ export default class VideoPlayer extends Component {
         >
           <source src={`${process.env.PUBLIC_URL}/video.mp4#t=${start}${end ? `,${end}` : ''}`} type="video/mp4" />
         </Video>
+        {countDown ? <CountDown count={countDown} /> : null}
       </Container>
     );
   }
@@ -337,10 +405,12 @@ VideoPlayer.propTypes = {
   addInterval: PropTypes.func.isRequired,
   selectInterval: PropTypes.func.isRequired,
   editable: PropTypes.bool,
+  autoPlay: PropTypes.bool,
 };
 
 VideoPlayer.defaultProps = {
   interval: defaultInterval,
   intervals: [defaultInterval],
   editable: true,
+  autoPlay: true,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { intervalPropType } from '../../constants/proptypes-shape';
@@ -19,6 +19,7 @@ export default function HomePage({
   searchValue,
   selectedInterval,
 }) {
+  const [autoPlay, setAutoPlay] = useState(true);
   const { title } = selectedInterval;
   const searchRegEx = new RegExp(`${searchValue}`, 'i');
   const shouldDisplayInterval = (interval) => (
@@ -33,10 +34,10 @@ export default function HomePage({
 
   return (
     <>
-      <Search />
+      <Search autoPlay={autoPlay} onAutoPlayChange={setAutoPlay} />
       <Container>
         <VideoContainer>
-          <VideoPlayer />
+          <VideoPlayer autoPlay={autoPlay} />
           <VideoTitle>
             {title}
           </VideoTitle>

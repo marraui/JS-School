@@ -6,4 +6,5 @@ export const intervalPropType = PropTypes.shape({
   start: PropTypes.number,
   end: PropTypes.number,
   color: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
 });

@@ -2,6 +2,11 @@
     "eslint.enable": true,
     "eslint.workingDirectories": [
         {"directory": "Challenge 10/front-end"},
-        {"directory": "Challenge 11"}
+        {"directory": "Challenge 11"},
+        {"directory": "Challenge 12"},
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact"
     ]
 }

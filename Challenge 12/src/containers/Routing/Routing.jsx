@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { tabsPropType } from '../../constants/redux-types';
-import Navbar from '../Navbar';
+import Navbar from '../../components/Navbar';
 import MainDisplay from '../MainDisplay';
 import SaveOptions from '../SaveOptions';
 import NotFound from '../NotFound';

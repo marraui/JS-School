@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { tabsPropType } from '../../constants/redux-types';
 import Navbar from '../Navbar';
 import MainDisplay from '../MainDisplay';
 import SaveOptions from '../SaveOptions';
@@ -34,7 +34,7 @@ export default function Routing({ tabs }) {
 }
 
 Routing.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.string),
+  tabs: tabsPropType,
 };
 
 Routing.defaultProps = {

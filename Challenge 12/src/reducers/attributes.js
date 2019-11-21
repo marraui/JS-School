@@ -2,7 +2,7 @@ import {
   ADD_ATTRIBUTE,
   REMOVE_ATTRIBUTE,
   UPDATE_ATTRIBUTE,
-} from '../constants/action_types';
+} from '../constants/action-types';
 
 export default function attributes(state = [], { type, payload }) {
   if (type === ADD_ATTRIBUTE) return [...state, payload];

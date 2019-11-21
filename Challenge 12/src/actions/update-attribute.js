@@ -1,4 +1,4 @@
-import { UPDATE_ATTRIBUTE } from '../constants/action_types';
+import { UPDATE_ATTRIBUTE } from '../constants/action-types';
 
 export default function updateAttribute(payload) {
   return {

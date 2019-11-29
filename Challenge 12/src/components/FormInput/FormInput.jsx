@@ -26,7 +26,7 @@ export default function FormInput({
         as={type === 'select' ? 'select' : 'input'}
       >
         {type === 'select' ? options.map((option) => (
-          <option value={option}>{option}</option>
+          <option key={option} value={option}>{option}</option>
         )) : null}
       </Input>
       {error ? (<ErrorMessage>{error.message}</ErrorMessage>) : null}

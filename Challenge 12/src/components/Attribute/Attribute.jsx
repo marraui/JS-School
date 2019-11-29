@@ -135,6 +135,7 @@ function fieldToNode(field, values, opened) {
         type={field.type}
         options={field.options}
         hide={field.concealable && !opened}
+        key={field.name}
       />
     ) : null);
 }

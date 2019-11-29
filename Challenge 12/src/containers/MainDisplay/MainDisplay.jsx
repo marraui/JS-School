@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { attributePropTypes } from '../../constants/redux-types';
-import FormInput from '../../components/Attribute';
+import Attribute from '../../components/Attribute';
 import {
   Wrapper,
   AddAttribute,
@@ -16,7 +16,18 @@ export default function MainDisplay({ attributes, addAttribute }) {
   return (
     <Wrapper>
       {attributes.filter((attribute) => attribute.tab === tab).map((attribute) => (
-        <FormInput key={attribute} />
+        <Attribute
+          key={attribute.id}
+          id={attribute.id}
+          name={attribute.name}
+          description={attribute.description}
+          deviceResourceType={attribute.deviceResourceTyp}
+          defaultValue={attribute.defaultValue}
+          dataType={attribute.dataType}
+          format={attribute.format}
+          noneFields={attribute.noneFields}
+          numberFields={attribute.numberFields}
+        />
       ))}
       <AddAttributeWrapper>
         <AddAttributeIcon onClick={() => addAttribute({ tab })} />

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.label`
-  display: grid;
+  display: ${({ hide }) => (hide ? 'none' : 'grid')};
   grid-template-columns: 1fr;
   grid-template-rows: repeat(3, min-content);
 `;

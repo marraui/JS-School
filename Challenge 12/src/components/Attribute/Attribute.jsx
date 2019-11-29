@@ -125,29 +125,37 @@ const inputs = [
   },
 ];
 
-function fieldToNode(field, values, opened) {
-  return (
-    !field.exclusiveTo || field.exclusiveTo === values.format ? (
+export default function Attribute({
+  updateAttribute,
+  removeAttribute,
+  ...attributeValues
+}) {
+  const [opened, setOpened] = useState(true);
+  const { id, format } = attributeValues;
+  const inputFields = getFields(inputs);
+  const fieldToNode = (field) => (
+    !field.exclusiveTo || field.exclusiveTo === format ? (
       <FormInput
         name={field.name}
-        value={field.accessor.reduce((obj, acc) => obj[acc], values)}
+        value={field.accessor.reduce((obj, acc) => (obj && obj[acc]) || undefined, attributeValues)}
         placeholder={field.placeholder}
         type={field.type}
         options={field.options}
         hide={field.concealable && !opened}
         key={field.name}
+        onChange={(newVal) => updateAttribute({
+          ...field.accessor.reverse().reduce((obj, acc) => ({ [acc]: obj }), newVal),
+          id,
+        })}
       />
-    ) : null);
-}
+    ) : null
+  );
 
-export default function Attribute(props) {
-  const [opened, setOpened] = useState(true);
-  const inputFields = getFields(inputs);
   return (
     <Wrapper hide={!opened}>
-      <DeleteIcon />
+      <DeleteIcon onClick={() => removeAttribute(id)} />
       <ToggleIcon opened={opened} onClick={() => setOpened(!opened)} />
-      {inputFields.map((field) => fieldToNode(field, props, opened))}
+      {inputFields.map((field) => fieldToNode(field))}
     </Wrapper>
   );
 }

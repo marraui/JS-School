@@ -8,7 +8,11 @@ export default function attributes(state = [], { type, payload }) {
   if (type === ADD_ATTRIBUTE) return [...state, payload];
   if (type === REMOVE_ATTRIBUTE) return state.filter((attribute) => attribute.id !== payload);
   if (type === UPDATE_ATTRIBUTE) {
-    return state.map((attribute) => (attribute.id === payload.id && payload) || attribute);
+    return state.map((attribute) => (
+      attribute.id === payload.id
+        ? { ...attribute, ...payload }
+        : attribute
+    ));
   }
   return state;
 }

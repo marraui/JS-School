@@ -28,7 +28,7 @@ export default function MainDisplay({ attributes, addAttribute }) {
 
 MainDisplay.propTypes = {
   addAttribute: PropTypes.func,
-  attributes: PropTypes.shape(attributePropTypes),
+  attributes: PropTypes.arrayOf(attributePropTypes),
 };
 
 MainDisplay.defaultProps = {

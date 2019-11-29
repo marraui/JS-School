@@ -15,7 +15,9 @@ export default function FormInput({
   type,
   options,
   hide,
+  onChange,
 }) {
+  const handleChange = (event) => onChange(event.target.value);
   return (
     <Wrapper hide={hide} htmlFor="">
       <InputName>{`${name}:`}</InputName>
@@ -24,6 +26,7 @@ export default function FormInput({
         type={type}
         placeholder={type === 'text' ? placeholder : undefined}
         as={type === 'select' ? 'select' : 'input'}
+        onChange={handleChange}
       >
         {type === 'select' ? options.map((option) => (
           <option key={option} value={option}>{option}</option>
@@ -47,6 +50,7 @@ FormInput.propTypes = {
   type: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string),
   hide: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 FormInput.defaultProps = {
@@ -56,4 +60,5 @@ FormInput.defaultProps = {
   type: 'text',
   options: [],
   hide: false,
+  onChange: () => null,
 };

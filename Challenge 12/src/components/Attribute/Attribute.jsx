@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { attributePropTypes } from '../../constants/redux-types';
 import FormInput from '../FormInput';
 import {
   Wrapper,
@@ -147,34 +147,11 @@ export default function Attribute(props) {
       <DeleteIcon />
       <ToggleIcon opened={opened} onClick={() => setOpened(!opened)} />
       {inputFields.map((field) => fieldToNode(field, props, opened))}
-
     </Wrapper>
   );
 }
 
-Attribute.propTypes = {
-  name: PropTypes.string,
-  description: PropTypes.string,
-  deviceResourceType: PropTypes.string,
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  dataType: PropTypes.string,
-  format: PropTypes.string,
-  noneFields: PropTypes.shape({
-    enumerations: PropTypes.arrayOf(PropTypes.string),
-  }),
-  numberFields: PropTypes.shape({
-    range: PropTypes.shape({
-      min: PropTypes.number,
-      max: PropTypes.number,
-    }),
-    unitOfMeasurement: PropTypes.string,
-    precision: PropTypes.number,
-    accuracy: PropTypes.number,
-  }),
-};
+Attribute.propTypes = attributePropTypes;
 
 Attribute.defaultProps = {
   name: '',

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 export const tabsPropType = PropTypes.arrayOf(PropTypes.string);
 
 export const attributePropTypes = PropTypes.shape({
+  id: PropTypes.number.isRequired,
   name: PropTypes.string,
   description: PropTypes.string,
   deviceResourceType: PropTypes.string,

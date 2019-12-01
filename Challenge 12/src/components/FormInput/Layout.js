@@ -19,6 +19,7 @@ export const Input = styled.input`
   background-color: ${({ theme }) => theme.lightPrimaryColor};
   border-style: unset;
   box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.primaryTextColor};
+  padding: 5px;
 `;
 
 export const ErrorMessage = styled.span`

@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'formik';
+import TagInput from '../TagInput/TagInput';
 import {
   ErrorMessage,
   InputName,
   Wrapper,
   Input,
 } from './Layout';
+
+const getComponentFromType = (type) => {
+  if (type === 'select') return 'select';
+  if (type === 'tag-input') return TagInput;
+  return 'input';
+};
 
 function FormInput({
   name,
@@ -30,8 +37,8 @@ function FormInput({
         value={value}
         type="text"
         placeholder={type !== 'select' ? placeholder : undefined}
-        as={type === 'select' ? 'select' : 'input'}
-        onChange={(event) => onChange(event.target.value)}
+        as={getComponentFromType(type)}
+        onChange={type !== 'tag-input' ? (event) => onChange(event.target.value) : onChange}
         onBlur={onBlur}
       >
         {type === 'select' ? options.map((option) => (
@@ -54,11 +61,10 @@ FormInput.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.arrayOf(PropTypes.string),
   ]),
   placeholder: PropTypes.string,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
   type: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string),
   hide: PropTypes.bool,

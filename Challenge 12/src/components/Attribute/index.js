@@ -1,10 +1,11 @@
-import { connect } from 'react-redux';
-import { updateAttribute, removeAttribute } from '../../actions';
+
+import { get } from 'lodash';
+import connect from '../../HOC/custom-connect-formik';
 import Attribute from './Attribute';
 
-const mapDispatchToProps = (dispatch) => ({
-  updateAttribute: (attribute) => dispatch(updateAttribute(attribute)),
-  removeAttribute: (id) => dispatch(removeAttribute(id)),
+const mapFormikToProps = ({ setFieldValue, values }, accessor) => ({
+  onRemove: () => setFieldValue(accessor, undefined),
+  format: get(values, `${accessor}.format`),
+  accessor,
 });
-
-export default connect(undefined, mapDispatchToProps)(Attribute);
+export default connect(mapFormikToProps)(Attribute);

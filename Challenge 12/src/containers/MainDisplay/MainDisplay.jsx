@@ -15,20 +15,13 @@ export default function MainDisplay({ attributes, addAttribute }) {
   const tab = location.pathname.substring(1);
   return (
     <Wrapper>
-      {attributes.filter((attribute) => attribute.tab === tab).map((attribute) => (
+      {Object.keys(attributes).sort().map((id) => ((
         <Attribute
-          key={attribute.id}
-          id={attribute.id}
-          name={attribute.name}
-          description={attribute.description}
-          deviceResourceType={attribute.deviceResourceTyp}
-          defaultValue={attribute.defaultValue}
-          dataType={attribute.dataType}
-          format={attribute.format}
-          noneFields={attribute.noneFields}
-          numberFields={attribute.numberFields}
+          id={id}
+          accessor={id}
+          hidden={attributes[id].tab !== tab}
         />
-      ))}
+      )))}
       <AddAttributeWrapper>
         <AddAttributeIcon onClick={() => addAttribute({ tab })} />
         <AddAttribute onClick={() => addAttribute({ tab })}>Add attribute</AddAttribute>

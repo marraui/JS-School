@@ -1,11 +1,10 @@
-import { connect } from 'react-redux';
+import connect from '../../HOC/custom-connect-formik';
 import MainDisplay from './MainDisplay';
-import { addAttribute } from '../../actions';
+import defaultAttribute from '../../constants/default-attribute';
 
-const mapStateToProps = (state) => ({ attributes: state.attributes });
-
-const mapDispatchToProps = (dispatch) => ({
-  addAttribute: (attribute) => dispatch(addAttribute(attribute)),
+const mapFormikToProps = ({ values, setFieldValue }) => ({
+  attributes: values,
+  addAttribute: (attr) => setFieldValue(new Date().getTime(), { ...defaultAttribute, ...attr }),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainDisplay);
+export default connect(mapFormikToProps)(MainDisplay);

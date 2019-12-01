@@ -1,3 +1,28 @@
+import { get } from 'lodash';
 import FormInput from './FormInput';
+import connect from '../../HOC/custom-connect-formik';
 
-export default FormInput;
+const mapFormikToProps = ({
+  values,
+  errors,
+  touched,
+  validateOnBlur,
+  validateOnChange,
+  submitCount,
+  setFieldTouched,
+  setFieldValue,
+}, accessor) => ({
+  value: get(values, accessor),
+  error: get(errors, accessor),
+  touched: get(touched, accessor),
+  validateOnBlur,
+  validateOnChange,
+  submitted: submitCount > 0,
+  onChange: (value) => setFieldValue(accessor, value),
+  onBlur: () => {
+    setFieldTouched(accessor, true);
+    console.log({ values, errors });
+  },
+});
+
+export default connect(mapFormikToProps)(FormInput);

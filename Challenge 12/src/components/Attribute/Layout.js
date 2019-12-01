@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
 export const Wrapper = styled.div`
-  display: grid;
+  display: ${({ hidden }) => (hidden ? 'none' : 'grid')};
   position: relative;
   grid-template-columns: 1fr 2fr;
   column-gap: 16px;
@@ -21,8 +21,8 @@ export const DeleteIcon = styled.i.attrs(() => ({ className: 'fa fa-trash' }))`
   cursor: pointer;
 `;
 
-export const ToggleIcon = styled.i.attrs(({ opened }) => ({
-  className: `fa fa-angle-double-${(opened && 'up') || 'down'}`,
+export const ToggleIcon = styled.i.attrs(({ collapsed }) => ({
+  className: `fa fa-angle-double-${(collapsed && 'down') || 'up'}`,
 }))`
   position: absolute;
   right: 10px;

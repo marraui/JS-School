@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'formik';
 import {
   ErrorMessage,
   InputName,
@@ -7,35 +8,46 @@ import {
   Input,
 } from './Layout';
 
-export default function FormInput({
+function FormInput({
   name,
-  value,
   placeholder,
-  error,
   type,
   options,
   hide,
+  value,
+  touched,
+  error,
+  validateOnBlur,
+  validateOnChange,
+  submitted,
   onChange,
+  onBlur,
 }) {
-  const handleChange = (event) => onChange(event.target.value);
   return (
     <Wrapper hide={hide} htmlFor="">
       <InputName>{`${name}:`}</InputName>
       <Input
         value={value}
-        type={type}
-        placeholder={type === 'text' ? placeholder : undefined}
+        type="text"
+        placeholder={type !== 'select' ? placeholder : undefined}
         as={type === 'select' ? 'select' : 'input'}
-        onChange={handleChange}
+        onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur}
       >
         {type === 'select' ? options.map((option) => (
           <option key={option} value={option}>{option}</option>
         )) : null}
       </Input>
-      {error ? (<ErrorMessage>{error.message}</ErrorMessage>) : null}
+      {error && (
+        (validateOnBlur && touched)
+        || (value && validateOnChange)
+        || submitted
+      ) ? (<ErrorMessage>{error}</ErrorMessage>) : null}
     </Wrapper>
   );
 }
+
+export default connect(FormInput);
 
 FormInput.propTypes = {
   name: PropTypes.string.isRequired,
@@ -51,6 +63,11 @@ FormInput.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   hide: PropTypes.bool,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  touched: PropTypes.bool,
+  validateOnBlur: PropTypes.bool,
+  validateOnChange: PropTypes.bool,
+  submitted: PropTypes.bool,
 };
 
 FormInput.defaultProps = {
@@ -61,4 +78,9 @@ FormInput.defaultProps = {
   options: [],
   hide: false,
   onChange: () => null,
+  onBlur: () => null,
+  touched: false,
+  validateOnBlur: true,
+  validateOnChange: false,
+  submitted: false,
 };

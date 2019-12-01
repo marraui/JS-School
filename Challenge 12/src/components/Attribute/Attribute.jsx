@@ -1,6 +1,7 @@
+/* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from 'react';
-import { attributePropTypes } from '../../constants/redux-types';
+import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import {
   Wrapper,
@@ -19,11 +20,15 @@ function getFields(fields) {
     const field = stack.pop();
     field.accessor = typeof field.accessor === 'string' ? [field.accessor] : field.accessor;
     if (field.fieldType === 'group') {
-      stack.push(...field.fields.map((child) => ({
-        ...child,
-        exclusiveTo: field.exclusiveTo,
-        accessor: [...field.accessor, child.accessor],
-      })));
+      stack.push(
+        ...field.fields
+          .map((child) => ({
+            ...child,
+            exclusiveTo: field.exclusiveTo,
+            accessor: [...field.accessor, child.accessor],
+          }))
+          .reverse(),
+      );
     } else res.push(field);
   }
   return res;
@@ -94,12 +99,14 @@ const inputs = [
             accessor: 'min',
             placeholder: 'Range min',
             concealable: true,
+            type: 'number',
           },
           {
             name: 'Range Max',
             accessor: 'max',
             placeholder: 'Range max',
             concealable: true,
+            type: 'number',
           },
         ],
       },
@@ -108,67 +115,67 @@ const inputs = [
         accessor: 'unitOfMeasurement',
         placeholder: 'UoM (eg. mm)',
         concealable: true,
+        type: 'number',
       },
       {
         name: 'Precision',
         accessor: 'precision',
         placeholder: 'Precision (eg. 0.5)',
         concealable: true,
+        type: 'number',
       },
       {
         name: 'Accuracy',
         accessor: 'accuracy',
         placeholder: 'Accuracy (eg. 0.5)',
         concealable: true,
+        type: 'number',
       },
     ],
   },
 ];
 
 export default function Attribute({
-  updateAttribute,
-  removeAttribute,
-  ...attributeValues
+  onRemove,
+  hidden,
+  accessor,
+  format,
 }) {
-  const [opened, setOpened] = useState(true);
-  const { id, format } = attributeValues;
+  const [collapsed, setCollapsed] = useState(false);
   const inputFields = getFields(inputs);
   const fieldToNode = (field) => (
     !field.exclusiveTo || field.exclusiveTo === format ? (
       <FormInput
         name={field.name}
-        value={field.accessor.reduce((obj, acc) => (obj && obj[acc]) || undefined, attributeValues)}
         placeholder={field.placeholder}
         type={field.type}
         options={field.options}
-        hide={field.concealable && !opened}
+        hide={field.concealable && collapsed}
         key={field.name}
-        onChange={(newVal) => updateAttribute({
-          ...field.accessor.reverse().reduce((obj, acc) => ({ [acc]: obj }), newVal),
-          id,
-        })}
+        accessor={`${accessor}.${field.accessor.join('.')}`}
       />
     ) : null
   );
 
   return (
-    <Wrapper hide={!opened}>
-      <DeleteIcon onClick={() => removeAttribute(id)} />
-      <ToggleIcon opened={opened} onClick={() => setOpened(!opened)} />
+    <Wrapper collapsed={collapsed} hidden={hidden}>
+      <DeleteIcon onClick={() => onRemove()} />
+      <ToggleIcon collapsed={collapsed} onClick={() => setCollapsed(!collapsed)} />
       {inputFields.map((field) => fieldToNode(field))}
     </Wrapper>
   );
 }
 
-Attribute.propTypes = attributePropTypes;
+Attribute.propTypes = {
+  onRemove: PropTypes.func,
+  accessor: PropTypes.string.isRequired,
+  hidden: PropTypes.bool,
+  format: PropTypes.string,
+};
 
 Attribute.defaultProps = {
-  name: '',
-  description: '',
-  deviceResourceType: undefined,
-  defaultValue: undefined,
-  dataType: undefined,
   format: undefined,
-  noneFields: undefined,
-  numberFields: undefined,
+  removeAttribute: () => null,
+  hidden: false,
+  onRemove: () => null,
 };

@@ -18,6 +18,7 @@ export const RemoveButton = styled.i.attrs(() => ({ className: 'fa fa-times' }))
   align-items: center;
   margin-right: 5px;
   color: ${({ theme }) => theme.primaryTextColor};
+  cursor: pointer;
 `;
 
 export const TagText = styled.span`

@@ -5,7 +5,7 @@ import { RemoveButton, TagText, Wrapper } from './Layout';
 export default function Tag({ tag, onRemove }) {
   return (
     <Wrapper>
-      <RemoveButton onClick={onRemove} />
+      <RemoveButton onClick={() => onRemove(tag)} />
       <TagText>{tag}</TagText>
     </Wrapper>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/no-unused-prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import {
@@ -9,7 +9,7 @@ import {
   ToggleIcon,
 } from './Layout';
 
-const dataTypeOptions = ['STRING', 'NONE'];
+const dataTypeOptions = ['STRING', 'OBJECT'];
 const formatOptions = ['NONE', 'NUMBER', 'BOOLEAN', 'DATE-TIME', 'CDATA', 'URI'];
 
 function getFields(fields) {
@@ -34,7 +34,7 @@ function getFields(fields) {
   return res;
 }
 
-const inputs = [
+const getInputs = (dataType) => [
   {
     name: 'Name',
     accessor: 'name',
@@ -51,12 +51,14 @@ const inputs = [
     type: 'select',
     options: [],
     concealable: true,
+    disabled: true,
   },
   {
     name: 'Default Value',
     accessor: 'defaultValue',
     placeholder: 'Enter a default value',
     concealable: true,
+    disabled: dataType === 'OBJECT',
   },
   {
     name: 'Data Type',
@@ -71,6 +73,7 @@ const inputs = [
     type: 'select',
     options: formatOptions,
     concealable: true,
+    disabled: dataType === 'OBJECT',
   },
   {
     exclusiveTo: 'NONE',
@@ -142,9 +145,13 @@ export default function Attribute({
   accessor,
   format,
   onFormatChange,
+  dataType,
+  onDataTypeChange,
 }) {
   const [collapsed, setCollapsed] = useState(false);
+  const inputs = useMemo(() => getInputs(dataType), [dataType]);
   useEffect(() => onFormatChange(format), [format]);
+  useEffect(() => onDataTypeChange(dataType), [dataType]);
   const inputFields = getFields(inputs);
   const fieldToNode = (field) => (
     !field.exclusiveTo || field.exclusiveTo === format ? (
@@ -156,6 +163,7 @@ export default function Attribute({
         hide={field.concealable && collapsed}
         key={field.name}
         accessor={`${accessor}.${field.accessor.join('.')}`}
+        disabled={field.disabled}
       />
     ) : null
   );
@@ -175,6 +183,8 @@ Attribute.propTypes = {
   hidden: PropTypes.bool,
   format: PropTypes.string,
   onFormatChange: PropTypes.func,
+  dataType: PropTypes.string,
+  onDataTypeChange: PropTypes.func,
 };
 
 Attribute.defaultProps = {
@@ -183,4 +193,6 @@ Attribute.defaultProps = {
   hidden: false,
   onRemove: () => null,
   onFormatChange: () => null,
+  dataType: undefined,
+  onDataTypeChange: () => null,
 };

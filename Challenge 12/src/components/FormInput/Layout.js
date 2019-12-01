@@ -12,6 +12,10 @@ export const InputName = styled.span`
   color: ${({ theme }) => theme.lightPrimaryTextColor};
 `;
 
+export const InputWrapper = styled.div`
+  position: relative;
+`;
+
 export const Input = styled.input`
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
@@ -20,6 +24,8 @@ export const Input = styled.input`
   border-style: unset;
   box-shadow: 0px 0px 2px 0px ${({ theme }) => theme.primaryTextColor};
   padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 export const ErrorMessage = styled.span`
@@ -28,4 +34,13 @@ export const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.error};
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.greyFilter};
 `;

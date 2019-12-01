@@ -7,6 +7,8 @@ import {
   InputName,
   Wrapper,
   Input,
+  InputWrapper,
+  Overlay,
 } from './Layout';
 
 const getComponentFromType = (type) => {
@@ -29,22 +31,32 @@ function FormInput({
   submitted,
   onChange,
   onBlur,
+  disabled,
 }) {
+  const handleClick = (event) => {
+    if (!disabled) return;
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
   return (
-    <Wrapper hide={hide} htmlFor="">
+    <Wrapper onClick={handleClick} hide={hide} htmlFor="">
       <InputName>{`${name}:`}</InputName>
-      <Input
-        value={value}
-        type="text"
-        placeholder={type !== 'select' ? placeholder : undefined}
-        as={getComponentFromType(type)}
-        onChange={type !== 'tag-input' ? (event) => onChange(event.target.value) : onChange}
-        onBlur={onBlur}
-      >
-        {type === 'select' ? options.map((option) => (
-          <option key={option} value={option}>{option}</option>
-        )) : null}
-      </Input>
+      <InputWrapper>
+        {disabled ? <Overlay /> : null}
+        <Input
+          value={value}
+          type="text"
+          placeholder={type !== 'select' ? placeholder : undefined}
+          as={getComponentFromType(type)}
+          onChange={type !== 'tag-input' ? (event) => onChange(event.target.value) : onChange}
+          onBlur={onBlur}
+        >
+          {type === 'select' ? options.map((option) => (
+            <option key={option} value={option}>{option}</option>
+          )) : null}
+        </Input>
+      </InputWrapper>
       {error && (
         (validateOnBlur && touched)
         || (value && validateOnChange)
@@ -74,6 +86,7 @@ FormInput.propTypes = {
   validateOnBlur: PropTypes.bool,
   validateOnChange: PropTypes.bool,
   submitted: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 FormInput.defaultProps = {
@@ -89,4 +102,5 @@ FormInput.defaultProps = {
   validateOnBlur: true,
   validateOnChange: false,
   submitted: false,
+  disabled: false,
 };

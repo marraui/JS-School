@@ -19,10 +19,7 @@ const mapFormikToProps = ({
   validateOnChange,
   submitted: submitCount > 0,
   onChange: (value) => setFieldValue(accessor, value),
-  onBlur: () => {
-    setFieldTouched(accessor, true);
-    console.log({ values, errors });
-  },
+  onBlur: () => setFieldTouched(accessor, true),
 });
 
 export default connect(mapFormikToProps)(FormInput);

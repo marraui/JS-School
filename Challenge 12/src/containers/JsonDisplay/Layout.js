@@ -32,6 +32,7 @@ export const Display = styled.div`
   position: fixed;
   top: 0px;
   right: 0px;
+  overflow: scroll;
 `;
 
 export const JsonText = styled.pre`

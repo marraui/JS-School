@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { tabsPropType } from '../../constants/redux-types';
+import PropTypes from 'prop-types';
 import {
   Container,
   NavbarLink,
@@ -31,9 +31,9 @@ export default function Navbar({ tabs }) {
 }
 
 Navbar.propTypes = {
-  tabs: tabsPropType,
+  tabs: PropTypes.arrayOf(PropTypes.string),
 };
 
 Navbar.defaultProps = {
-  tabs: [],
+  tabs: ['Device', 'Sensors', 'Settings', 'Commands', 'Metadata'],
 };

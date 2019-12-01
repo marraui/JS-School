@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { tabsPropType } from '../../constants/redux-types';
+import PropTypes from 'prop-types';
 import NotFound from '../NotFound';
 import FormContainer from '../FormContainer';
 
@@ -26,9 +26,9 @@ export default function Routing({ tabs }) {
 }
 
 Routing.propTypes = {
-  tabs: tabsPropType,
+  tabs: PropTypes.arrayOf(PropTypes.string),
 };
 
 Routing.defaultProps = {
-  tabs: [],
+  tabs: ['Device', 'Sensors', 'Settings', 'Commands', 'Metadata'],
 };

@@ -106,13 +106,13 @@ const schema = lazy((attributes) => object(
 
 const onSubmit = (values) => {
   Swal.fire('Success!', 'Data saved successfully', 'success');
-  sessionStorage.setItem('attributes', JSON.stringify(values));
+  localStorage.setItem('attributes', JSON.stringify(values));
 };
 
 const getInitialAttributes = () => {
   let initialAttributes;
   try {
-    initialAttributes = JSON.parse(sessionStorage.getItem('attributes'));
+    initialAttributes = JSON.parse(localStorage.getItem('attributes'));
   } catch (error) {
     return {};
   }

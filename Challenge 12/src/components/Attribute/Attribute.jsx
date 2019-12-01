@@ -1,6 +1,6 @@
 /* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/no-unused-prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import {
@@ -82,6 +82,7 @@ const inputs = [
         accessor: 'enumerations',
         placeholder: 'Enumerations',
         concealable: true,
+        type: 'tag-input',
       },
     ],
   },
@@ -140,8 +141,10 @@ export default function Attribute({
   hidden,
   accessor,
   format,
+  onFormatChange,
 }) {
   const [collapsed, setCollapsed] = useState(false);
+  useEffect(() => onFormatChange(format), [format]);
   const inputFields = getFields(inputs);
   const fieldToNode = (field) => (
     !field.exclusiveTo || field.exclusiveTo === format ? (
@@ -171,6 +174,7 @@ Attribute.propTypes = {
   accessor: PropTypes.string.isRequired,
   hidden: PropTypes.bool,
   format: PropTypes.string,
+  onFormatChange: PropTypes.func,
 };
 
 Attribute.defaultProps = {
@@ -178,4 +182,5 @@ Attribute.defaultProps = {
   removeAttribute: () => null,
   hidden: false,
   onRemove: () => null,
+  onFormatChange: () => null,
 };

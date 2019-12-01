@@ -8,6 +8,7 @@ export default {
   primaryTextColor: '#000000',
   lightPrimaryTextColor: '#595959',
   redFilter: 'rgba(255, 0, 0, 0.5)',
+  greyFilter: 'rgba(0, 0, 0, 0.5)',
   error: '#FF0000',
 };
 

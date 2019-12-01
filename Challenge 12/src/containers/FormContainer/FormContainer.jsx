@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import Navbar from '../../components/Navbar';
 import MainDisplay from '../MainDisplay';
 import SaveOptions from '../SaveOptions';
+import JsonDisplay from '../JsonDisplay';
 
 addMethod(object, 'unique', function uniqueMethod(propertyName, message) {
   return this.test('unique', message, function uniqueTest(value) {
@@ -103,17 +104,27 @@ const schema = lazy((attributes) => object(
   ),
 ));
 
-const onSubmit = () => {
+const onSubmit = (values) => {
   Swal.fire('Success!', 'Data saved successfully', 'success');
+  sessionStorage.setItem('attributes', JSON.stringify(values));
 };
 
+const getInitialAttributes = () => {
+  let initialAttributes;
+  try {
+    initialAttributes = JSON.parse(sessionStorage.getItem('attributes'));
+  } catch (error) {
+    return {};
+  }
+  return initialAttributes || {};
+};
 
 export default function FormContainer() {
   return (
     <Formik
       validateOnChange={false}
       validateOnBlur
-      initialValues={{}}
+      initialValues={getInitialAttributes()}
       validationSchema={schema}
       onSubmit={onSubmit}
     >
@@ -121,6 +132,7 @@ export default function FormContainer() {
         <Navbar />
         <MainDisplay />
         <SaveOptions />
+        <JsonDisplay />
       </>
     </Formik>
   );

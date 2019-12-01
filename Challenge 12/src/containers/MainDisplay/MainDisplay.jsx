@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { attributePropTypes } from '../../constants/redux-types';
 import Attribute from '../../components/Attribute';
 import {
   Wrapper,
@@ -18,6 +17,7 @@ export default function MainDisplay({ attributes, addAttribute }) {
       {Object.keys(attributes).sort().map((id) => ((
         <Attribute
           id={id}
+          key={id}
           accessor={id}
           hidden={attributes[id].tab !== tab}
         />
@@ -32,7 +32,7 @@ export default function MainDisplay({ attributes, addAttribute }) {
 
 MainDisplay.propTypes = {
   addAttribute: PropTypes.func,
-  attributes: PropTypes.arrayOf(attributePropTypes),
+  attributes: PropTypes.shape({}),
 };
 
 MainDisplay.defaultProps = {
